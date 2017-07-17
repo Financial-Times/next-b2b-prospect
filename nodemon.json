@@ -1,0 +1,8 @@
+{
+	"ignoreRoot": [],
+	"watch": [
+		"node_modules",
+		"public/head.css",
+		"server"
+	]
+}

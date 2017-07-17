@@ -1,0 +1,28 @@
+{
+  "name": "next-marketo-api",
+  "version": "0.0.0",
+  "description": "Marketo api for next",
+  "main": "server/app.js",
+  "author": "",
+  "license": "ISC",
+  "scripts": {
+    "precommit": "node_modules/.bin/secret-squirrel",
+    "commitmsg": "node_modules/.bin/secret-squirrel-commitmsg",
+    "prepush": "make verify -j3"
+  },
+  "dependencies": {
+    "@financial-times/n-express": "^19.2.1",
+    "@financial-times/n-logger": "^5.5.6",
+    "@financial-times/n-raven": "^2.2.4",
+    "body-parser": "^1.17.2",
+    "fetchres": "^1.7.2"
+  },
+  "devDependencies": {
+    "@financial-times/n-heroku-tools": "^6.26.2",
+    "chai": "^4.0.2",
+    "mocha": "^3.4.2",
+    "nodemon": "^1.11.0",
+    "supertest": "^3.0.0"
+  },
+  "false": {}
+}
