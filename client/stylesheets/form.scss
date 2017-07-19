@@ -1,3 +1,22 @@
+.prospect__form-row {
+	@include oFormsGroup;
+}
+
+.prospect__label {
+	@include oFormsLabel;
+}
+
+.prospect__input {
+	@include oFormsCommonFieldBase;
+}
+
+.prospect__additional-info {
+	@include oFormsAdditionalInfo;
+}
+
+$class: 'prospect';
+@include oFormsRadioCheckbox((radio: '.#{$class}__radio', checkbox: '.#{$class}__checkbox', label: '.#{$class}__label'));
+
 .prospect__submit {
 	max-width: $_o-forms-field-max-width;
 	width: 100%;
