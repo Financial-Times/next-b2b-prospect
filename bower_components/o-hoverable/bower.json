@@ -1,6 +1,0 @@
-{
-	"name": "o-hoverable",
-	"main": ["main.scss", "main.js"],
-	"ignore": [],
-	"dependencies": {}
-}
