@@ -1,0 +1,13 @@
+machine:
+  node:
+    version: 8.1.4
+deployment:
+  production:
+    branch: master
+    commands:
+      - make deploy-by-day
+experimental:
+  notify:
+    branches:
+      only:
+        - master
