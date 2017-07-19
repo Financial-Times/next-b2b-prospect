@@ -4,6 +4,7 @@ $o-forms-is-silent: false;
 @import 'n-ui/main';
 
 @include nUiStylesheetStart('head');
+	@import "n-ui-foundations/main";
 	@import 'o-buttons/main';
 	@import 'o-forms/main';
 	@import 'o-grid/main';
