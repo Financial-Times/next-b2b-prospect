@@ -19,7 +19,7 @@ test:
 	make verify && make unit-test
 
 unit-test:
-	mocha ./test --recursive
+	mocha --require server/setup --recursive ./test
 
 run:
 	export DEBUG=ft-next-b2b-prospect-signup-debug; \
