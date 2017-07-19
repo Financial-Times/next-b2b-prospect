@@ -1,0 +1,25 @@
+.confirmation__title {
+	@include oTypographySans($scale:2);
+	text-align: center;
+}
+
+.confirmation__message {
+	@include oTypographySans($scale:1);
+	text-align: center;
+}
+
+.confirmation__panel {
+	margin-top: 20px;
+	padding: 20px!important;
+	background-color: #f2dfce;
+}
+
+.confirmation__call-us {
+	display: block;
+	padding-bottom: 10px;
+}
+
+.confirmation__contact-list {
+    list-style-type: none;
+    padding: 0;
+}

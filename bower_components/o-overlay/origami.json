@@ -1,0 +1,50 @@
+{
+	"description": "Responsive, configurable overlays for displaying notifications to users",
+	"origamiType": "module",
+	"origamiCategory": "components",
+	"origamiVersion": 1,
+	"support": "https://github.com/Financial-Times/o-overlay/issues",
+	"supportStatus": "active",
+	"keywords": "interstitial messaging modal popover notification hover",
+	"browserFeatures": {
+		"required": [
+			"es5object",
+			"es5string",
+			"classlist",
+			"customevent",
+			"requestanimationframe"
+		]
+	},
+	"ci": {
+		"circle": "https://circleci.com/api/v1/project/Financial-Times/o-overlay"
+	},
+	"options": {
+		"sass": "demos/src/demo.scss",
+		"js": "demos/src/demo.js",
+		"bodyClasses": "o-hoverable-on",
+		"dependencies": ["o-fonts@^3.0.0", "o-buttons@^5.0.0"]
+	},
+	"demos": [
+		{
+			"name": "modal",
+			"title": "Modal overlay",
+			"description": "Standard modal. Includes a close button in the top left so the user can dismiss the overlay.",
+			"template": "/demos/src/modal.mustache"
+		},
+		{
+			"name": "modal-prevent-closure",
+			"title": "Modal without close button",
+			"description": "Modal without a dismiss button in the top right. This should be used where the user has to make a choice or confirm they've seen something.",
+			"template": "/demos/src/modal-prevent-closure.mustache"
+		},
+		{
+			"name": "sliding-notification",
+			"title": "An overlay that is nested in the page",
+			"description": "O-overlay can also be used to create overlays that don't sit in the front centre of the screen but appear in a specific area.",
+			"template": "/demos/src/sliding-notification.mustache",
+			"sass": "demos/src/sliding-notification.scss",
+			"js": "demos/src/sliding-notification.js"
+
+		}
+	]
+}

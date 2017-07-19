@@ -1,0 +1,12 @@
+/.idea/
+/.sass-cache/
+/bower_components/
+/node_modules/
+/dist/
+/pa11y_screenCapture/*
+/public/
+.DS_Store
+.editorconfig
+.eslintrc.js
+.scss-lint.yml
+*.env*

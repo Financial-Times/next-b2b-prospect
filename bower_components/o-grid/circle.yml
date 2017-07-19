@@ -1,0 +1,15 @@
+machine:
+  node:
+    version: 6
+  post:
+    - npm install -g origami-build-tools node-sass
+dependencies:
+  override:
+    - obt install
+  cache_directories:
+    - "node_modules"
+test:
+  override:
+    - obt test
+    - obt verify
+    - ./test/travis.rb

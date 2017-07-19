@@ -1,0 +1,24 @@
+{
+  "name": "o-forms",
+  "main": [
+    "main.scss",
+    "main.js"
+  ],
+  "dependencies": {
+    "o-colors": "^4.0.0",
+    "o-grid": "^4.0.0",
+    "o-normalise": "^1.2.0",
+    "o-typography": "^5.0.1"
+  },
+  "homepage": "https://github.com/Financial-Times/o-forms",
+  "version": "4.0.4",
+  "_release": "4.0.4",
+  "_resolution": {
+    "type": "version",
+    "tag": "v4.0.4",
+    "commit": "a6f69ec4c09437663afa38c282b4cef3292ed081"
+  },
+  "_source": "https://github.com/Financial-Times/o-forms.git",
+  "_target": "^4.0.0",
+  "_originalSource": "o-forms"
+}

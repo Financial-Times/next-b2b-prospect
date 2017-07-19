@@ -1,0 +1,7 @@
+{
+  "name": "o-icons",
+  "private": true,
+  "engines": {
+    "node": "^4.0.0"
+  }
+}

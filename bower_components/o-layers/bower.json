@@ -1,0 +1,8 @@
+{
+	"name": "o-layers",
+	"description": "Namespace for managing modules that make use of the z-axis",
+	"main": ["main.js"],
+	"dependencies": {
+		"o-dom": ">=0.4.0 <3"
+	}
+}

@@ -1,0 +1,87 @@
+{
+    "description": "These components are used as the building blocks for creating all types of forms. These forms should be able to be used on all devices ie desktop, mobile and tablet.",
+    "origamiType": "module",
+    "origamiCategory": "components",
+    "origamiVersion": 1,
+    "support": "https://github.com/Financial-Times/o-forms/issues",
+    "supportStatus": "active",
+    "keywords": "tickbox radio input checkbox error",
+    "ci": {
+        "circle": "https://circleci.com/api/v1/project/Financial-Times/o-forms"
+    },
+    "demos": [
+        {
+            "name": "text-inputs",
+            "title": "Text input",
+            "template": "/demos/src/text-inputs.mustache",
+            "description": "<strong>Usercase:</strong> This is the generic text input box for most use cases to build any type of form."
+        },
+        {
+            "name": "select-boxes",
+            "title": "Select box",
+            "template": "/demos/src/select-boxes.mustache",
+            "description": "<strong>Usercase:</strong> This is the generic select box for most use cases that can be used to build any type of form on all devices."
+        },
+        {
+            "name": "textareas",
+            "title": "Textarea",
+            "template": "/demos/src/textareas.mustache",
+            "description": "<strong>Usercase:</strong> This is the generic text area box for most use cases."
+        },
+        {
+            "name": "radios",
+            "title": "Radio buttons",
+            "template": "/demos/src/radios.mustache",
+            "description": "<strong>Usercase:</strong> These are the generic radio buttons for most use cases."
+        },
+        {
+            "name": "checkboxes",
+            "title": "Checkboxes",
+            "template": "/demos/src/checkboxes.mustache",
+            "description": "<strong>Usercase:</strong> These are the generic check boxes for most use cases."
+        },
+        {
+            "name": "checkbox-long-text",
+            "title": "Checkboxes with long text",
+            "template": "/demos/src/checkboxes-long-text.mustache",
+            "description": "<strong>Usercase:</strong> This is for a check box with longer copy. NB Width should not extend text input box components."
+        },
+        {
+            "name": "prefix-suffix",
+            "template": "/demos/src/prefix-suffix.mustache",
+            "description": ""
+        },
+        {
+            "name": "messages",
+            "title": "Global messages",
+            "template": "/demos/src/messages.mustache",
+            "description": "<strong>Usercase:</strong> These are generic global messages for most use cases."
+        },
+        {
+            "name": "wrappers",
+            "title": "Wrappers",
+            "template": "/demos/src/wrappers.mustache",
+            "description": "<strong>Usercase:</strong> These are generic wrappers for most use cases."
+        },
+        {
+            "name": "pa11y",
+            "template": "/demos/src/pa11y.mustache",
+            "hidden": true,
+            "description": ""
+        },
+        {
+            "name": "js-validation",
+            "title": "Validate inputs",
+            "template": "/demos/src/validation.mustache",
+            "hidden": true
+        }
+    ],
+    "demosDefaults": {
+        "sass": "demos/src/demo.scss",
+        "js": "demos/src/demo.js",
+        "dependencies": [
+            "o-fonts@^3",
+            "o-buttons@^5"
+        ]
+    }
+}

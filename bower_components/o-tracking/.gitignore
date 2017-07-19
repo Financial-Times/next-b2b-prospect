@@ -1,0 +1,10 @@
+.idea
+origami-tracking.iml
+node_modules
+build
+bower_components
+.sass-cache
+demos/local
+.DS_Store
+ws-log-*
+whitesource.config.json

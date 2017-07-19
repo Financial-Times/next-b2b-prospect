@@ -1,0 +1,38 @@
+{
+  "name": "o-expander",
+  "homepage": "https://github.com/Financial-Times/o-expander",
+  "authors": [
+    "Rhys Evans <rhys.evans@ft.com>"
+  ],
+  "description": "Accessible, content-aware widget for expanding and collapsing content",
+  "main": [
+    "main.js",
+    "main.scss"
+  ],
+  "moduleType": [
+    "node"
+  ],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "o-viewport": ">=1.2.0 <4",
+    "o-icons": ">=4.4.2 <6"
+  },
+  "version": "4.3.0",
+  "_release": "4.3.0",
+  "_resolution": {
+    "type": "version",
+    "tag": "v4.3.0",
+    "commit": "c999c88d411103de554b5d5ab73a37b3b6382a4f"
+  },
+  "_source": "https://github.com/Financial-Times/o-expander.git",
+  "_target": "^4.2.2",
+  "_originalSource": "o-expander"
+}

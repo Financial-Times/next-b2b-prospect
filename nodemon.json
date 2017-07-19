@@ -2,7 +2,8 @@
 	"ignoreRoot": [],
 	"watch": [
 		"node_modules",
-		"public/head.css",
-		"server"
+		"public/main.css",
+		"server",
+		"views"
 	]
 }

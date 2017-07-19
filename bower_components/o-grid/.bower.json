@@ -1,0 +1,22 @@
+{
+  "name": "o-grid",
+  "main": [
+    "main.scss",
+    "main.js"
+  ],
+  "dependencies": {
+    "sass-mq": "sass-mq#^3.1.0"
+  },
+  "ignore": [],
+  "homepage": "https://github.com/Financial-Times/o-grid",
+  "version": "4.3.3",
+  "_release": "4.3.3",
+  "_resolution": {
+    "type": "version",
+    "tag": "v4.3.3",
+    "commit": "a7e50ef828ca700fbe9c9e2a2daae21c091bb2f8"
+  },
+  "_source": "https://github.com/Financial-Times/o-grid.git",
+  "_target": "^4.0.0",
+  "_originalSource": "o-grid"
+}

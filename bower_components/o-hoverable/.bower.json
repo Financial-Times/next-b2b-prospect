@@ -1,0 +1,20 @@
+{
+  "name": "o-hoverable",
+  "main": [
+    "main.scss",
+    "main.js"
+  ],
+  "ignore": [],
+  "dependencies": {},
+  "homepage": "https://github.com/Financial-Times/o-hoverable",
+  "version": "3.1.0",
+  "_release": "3.1.0",
+  "_resolution": {
+    "type": "version",
+    "tag": "v3.1.0",
+    "commit": "54cd300879b306d13fcca00db70a8776b31e0a04"
+  },
+  "_source": "https://github.com/Financial-Times/o-hoverable.git",
+  "_target": ">=0.2.0 <4",
+  "_originalSource": "o-hoverable"
+}

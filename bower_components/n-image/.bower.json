@@ -1,0 +1,29 @@
+{
+  "name": "n-image",
+  "homepage": "https://github.com/Financial-Times/n-image",
+  "authors": [
+    "Tom Parker <tom.parker@ft.com>"
+  ],
+  "description": "Responsive image component for next",
+  "main": [
+    "main.scss",
+    "src/main-client.js"
+  ],
+  "license": "MIT",
+  "ignore": [
+    ".babelrc"
+  ],
+  "dependencies": {
+    "n-ui-foundations": "^2.0.0-beta"
+  },
+  "version": "5.0.0",
+  "_release": "5.0.0",
+  "_resolution": {
+    "type": "version",
+    "tag": "v5.0.0",
+    "commit": "917e5e907493deef40a9a47429d741e75cdeb54b"
+  },
+  "_source": "https://github.com/Financial-Times/n-image.git",
+  "_target": "^5.0.0",
+  "_originalSource": "n-image"
+}

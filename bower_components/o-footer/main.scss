@@ -1,0 +1,23 @@
+@import "o-assets/main";
+@import "o-colors/main";
+@import "o-typography/main";
+@import "o-icons/main";
+@import "o-grid/main";
+
+@import "src/scss/variables";
+@import 'src/scss/mixins';
+@import "src/scss/colors";
+
+@import "src/scss/footer";
+@import "src/scss/matrix";
+@import "src/scss/themes";
+
+@if $o-footer-is-silent == false {
+
+	// Matrix and dark theme included by default
+	@include oFooter;
+	// Include the light theme in silent mode as well.
+	@include oFooterThemeLight;
+
+	$o-footer-is-silent: true !global;
+}

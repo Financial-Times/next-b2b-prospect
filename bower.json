@@ -1,0 +1,12 @@
+{
+  "name": "next-retention",
+  "dependencies": {
+    "fetchres": "^1.5.1",
+    "n-ui": "^6.4.3",
+    "o-buttons": "^5.0.0",
+    "o-forms": "^4.0.0",
+    "o-colors": "^4.0.0",
+    "o-typography": "^5.0.0",
+    "o-icons": "^5.4.0"
+  }
+}

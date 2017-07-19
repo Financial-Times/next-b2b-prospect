@@ -1,0 +1,19 @@
+{
+	"description": "Utility for moderating listeners for browser events on window",
+	"origamiType": "module",
+	"origamiCategory": "utilities",
+	"origamiVersion": 1,
+	"support": "https://github.com/Financial-Times/o-viewport/issues",
+	"supportStatus": "active",
+	"browserFeatures": {
+		"required": [
+			"customevent"
+		],
+		"optional": [
+			"matchmedia"
+		]
+	},
+	"ci": {
+		"circle": "https://circleci.com/api/v1/project/Financial-Times/o-viewport"
+	}
+}

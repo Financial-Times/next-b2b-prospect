@@ -1,0 +1,15 @@
+{
+  "name": "next-session-client",
+  "main": "main.js",
+  "license": "MIT",
+  "ignore": [
+    "test",
+    ".gitignore",
+    "Makefile",
+    "circle.yml",
+    "ft.yml",
+    "n.makefile",
+    "package.json"
+  ],
+  "homepage": "https://github.com/Financial-Times/next-session-client"
+}

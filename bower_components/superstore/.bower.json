@@ -1,0 +1,34 @@
+{
+  "name": "superstore",
+  "version": "2.1.0",
+  "homepage": "https://github.com/matthew-andrews/superstore",
+  "authors": [
+    "Matt Andrews <matthew.andrews@ft.com>"
+  ],
+  "description": "Web Storage APIs, without the bugs, and an asynchronous API.",
+  "main": "lib/superstore.js",
+  "keywords": [
+    "localstorage",
+    "sessionstorage"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "superstore-sync": "^2.1.0"
+  },
+  "_release": "2.1.0",
+  "_resolution": {
+    "type": "version",
+    "tag": "v2.1.0",
+    "commit": "8ec1a42a6e25418ea1e9220558530f5d1db20894"
+  },
+  "_source": "https://github.com/matthew-andrews/superstore.git",
+  "_target": "^2.1.0",
+  "_originalSource": "superstore"
+}

@@ -1,0 +1,26 @@
+{
+  "name": "dom-delegate",
+  "description": "Create and manage a DOM event delegator.",
+  "main": "lib/delegate.js",
+  "ignore": [
+    "test",
+    "GruntFile.js",
+    ".npmignore",
+    ".gitignore",
+    "README.md",
+    "component.json",
+    "package.json"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/ftlabs/ftdomdelegate",
+  "version": "2.1.0",
+  "_release": "2.1.0",
+  "_resolution": {
+    "type": "version",
+    "tag": "v2.1.0",
+    "commit": "709dfc8712a3cb097be672bf100e6ee4c9bf421e"
+  },
+  "_source": "https://github.com/ftlabs/ftdomdelegate.git",
+  "_target": "^2.0.3",
+  "_originalSource": "ftdomdelegate"
+}

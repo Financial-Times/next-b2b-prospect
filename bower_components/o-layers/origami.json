@@ -1,0 +1,11 @@
+{
+	"description": "Namespace for managing modules that make use of the z-axis",
+	"origamiType": "module",
+	"origamiCategory": "utilities",
+	"origamiVersion": 1,
+	"support": "https://github.com/Financial-Times/o-layers/issues",
+	"supportStatus": "active",
+	"ci": {
+		"circle": "https://circleci.com/api/v1/project/Financial-Times/o-layers"
+	}
+}

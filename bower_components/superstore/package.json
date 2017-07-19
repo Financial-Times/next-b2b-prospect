@@ -1,0 +1,38 @@
+{
+  "name": "superstore",
+  "version": "2.1.0",
+  "description": "Local storage, without the bugs, and an asynchronous API",
+  "main": "lib/superstore.js",
+  "engines": {
+    "node": "*"
+  },
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "./node_modules/.bin/grunt test; ./node_modules/.bin/buster test"
+  },
+  "devDependencies": {
+    "grunt": "~0.4.1",
+    "grunt-cli": "~0.1.8",
+    "buster-istanbul": "~0.1.10",
+    "grunt-browserify": "~1.2.1",
+    "buster": "~0.6.12",
+    "grunt-istanbul": "~0.2.2",
+    "phantomjs": "~1.9.1",
+    "q": "~0.9.6",
+    "es6-promise": "^2.3.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:matthew-andrews/superstore.git"
+  },
+  "keywords": [
+    "localstorage"
+  ],
+  "author": "Matt Andrews <matthew.andrews@ft.com>",
+  "license": "MIT",
+  "dependencies": {
+    "superstore-sync": "^2.1.0"
+  }
+}

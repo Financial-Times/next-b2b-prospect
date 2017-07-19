@@ -1,0 +1,22 @@
+{
+  "name": "o-buttons",
+  "main": [
+    "main.scss"
+  ],
+  "dependencies": {
+    "o-colors": "^4.0.1",
+    "o-icons": ">=4.4.2 <6",
+    "o-normalise": "^1.2.0"
+  },
+  "homepage": "https://github.com/Financial-Times/o-buttons",
+  "version": "5.0.3",
+  "_release": "5.0.3",
+  "_resolution": {
+    "type": "version",
+    "tag": "v5.0.3",
+    "commit": "18a866b66bd01c6d5f62696baf2acd3cb35b0c24"
+  },
+  "_source": "https://github.com/Financial-Times/o-buttons.git",
+  "_target": "^5.0.0",
+  "_originalSource": "o-buttons"
+}

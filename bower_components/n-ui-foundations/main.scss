@@ -1,0 +1,44 @@
+/*
+
+This includes all the basic origami styles and mixins you can
+expect to be available when a page uses n-ui
+
+*/
+
+// Base unit to standardize spacing
+// Decide where it's gonna live later
+$spacing-unit: 16px;
+
+$o-assets-global-path: 'https://www.ft.com/__origami/service/build/v2/files/';
+
+@import 'mixins';
+
+// primitives
+@import 'colors/main';
+@import 'normalize/main';
+@import 'grid/main';
+@import 'icons/main';
+@import 'typography/main';
+@import 'util/main';
+@import 'o-visual-effects/main';
+
+
+@mixin nUiFoundations {
+	@include nUiNormalize;
+	@include nUiGrid;
+	@include nUiTypography;
+	@include nUiUtil;
+}
+
+$n-ui-foundations-applied: false !default;
+
+// backwards compatible. This enables us to roll n-ui-foundations out to
+// components without risk of outputting o-grid etc. twice in apps
+@if variable-exists('n-ui-configured') {
+	$n-ui-foundations-applied: true;
+}
+
+@if $n-ui-foundations-applied == false {
+	$n-ui-foundations-applied: true;
+	@include nUiFoundations;
+}

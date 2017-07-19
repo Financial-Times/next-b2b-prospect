@@ -1,0 +1,12 @@
+$o-forms-is-silent: false;
+
+@import "../../main";
+
+html {
+	font-family: $o-forms-font-family;
+}
+
+body {
+	margin: oGridGutter();
+	background-color: oColorsGetPaletteColor('paper');
+}

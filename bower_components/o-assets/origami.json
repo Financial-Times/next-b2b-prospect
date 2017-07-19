@@ -1,0 +1,11 @@
+{
+	"description": "Static assets path generator",
+	"origamiType": "module",
+	"origamiCategory": "utilities",
+	"origamiVersion": 1,
+	"support": "https://github.com/Financial-Times/o-assets/issues",
+	"supportStatus": "active",
+	"ci": {
+		"circle": "https://circleci.com/api/v1/project/Financial-Times/o-assets"
+	}
+}

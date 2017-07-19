@@ -1,0 +1,32 @@
+$o-header-is-silent: true !default;
+/// Option to change the base of the image service url
+///
+/// @type String
+$o-header-image-base-url: "https://www.ft.com/__origami/service/image" !default;
+
+/// Option to change the version of the image service url
+///
+/// @type String
+$o-header-image-service-version: "v2" !default;
+
+
+$_o-header-padding-x: 12px;
+$_o-header-padding-y: 12px;
+$_o-header-buttons-theme: 'primary';
+$_o-header-mega-padding-x: 24px;
+$_o-header-mega-padding-y: 18px;
+$_o-header-mega-z-index: 1;
+$_o-header-drawer-z-index: 100;
+$_o-header-drawer-width: 320px;
+$_o-header-drawer-divide-height: 40px;
+$_o-header-drawer-padding-x: 16px;
+$_o-header-drawer-padding-y: 12px;
+$_o-header-sticky-z-index: 99;
+$_o-header-sticky-height: 55px;
+
+/* at some point these should be normalised in o-icons */
+$_o-header-icon-size-large: 40;
+$_o-header-icon-size: 25;
+$_o-header-icon-size-small: 15;
+
+$_o-header-features: 'subnav', 'search', 'nav', 'anon', 'drawer', 'megamenu', 'sticky', 'simple', 'subbrand', 'transparent';

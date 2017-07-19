@@ -1,0 +1,46 @@
+<form method="POST">
+
+	<input type="hidden" name="countryCode" value="{{countryCode}}" />
+	<input type="hidden" name="industrySector" value="null" />
+	<input type="hidden" name="numberOfEmployees" value="0" />
+	<input type="hidden" name="comments" value="null" />
+	<input type="hidden" name="leadType" value="" />
+	<input type="hidden" name="cpc" value="" />
+	<input type="hidden" name="gclid" value="" />
+	<input type="hidden" name="segmentId" value="" />
+
+	<div class="o-forms">
+		<label for="prospect__first-name" class="o-forms__label">First name</label>
+		<input type="text" id="prospect__first-name" placeholder="Enter your first name" class="o-forms__text" required></input>
+	</div>
+	<div class="o-forms">
+		<label for="prospect__last-name" class="o-forms__label">Last name</label>
+		<input type="text" id="prospect__last-name" placeholder="Enter your last name" class="o-forms__text" required></input>
+	</div>
+	<div class="o-forms">
+		<label for="prospect__job-title" class="o-forms__label">Job Title</label>
+		<input type="text" id="prospect__job-title" placeholder="Enter your job title" class="o-forms__text" required></input>
+	</div>
+	<div class="o-forms">
+		<label for="prospect__company-name" class="o-forms__label">Company name</label>
+		<input type="text" id="prospect__company-name" placeholder="Enter your company name" class="o-forms__text" required></input>
+	</div>
+	<div class="o-forms">
+		<label for="prospect__work-email" class="o-forms__label">Work email address</label>
+		<input type="email" id="prospect__work-email" placeholder="Enter your work email address" class="o-forms__text" required></input>
+	</div>
+	<div class="o-forms">
+		<label for="prospect__phone-number" class="o-forms__label">Phone number</label>
+		<small class="o-forms__additional-info">5 to 15 characters (numbers only)</small>
+		<input type="text" id="prospect__phone-number" placeholder="Enter your first name" class="o-forms__text" required minlength="5" maxlength="15" pattern="[\d]{5,15}"></input>
+	</div>
+	<fieldset class="o-forms">
+		<legend class="o-forms__label">Terms and conditions</legend>
+		<input type="checkbox" name="prospect__terms" value="1" class="o-forms__checkbox" id="prospect__terms"></input>
+		<label for="prospect__terms" class="o-forms__label"><p>I confirm I am 16 years or older and I have read and agree to the
+						<a href="http://help.ft.com/help/legal-privacy/terms-conditions/" target="_blank" data-trackable="terms-and-conditions">terms &amp; conditions</a>,
+						<a href="http://help.ft.com/help/legal-privacy/privacy/" target="_blank" data-trackable="privacy">privacy policy</a> and
+						<a href="http://help.ft.com/help/legal-privacy/cookies/" target="_blank" data-trackable="cookie">cookie policy</a>.</p></label>
+	</fieldset>
+	<button class="prospect__submit">Submit enquiry</button>
+</form>

@@ -1,0 +1,43 @@
+@import 'o-normalise/main';
+@import 'o-colors/main';
+@import 'o-icons/main';
+
+@import 'scss/themes';
+@import 'scss/variables';
+@import 'scss/functions';
+@import 'scss/mixins';
+
+@import 'scss/group';
+@import 'scss/pagination';
+@import 'scss/icon';
+
+@if ($o-buttons-is-silent == false) {
+	.#{$o-buttons-class} {
+		@include oButtons;
+	}
+
+	@each $size, $properties in $o-buttons-sizes {
+		.#{$o-buttons-class}--#{$size} {
+			@include oButtonsSize($size);
+		}
+	}
+
+	@each $theme, $properties in $o-buttons-themes {
+		.#{$o-buttons-class}--#{$theme} {
+			@include oButtonsTheme($theme);
+		}
+	}
+
+	.#{$o-buttons-class}-pagination {
+		@include oButtonsPagination;
+	}
+
+	@include oButtonsIcon;
+
+	.#{$o-buttons-class}-group {
+		@include oButtonsGroup;
+	}
+
+	// Set module to silent again
+	$o-buttons-is-silent: true !global;
+}

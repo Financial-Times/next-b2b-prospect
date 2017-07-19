@@ -1,0 +1,21 @@
+{
+  "name": "o-layers",
+  "description": "Namespace for managing modules that make use of the z-axis",
+  "main": [
+    "main.js"
+  ],
+  "dependencies": {
+    "o-dom": ">=0.4.0 <3"
+  },
+  "homepage": "https://github.com/Financial-Times/o-layers",
+  "version": "2.0.3",
+  "_release": "2.0.3",
+  "_resolution": {
+    "type": "version",
+    "tag": "v2.0.3",
+    "commit": "16b136b55d265ac8416ad8fa7af5fd7ee1bb369c"
+  },
+  "_source": "https://github.com/Financial-Times/o-layers.git",
+  "_target": ">=0.2.0 <3",
+  "_originalSource": "o-layers"
+}

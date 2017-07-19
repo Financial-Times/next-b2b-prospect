@@ -1,0 +1,76 @@
+@import 'mixins';
+
+@mixin nUiUtil {
+
+	//
+	// Layout
+	//
+	.n-util-clearfix {
+		@include clearfix();
+	}
+
+	//
+	// Display
+	//
+	.n-util-hide {
+		display: none;
+	}
+
+	@media screen {
+		// scss-lint:disable SelectorFormat
+		.n-util-hide\@screen {
+			display: none;
+		}
+	}
+
+	@media print {
+		// scss-lint:disable SelectorFormat
+		.n-util-hide\@print {
+			display: none;
+		}
+	}
+
+	.n-util-visually-hidden {
+		@include nUtilsVisuallyHidden;
+	}
+
+	.no-js .n-util-hide-no-js,
+	.js .n-util-hide-js,
+	.core .n-util-hide-core,
+	.enhanced .n-util-hide-enhanced {
+		display: none;
+	}
+
+	//
+	// Text
+	//
+	.n-util-text-center {
+		text-align: center;
+	}
+
+	.n-util-text-left {
+		text-align: left;
+	}
+
+	.n-util-text-right {
+		text-align: right;
+	}
+
+	.n-util-truncate {
+		max-width: 100%;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+		word-wrap: normal;
+	}
+
+	.has-tabbed {
+		a:focus,
+		button:focus,
+		input:focus,
+		select:focus {
+			box-shadow: 0 0 0 4px getColor('claret') !important;
+		}
+	}
+
+}

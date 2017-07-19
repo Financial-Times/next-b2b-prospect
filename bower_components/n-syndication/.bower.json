@@ -1,0 +1,40 @@
+{
+  "name": "n-syndication",
+  "main": [
+    "main.js",
+    "main.scss"
+  ],
+  "ignore": [
+    ".editorconfig",
+    ".scss-lint.json",
+    ".gitignore",
+    "circle.yml",
+    "ft.yml",
+    "karma.conf.js",
+    "Makefile",
+    "package.json",
+    "secrets.js",
+    "webpack.config.js",
+    "test/*"
+  ],
+  "dependencies": {
+    "n-ui-foundations": "^2.3.0",
+    "next-session-client": "^2.3.3",
+    "o-buttons": ">=4.0.0 <6",
+    "o-overlay": "^2.0.0"
+  },
+  "resolutions": {
+    "o-colors": "^4.0.1"
+  },
+  "homepage": "https://github.com/Financial-Times/n-syndication",
+  "version": "3.0.9",
+  "_release": "3.0.9",
+  "_resolution": {
+    "type": "version",
+    "tag": "v3.0.9",
+    "commit": "f2262acd19732dc2a49e932fa0f4a524b4e9271d"
+  },
+  "_source": "https://github.com/Financial-Times/n-syndication.git",
+  "_target": "^3.0.7",
+  "_originalSource": "n-syndication"
+}

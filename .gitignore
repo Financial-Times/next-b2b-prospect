@@ -1,10 +1,12 @@
 npm-debug.log
 node_modules
+bower_components
 __old
 dist-tests
 dist
 .haikro-cache/
 node-*
+bower-*
 public
 .vim.custom
 *.env*

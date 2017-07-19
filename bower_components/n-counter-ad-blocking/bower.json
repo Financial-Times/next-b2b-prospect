@@ -1,0 +1,22 @@
+{
+  "name": "n-counter-ad-blocking",
+  "description": "Next counter ad-blocking component",
+  "homepage": "https://github.com/Financial-Times/n-counter-ad-blocking",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "main": [
+    "main.scss",
+    "main.js"
+  ],
+  "dependencies": {
+    "n-ui-foundations": "^2.0.0-beta",
+    "o-overlay": "^2.0.0",
+    "superstore-sync": "^2.1.1"
+  }
+}

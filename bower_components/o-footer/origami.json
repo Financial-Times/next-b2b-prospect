@@ -1,0 +1,53 @@
+{
+	"description": "Responsive Financial Times page footer",
+	"origamiType": "module",
+	"origamiCategory": "components",
+	"origamiVersion": 1,
+	"support": "https://github.com/Financial-Times/o-footer/issues",
+	"supportStatus": "active",
+	"browserFeatures": {
+		"required": [
+			"html5"
+		],
+		"optional": [
+			"svg",
+			"datauri"
+		]
+	},
+	"ci": {
+		"circle":"https://circleci.com/api/v1/project/Financial-Times/o-footer"
+	},
+	"demosDefaults": {
+		"js": "demos/src/demo.js",
+		"sass": "demos/src/demo.scss",
+		"dependencies": "o-fonts"
+	},
+	"demos": [
+		{
+			"name": "footer",
+			"title": "Dark theme",
+			"template": "demos/src/footer.mustache",
+			"data": "demos/src/footer.json",
+			"description": "This is the standard masterbrand footer used on most pages."
+		},
+		{
+			"name": "footer-light",
+			"title": "Light theme",
+			"template": "demos/src/footer.mustache",
+			"data": "demos/src/footer-light.json",
+			"description": "A light theme masterbrand footer"
+		},
+		{
+			"name": "simple-footer",
+			"title": "Short footer",
+			"template": "demos/src/simple-footer.mustache",
+			"description": "Simple footer for shorter stand-alone pages."
+		},
+		{
+			"name": "pa11y",
+			"template": "demos/src/pa11y.mustache",
+			"hidden": true,
+			"description": ""
+		}
+	]
+}

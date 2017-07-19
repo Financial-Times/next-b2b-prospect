@@ -1,0 +1,34 @@
+// While ads aren't critical content, these minimal styles to
+// reserve space on the page are critical to avod content moving
+// around too much later
+
+@include nUiStylesheetStart('head-n-ui-core');
+
+$o-ads-is-silent: false !default;
+
+// Ad breakpoint where leaderboards start working
+$ad-medium-breakpoint: 760px;
+// Ad breakpoint where responsive ads stop growing
+$ad-max-responsive-width: 1440px;
+
+@import 'o-ads/main';
+
+@if nUiApply('ads') {
+	.core .o-ads {
+		display: none;
+	}
+
+	@media print {
+		.o-ads {
+			display: none !important;
+		}
+	}
+
+	.advert {
+		position: relative;
+	}
+}
+
+@include nUiStylesheetEnd('head-n-ui-core');
+
+@import 'n-counter-ad-blocking/main';
