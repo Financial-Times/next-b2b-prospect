@@ -4,7 +4,7 @@ node_modules/@financial-times/n-gage/index.mk:
 
 -include node_modules/@financial-times/n-gage/index.mk
 
-TEST_APP := "ft-next-b2b-prospect-signup-branch-${CIRCLE_BUILD_NUM}"
+TEST_APP := "ft-next-prspct-sup-branch-${CIRCLE_BUILD_NUM}"
 
 build:
 	nui build
