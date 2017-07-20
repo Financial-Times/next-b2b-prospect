@@ -12,7 +12,7 @@ const app = express({
 
 app.use(bodyParser());
 
-app.get('__gtg', (req, res) => res.send(200));
+app.get('/__gtg', (req, res) => res.send(200));
 
 app.use('/form', formRouter);
 
