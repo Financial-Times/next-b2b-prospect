@@ -7,7 +7,7 @@ const logger = new MaskLogger(['email', 'password']);
 const PORT = Number(process.env.PORT || 5657);
 
 const app = express({
-	systemCode: 'next-b2b-prospect-signup',
+	systemCode: 'next-b2b-prospect',
 });
 
 app.use(bodyParser());

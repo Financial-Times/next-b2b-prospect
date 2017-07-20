@@ -1,5 +1,5 @@
 {
-  "name": "next-b2b-prospect-signup",
+  "name": "next-b2b-prospect",
   "version": "0.0.0",
   "description": "Serving B2B prospect forms",
   "main": "server/init.js",

@@ -4,7 +4,7 @@ node_modules/@financial-times/n-gage/index.mk:
 
 -include node_modules/@financial-times/n-gage/index.mk
 
-TEST_APP := "ft-next-prspct-sup-branch-${CIRCLE_BUILD_NUM}"
+TEST_APP := "ft-next-b2b-prspct-branch-${CIRCLE_BUILD_NUM}"
 
 build:
 	nui build
@@ -25,7 +25,7 @@ smoke:
 	nht smoke ${TEST_APP}
 
 run:
-	export DEBUG=ft-next-b2b-prospect-signup-debug; \
+	export DEBUG=ft-next-b2b-prospect-debug; \
 	nht run --local
 
 provision:
