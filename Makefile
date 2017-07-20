@@ -34,7 +34,8 @@ provision:
 	make a11y
 
 deploy:
-	nht ship -m
+	nht deploy-hashed-assets --monitor-assets
+	nht ship
 
 tidy:
 	nht destroy ${TEST_APP}
