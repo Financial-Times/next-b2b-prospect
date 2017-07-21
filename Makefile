@@ -26,7 +26,7 @@ smoke:
 
 run:
 	export DEBUG=ft-next-b2b-prospect-debug; \
-	nht run --local
+	nht run --https --local
 
 provision:
 	nht deploy-hashed-assets

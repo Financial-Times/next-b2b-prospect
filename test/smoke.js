@@ -2,7 +2,6 @@ module.exports = [
 	{
 		method: 'GET',
 		urls: {
-			'/__gtg': 200,
 			'/form': 200
 		}
 	},
