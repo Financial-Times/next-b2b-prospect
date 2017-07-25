@@ -1,23 +1,14 @@
-.prospect__form-row {
-	@include oFormsGroup;
+@include oForms($class: 'prospect-form');
+
+.prospect-form__errortext {
+	display: none;
 }
 
-.prospect__label {
-	@include oFormsLabel;
+.o-forms--error .prospect-form__errortext {
+	display: block;
 }
 
-.prospect__input {
-	@include oFormsCommonFieldBase;
-}
-
-.prospect__additional-info {
-	@include oFormsAdditionalInfo;
-}
-
-$class: 'prospect';
-@include oFormsRadioCheckbox((radio: '.#{$class}__radio', checkbox: '.#{$class}__checkbox', label: '.#{$class}__label'));
-
-.prospect__submit {
+.prospect-form__submit {
 	max-width: $_o-forms-field-max-width;
 	width: 100%;
 	font-weight: bold;

@@ -1,4 +1,4 @@
-<form method="POST">
+<form method="POST" data-trackable="b2b-prospect-form" data-o-component="o-forms">
 
 	<input type="hidden" name="countryCode" value="{{countryCode}}" />
 	<input type="hidden" name="industrySector" value="null" />
@@ -10,38 +10,50 @@
 	<input type="hidden" name="gclid" value="" />
 	<input type="hidden" name="segmentId" value="" />
 
-	<div class="prospect__form-row">
-		<label for="prospect__first-name" class="prospect__label">First name</label>
-		<input type="text" id="prospect__first-name" placeholder="Enter your first name" class="prospect__input" required></input>
+	<div class="prospect-form o-forms">
+		<label for="prospect-form__first-name" class="prospect-form__label">First name</label>
+		<input data-trackable="first-name" type="text" id="prospect-form__first-name" placeholder="Enter your first name" class="prospect-form__text" required></input>
+		<div class="prospect-form__errortext">Please enter your first name.</div>
 	</div>
-	<div class="prospect__form-row">
-		<label for="prospect__last-name" class="prospect__label">Last name</label>
-		<input type="text" id="prospect__last-name" placeholder="Enter your last name" class="prospect__input" required></input>
+	<div class="prospect-form o-forms">
+		<label for="prospect-form__last-name" class="prospect-form__label">Last name</label>
+		<input data-trackable="last-name" type="text" id="prospect-form__last-name" placeholder="Enter your last name" class="prospect-form__text" required></input>
+		<div class="prospect-form__errortext">Please enter your last name.</div>
 	</div>
-	<div class="prospect__form-row">
-		<label for="prospect__job-title" class="prospect__label">Job title</label>
-		<input type="text" id="prospect__job-title" placeholder="Enter your job title" class="prospect__input" required></input>
+	<div class="prospect-form o-forms">
+		<label for="prospect-form__job-title" class="prospect-form__label">Job title</label>
+		<input data-trackable="job-title" type="text" id="prospect-form__job-title" placeholder="Enter your job title" class="prospect-form__text" required></input>
+		<div class="prospect-form__errortext">Please enter your job title.</div>
 	</div>
-	<div class="prospect__form-row">
-		<label for="prospect__company-name" class="prospect__label">Company name</label>
-		<input type="text" id="prospect__company-name" placeholder="Enter your company name" class="prospect__input" required></input>
+	<div class="prospect-form o-forms">
+		<label for="prospect-form__company-name" class="prospect-form__label">Company name</label>
+		<input data-trackable="company-name" type="text" id="prospect-form__company-name" placeholder="Enter your company name" class="prospect-form__text" required></input>
+		<div class="prospect-form__errortext">Please enter your company name.</div>
 	</div>
-	<div class="prospect__form-row">
-		<label for="prospect__work-email" class="prospect__label">Work email address</label>
-		<input type="email" id="prospect__work-email" placeholder="Enter your work email address" class="prospect__input" required></input>
+	<div class="prospect-form o-forms">
+		<label for="prospect-form__work-email" class="prospect-form__label">Work email address</label>
+		<input data-trackable="email-address" type="email" id="prospect-form__work-email" placeholder="Enter your work email address" class="prospect-form__text" required></input>
+		<div class="prospect-form__errortext">Please enter your work email address.</div>
 	</div>
-	<div class="prospect__form-row">
-		<label for="prospect__phone-number" class="prospect__label">Phone number</label>
-		<small class="prospect__additional-info">5 to 15 characters (numbers only)</small>
-		<input type="text" id="prospect__phone-number" placeholder="Enter your phone number" class="prospect__input" required minlength="5" maxlength="15" pattern="[\d]{5,15}"></input>
+	<div class="prospect-form o-forms">
+		<label for="prospect-form__phone-number" class="prospect-form__label">Phone number</label>
+		<small class="prospect-form__additional-info">5 to 15 characters (numbers only)</small>
+		<input data-trackable="phone-number" type="text" id="prospect-form__phone-number" placeholder="Enter your phone number" class="prospect-form__text" required minlength="5" maxlength="15" pattern="[\d]{5,15}"></input>
+		<div class="prospect-form__errortext">Please enter a valid phone number.</div>
 	</div>
-	<fieldset class="prospect__form-row">
-		<legend class="prospect__label">Terms and conditions</legend>
-		<input type="checkbox" name="prospect__terms" value="1" class="prospect__checkbox" id="prospect__terms"></input>
-		<label for="prospect__terms" class="prospect__label"><p>I confirm I am 16 years or older and I have read and agree to the
+	<fieldset class="prospect-form o-forms">
+		<legend class="prospect-form__label">Terms and conditions</legend>
+		<input data-trackable="" type="checkbox" name="prospect-form__terms" value="1" class="prospect-form__checkbox" id="prospect-form__terms"></input>
+		<label for="prospect-form__terms" class="prospect-form__label"><p>I confirm I am 16 years or older and I have read and agree to the
 						<a href="http://help.ft.com/help/legal-privacy/terms-conditions/" target="_blank" data-trackable="terms-and-conditions">terms &amp; conditions</a>,
 						<a href="http://help.ft.com/help/legal-privacy/privacy/" target="_blank" data-trackable="privacy">privacy policy</a> and
 						<a href="http://help.ft.com/help/legal-privacy/cookies/" target="_blank" data-trackable="cookie">cookie policy</a>.</p></label>
 	</fieldset>
-	<button class="prospect__submit" type="submit">Submit enquiry</button>
+	<button class="prospect-form__submit" data-trackable="submit" type="submit">Submit enquiry</button>
 </form>
+<div class="prospect-form__overlay">
+	<article>
+		<img src="https://www.ft.com/__assets/creatives/common/activity-indicator.gif" alt="">
+		<div class="js-item__label">Loading...</div>
+	</article>
+</div>

@@ -1,0 +1,30 @@
+.prospect-form__overlay {
+	visibility: hidden;
+	position: fixed;
+	background-color: rgba(0, 0, 0, 0.75);
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	z-index: 1000;
+	text-align: center;
+	height: 100vh;
+
+	> * {
+		position: absolute;
+		left: 50%;
+		top: 50%;
+		transform: translate(-50%, -50%);
+		@include oTypographySans($scale: 0);
+		color: getColor('white');
+	}
+
+	&--active {
+		visibility: visible;
+	}
+}
+
+// no loading spinner if no js
+.no-js .prospect-form__overlay {
+	display: none;
+}

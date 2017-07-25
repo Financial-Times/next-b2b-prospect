@@ -2,14 +2,17 @@
 
 @include nUiStylesheetStart('head');
 
-	@import 'o-buttons/main';
 	@import 'o-forms/main';
+	@import 'o-buttons/main';
 
 	body {
 		@include oTypographySans($scale:0);
 	}
 
+	@import 'stylesheets/form';
+
 @include nUiStylesheetEnd('head');
 
-@import 'stylesheets/form';
+
+@import 'stylesheets/overlay';
 @import 'stylesheets/confirmation';
