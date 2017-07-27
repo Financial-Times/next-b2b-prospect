@@ -9,7 +9,7 @@ export default {
 	validatePayload: (req, res, next) => {
 
 		if (!_get(req, 'body.firstName') || !_get(req, 'body.lastName') || !_get(req, 'body.company')) {
-			res.redirect(302, req.originalUrl);
+			return res.redirect(302, req.originalUrl);
 		}
 		return next();
 	}

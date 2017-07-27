@@ -11,7 +11,7 @@ const app = express({
 	withBackendAuthentication: false
 });
 
-app.use(bodyParser());
+app.use(bodyParser.urlencoded({ extended: false }))
 
 app.get('/__gtg', (req, res) => res.send(200));
 

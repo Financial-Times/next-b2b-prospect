@@ -9,7 +9,7 @@ export default {
 	form: (req, res, next) => {
 
 		res.set('Cache-Control', res.FT_HOUR_CACHE);
-		res.render('form', {
+		return res.render('form', {
 			title: 'Signup',
 			layout: 'vanilla',
 			countryCode: res.locals.countryCode,
@@ -24,7 +24,7 @@ export default {
 			logger.error('Error submitting to Marketo', err);
 			raven.captureError(err);
 		} finally {
-			res.render('confirm', {
+			return res.render('confirm', {
 				title: 'Signup',
 				layout: 'vanilla'
 			});
