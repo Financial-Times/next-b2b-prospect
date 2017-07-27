@@ -63,8 +63,8 @@ describe('Form', () => {
 		it('should render a confirmation page if acceptable payload submitted', (done) => {
 
 			const testPayload = {
-				first_name: 'test',
-				last_name: 'test',
+				firstName: 'test',
+				lastName: 'test',
 				company: 'test'
 			};
 
@@ -85,8 +85,8 @@ describe('Form', () => {
 		it('should still render the confirmation page if marketo fails but notify sentry', (done) => {
 
 			const testPayload = {
-				first_name: 'test',
-				last_name: 'test',
+				firstName: 'test',
+				lastName: 'test',
 				company: 'test'
 			};
 

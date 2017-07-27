@@ -18,9 +18,8 @@ export default {
 
 	},
 	confirmation: async (req, res, next) => {
-
 		try {
-			const marketoResponse = await Marketo.createOrUpdate(req.body);
+			const marketoResponse = await (req.query.pa11y ? Promise.resolve() : Marketo.createOrUpdate(req.body));
 		} catch (err) {
 			logger.error('Error submitting to Marketo', err);
 			raven.captureError(err);
