@@ -19,7 +19,7 @@ test:
 	make verify && make unit-test
 
 unit-test:
-	mocha --require server/setup --recursive ./test
+	mocha --require server/setup --require test/setup --recursive ./test
 
 smoke:
 	nht smoke ${TEST_APP}

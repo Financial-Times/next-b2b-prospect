@@ -1,12 +1,19 @@
+process.env.MARKETO_REST_ENDPOINT = 'test';
+process.env.MARKETO_IDENTITY_ENDPOINT = 'test';
+process.env.MARKETO_CLIENT_ID = 'test';
+process.env.MARKETO_CLIENT_SECRET = 'test';
+
 import sinon from 'sinon';
 import request from 'supertest';
 import { expect } from 'chai';
-import app from '../../../../server/app';
+import app, { ready } from '../../../../server/app';
 
 import raven from '@financial-times/n-raven';
 import Marketo from '../../../../server/modules/marketo/service';
 
 describe('Form', () => {
+
+	before(() => ready);
 
 	describe('GET', () => {
 		it('should render a contact form', (done) => {
