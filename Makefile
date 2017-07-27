@@ -37,5 +37,8 @@ deploy:
 	nht deploy-hashed-assets --monitor-assets
 	nht ship
 
+deploy-fastly:
+	fastly-tools deploy -e --service FASTLY_SERVICE_ID --backends cdn/backends.json --main main.vcl ./cdn/
+
 tidy:
 	nht destroy ${TEST_APP}

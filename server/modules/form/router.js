@@ -5,10 +5,10 @@ import middleware from './middleware';
 
 const router = express.Router();
 
-router.use(middleware)
+router.use(middleware.setLocals)
 
 router.route('/')
 	.get(api.form)
-	.post(api.confirmation);
+	.post(middleware.validatePayload, api.confirmation);
 
 export default router;

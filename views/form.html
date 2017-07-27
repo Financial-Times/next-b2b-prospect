@@ -1,28 +1,27 @@
 <form method="POST" data-trackable="b2b-prospect-form" data-o-component="o-forms">
 
-	<input type="hidden" name="countryCode" value="{{countryCode}}" />
-	<input type="hidden" name="industrySector" value="null" />
+	<input type="hidden" name="country" value="{{countryCode}}" />
 	<input type="hidden" name="numberOfEmployees" value="0" />
-	<input type="hidden" name="comments" value="" />
-	<input type="hidden" name="source" value="FT.com" />
-	<input type="hidden" name="leadType" value="corporate" />
-	<input type="hidden" name="cpc" value="" />
-	<input type="hidden" name="gclid" value="" />
-	<input type="hidden" name="segmentId" value="" />
+	<input type="hidden" name="leadSource" value="FT.com" />
+	<input type="hidden" name="Industry_Sector__c" value="null" />
+	<input type="hidden" name="Lead_Type__c" value="Corporate" />
+	<input type="hidden" name="CPCCampaign__c" value="{{campaignId}}" />
+	<input type="hidden" name="GCLID__c" value="" />
+	<input type="hidden" name="Comments" value="" />
 
 	<div class="prospect-form o-forms">
 		<label for="prospect-form__first-name" class="prospect-form__label">First name</label>
-		<input name="first_name" data-trackable="first-name" type="text" id="prospect-form__first-name" placeholder="Enter your first name" class="prospect-form__text" required></input>
+		<input name="firstName" data-trackable="first-name" type="text" id="prospect-form__first-name" placeholder="Enter your first name" class="prospect-form__text" required></input>
 		<div class="prospect-form__errortext">Please enter your first name.</div>
 	</div>
 	<div class="prospect-form o-forms">
 		<label for="prospect-form__last-name" class="prospect-form__label">Last name</label>
-		<input name="last_name" data-trackable="last-name" type="text" id="prospect-form__last-name" placeholder="Enter your last name" class="prospect-form__text" required></input>
+		<input name="lastName" data-trackable="last-name" type="text" id="prospect-form__last-name" placeholder="Enter your last name" class="prospect-form__text" required></input>
 		<div class="prospect-form__errortext">Please enter your last name.</div>
 	</div>
 	<div class="prospect-form o-forms">
 		<label for="prospect-form__job-title" class="prospect-form__label">Job title</label>
-		<input name="jobTitle" data-trackable="job-title" type="text" id="prospect-form__job-title" placeholder="Enter your job title" class="prospect-form__text" required></input>
+		<input name="title" data-trackable="job-title" type="text" id="prospect-form__job-title" placeholder="Enter your job title" class="prospect-form__text" required></input>
 		<div class="prospect-form__errortext">Please enter your job title.</div>
 	</div>
 	<div class="prospect-form o-forms">
@@ -43,7 +42,7 @@
 	</div>
 	<fieldset class="prospect-form o-forms">
 		<legend class="prospect-form__label">Terms and conditions</legend>
-		<input data-trackable="" type="checkbox" name="terms" value="1" class="prospect-form__checkbox" id="prospect-form__terms"></input>
+		<input data-trackable="terms" type="checkbox" class="prospect-form__checkbox" id="prospect-form__terms"></input>
 		<label for="prospect-form__terms" class="prospect-form__label"><p>I confirm I am 16 years or older and I have read and agree to the
 						<a href="http://help.ft.com/help/legal-privacy/terms-conditions/" target="_blank" data-trackable="terms-and-conditions">terms &amp; conditions</a>,
 						<a href="http://help.ft.com/help/legal-privacy/privacy/" target="_blank" data-trackable="privacy">privacy policy</a> and

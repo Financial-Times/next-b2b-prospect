@@ -1,6 +1,16 @@
-export default (req, res, next) => {
+import _get from 'lodash/get';
 
-	res.locals.countryCode = req.query.countryCode || 'GBR';
+export default {
+	setLocals: (req, res, next) => {
+		res.locals.countryCode = req.query.countryCode || 'GBR';
+		res.locals.campaignId = req.query.cpccampaign || '';
+		return next();
+	},
+	validatePayload: (req, res, next) => {
 
-	return next();
+		if (!_get(req, 'body.company')) {
+			res.redirect(302, req.originalUrl);
+		}
+		return next();
+	}
 }

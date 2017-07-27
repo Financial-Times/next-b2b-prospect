@@ -1,0 +1,32 @@
+{
+  "backends": [{
+      "name": "Heroku_EU",
+      "connect_timeout": 1000,
+      "port": 443,
+      "hostname": "ft-next-b2b-prospect-eu.herokuapp.com",
+      "first_byte_timeout": 15000,
+      "max_conn": 200,
+      "between_bytes_timeout": 10000,
+      "healthcheck": "EU_healthcheck",
+      "shield": "london_city-uk",
+      "use_ssl": true,
+      "ssl_cert_hostname": "*.herokuapp.com",
+      "ssl_check_cert": true
+    }
+  ],
+  "healthchecks": [{
+      "name": "EU_healthcheck",
+      "method": "GET",
+      "path": "/__gtg",
+      "http_version": "1.1",
+      "host": "ft-next-b2b-prospect-eu.herokuapp.com",
+      "threshold": 1,
+      "window": 4,
+      "timeout": 5000,
+      "initial": 1,
+      "expected_response": 200,
+      "check_interval": 60000
+    }
+  ],
+  "conditions": []
+}
