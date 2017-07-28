@@ -70,6 +70,7 @@ describe('Form', () => {
 
 			request(app)
 				.post('/form')
+				.set('Content-Type', 'application/x-www-form-urlencoded')
 				.send(testPayload)
 				.expect(200)
 				.end((err, res) => {
@@ -94,6 +95,7 @@ describe('Form', () => {
 
 			request(app)
 				.post('/form')
+				.set('Content-Type', 'application/x-www-form-urlencoded')
 				.send(testPayload)
 				.expect(200)
 				.end((err, res) => {

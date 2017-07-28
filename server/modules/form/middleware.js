@@ -12,5 +12,6 @@ export default {
 			return res.redirect(302, req.originalUrl);
 		}
 		return next();
+		
 	}
 }
