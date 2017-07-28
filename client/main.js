@@ -1,10 +1,6 @@
-import { bootstrap } from 'n-ui';
-require('o-forms');
+const OForms = require('o-forms');
+const formsEl = document.querySelector('[data-o-component="o-forms"]');
 
-bootstrap({
-	preset: 'discrete',
-	header: false,
-	footer: false
-}, () => {
-	document.dispatchEvent(new CustomEvent('o.DOMContentLoaded'));
-});
+if (formsEl) {
+	new OForms(formsEl)
+}
