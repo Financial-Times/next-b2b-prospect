@@ -7,8 +7,12 @@ module.exports = [
 	},
 	{
 		method: 'POST',
+		body: "firstName=Smokey&lastName=Bacon&company=Streaky",
+		headers: {
+			'Content-Type': 'application/x-www-form-urlencoded'
+		},
 		urls: {
-			'/form': 200
+			'/form?pa11y=true': 200
 		}
 	}
 ];

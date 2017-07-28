@@ -1,15 +1,34 @@
+import raven from '@financial-times/n-raven';
+import MaskLogger from '@financial-times/n-mask-logger';
+
+import Marketo from '../marketo/service';
+
+const logger = new MaskLogger(['email', 'password']);
+
 export default {
 	form: (req, res, next) => {
-		res.render('form', {
+
+		res.set('Cache-Control', res.FT_HOUR_CACHE);
+		return res.render('form', {
 			title: 'Signup',
 			layout: 'vanilla',
-			countryCode: res.locals.countryCode
+			countryCode: res.locals.countryCode,
+			campaignId: res.locals.campaignId,
 		});
+
 	},
-	confirmation: (req, res, next) => {
-		res.render('confirm', {
-			title: 'Signup',
-			layout: 'vanilla'
-		});
+	confirmation: async (req, res, next) => {
+		try {
+			const marketoResponse = await (req.query.pa11y ? Promise.resolve() : Marketo.createOrUpdate(req.body));
+		} catch (err) {
+			logger.error('Error submitting to Marketo', err);
+			raven.captureError(err);
+		} finally {
+			return res.render('confirm', {
+				title: 'Signup',
+				layout: 'vanilla'
+			});
+		}
+
 	},
 }

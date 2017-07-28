@@ -8,9 +8,10 @@ const PORT = Number(process.env.PORT || 5657);
 
 const app = express({
 	systemCode: 'next-b2b-prospect',
+	withBackendAuthentication: false
 });
 
-app.use(bodyParser());
+app.use(bodyParser.urlencoded({ extended: false }))
 
 app.get('/__gtg', (req, res) => res.send(200));
 
