@@ -2,7 +2,6 @@ import _get from 'lodash/get';
 
 export default {
 	setLocals: (req, res, next) => {
-		res.locals.countryCode = req.query.countryCode || 'GBR';
 		res.locals.campaignId = req.query.cpccampaign || '';
 		return next();
 	},
@@ -12,6 +11,6 @@ export default {
 			return res.redirect(302, req.originalUrl);
 		}
 		return next();
-		
+
 	}
 }
