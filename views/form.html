@@ -1,6 +1,5 @@
 <form method="POST" data-trackable="b2b-prospect-form" data-o-component="o-forms">
 
-	<input type="hidden" name="country" value="{{countryCode}}" />
 	<input type="hidden" name="numberOfEmployees" value="0" />
 	<input type="hidden" name="leadSource" value="FT.com" />
 	<input type="hidden" name="Industry_Sector__c" value="null" />
@@ -40,6 +39,7 @@
 		<input name="phone" data-trackable="phone-number" type="text" id="prospect-form__phone-number" placeholder="Enter your phone number" class="prospect-form__text" required minlength="5" maxlength="15" pattern="[\d]{5,15}"></input>
 		<div class="prospect-form__errortext">Please enter a valid phone number.</div>
 	</div>
+	{{> country }}
 	<fieldset class="prospect-form o-forms">
 		<legend class="prospect-form__label">Terms and conditions</legend>
 		<input data-trackable="terms" type="checkbox" class="prospect-form__checkbox" id="prospect-form__terms"></input>
