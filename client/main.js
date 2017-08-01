@@ -8,7 +8,7 @@ if (formsEl) {
 	var observer = new MutationObserver(mutations => {
 		mutations.forEach(mutation => {
 			if(mutation.target.className.includes('error')) {
-				parent.postMessage(formsEl.clientHeight, 'ft.com');
+				parent.postMessage(formsEl.clientHeight, '*');
 			}
 		});
 	});
