@@ -1,2 +1,5 @@
 # next-b2b-prospect
-#### wip embeddable marketo forms for B2B barrier pages
+
+[![CircleCI](https://circleci.com/gh/Financial-Times/next-b2b-prospect-signup/tree/master.svg?style=svg)](https://circleci.com/gh/Financial-Times/next-b2b-prospect-signup/tree/master)
+
+Embeddable B2B Prospect form which creates a unique lead Marketo.
