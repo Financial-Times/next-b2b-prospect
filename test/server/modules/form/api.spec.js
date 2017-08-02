@@ -10,12 +10,16 @@ import app, { ready } from '../../../../server/app';
 
 import raven from '@financial-times/n-raven';
 import Marketo from '../../../../server/modules/marketo/service';
+import * as errors from '../../../../server/modules/marketo/constants';
 
 describe('Form', () => {
 
 	before(() => ready);
 
 	describe('GET', () => {
+
+		const sampleErrorMessage = 'Some error message';
+
 		it('should render a contact form', (done) => {
 			request(app)
 				.get('/form')
@@ -34,6 +38,7 @@ describe('Form', () => {
 					done();
 				});
 		});
+
 	});
 
 	describe('POST', () => {
@@ -41,11 +46,17 @@ describe('Form', () => {
 		let sandbox;
 		let marketoStub;
 		let ravenStub;
+		let testPayload;
 
 		beforeEach(() => {
 			sandbox = sinon.sandbox.create();
 			marketoStub = sandbox.stub(Marketo, 'createOrUpdate').returns(Promise.resolve());
 			ravenStub = sandbox.stub(raven, 'captureError');
+			testPayload = {
+				firstName: 'test',
+				lastName: 'test',
+				company: 'test'
+			};
 		});
 
 		afterEach(() => {
@@ -83,7 +94,7 @@ describe('Form', () => {
 				});
 		});
 
-		it('should still render the confirmation page if marketo fails but notify sentry', (done) => {
+		it('should always notify sentry in a non-happy path journey', (done) => {
 
 			const testPayload = {
 				firstName: 'test',
@@ -97,16 +108,62 @@ describe('Form', () => {
 				.post('/form')
 				.set('Content-Type', 'application/x-www-form-urlencoded')
 				.send(testPayload)
-				.expect(200)
 				.end((err, res) => {
-
 					expect(ravenStub.calledOnce).to.equal(true);
 					expect(ravenStub.calledWith('test')).to.equal(true);
-
-					expectConfirmationPage(res);
 					done();
 				});
 		});
+
+		context('when user already exists', () => {
+
+			beforeEach(() => {
+				marketoStub.returns(Promise.reject({
+					type: errors.LEAD_ALREADY_EXISTS_ERROR
+				}));
+			});
+
+			it('should display a page indicating the user already exists', (done) => {
+
+				const testPayload = {
+					firstName: 'test',
+					lastName: 'test',
+					company: 'test'
+				};
+
+				request(app)
+					.post('/form')
+					.set('Content-Type', 'application/x-www-form-urlencoded')
+					.send(testPayload)
+					.end((err, res) => {
+						expect(res.text).to.contain('you have already submitted an enquiry');
+						done();
+					});
+			});
+
+		});
+
+		context('when an unexpected error occurs', () => {
+
+			beforeEach(() => {
+				marketoStub.returns(Promise.reject({
+					type: 'anything_else'
+				}));
+			});
+
+			it('should display an error page', (done) => {
+				request(app)
+					.post('/form')
+					.set('Content-Type', 'application/x-www-form-urlencoded')
+					.send(testPayload)
+					.end((err, res) => {
+						expect(res.text).to.contain('Oops! Something went wrong.');
+						done();
+					});
+			});
+
+		});
+
 	});
 
 });

@@ -1,5 +1,7 @@
 @include oForms($class: 'prospect-form');
 
+@include oFormsMessage($class: 'prospect-form');
+
 .prospect-form__errortext {
 	display: none;
 }

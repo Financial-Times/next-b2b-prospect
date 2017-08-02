@@ -1,6 +1,8 @@
 import express from '@financial-times/n-ui';
-import bodyParser from 'body-parser';
 import MaskLogger from '@financial-times/n-mask-logger';
+import bodyParser from 'body-parser';
+import cookieParser from 'cookie-parser';
+
 import formRouter from './modules/form/router';
 
 const logger = new MaskLogger(['email', 'password']);
@@ -11,6 +13,7 @@ const app = express({
 	withBackendAuthentication: false
 });
 
+app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: false }))
 
 app.get('/__gtg', (req, res) => res.send(200));
