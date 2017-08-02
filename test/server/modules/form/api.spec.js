@@ -18,8 +18,6 @@ describe('Form', () => {
 
 	describe('GET', () => {
 
-		const sampleErrorMessage = 'Some error message';
-
 		it('should render a contact form', (done) => {
 			request(app)
 				.get('/form')
@@ -73,12 +71,6 @@ describe('Form', () => {
 
 		it('should render a confirmation page if acceptable payload submitted', (done) => {
 
-			const testPayload = {
-				firstName: 'test',
-				lastName: 'test',
-				company: 'test'
-			};
-
 			request(app)
 				.post('/form')
 				.set('Content-Type', 'application/x-www-form-urlencoded')
@@ -95,12 +87,6 @@ describe('Form', () => {
 		});
 
 		it('should always notify sentry in a non-happy path journey', (done) => {
-
-			const testPayload = {
-				firstName: 'test',
-				lastName: 'test',
-				company: 'test'
-			};
 
 			marketoStub.returns(Promise.reject('test'));
 
@@ -124,12 +110,6 @@ describe('Form', () => {
 			});
 
 			it('should display a page indicating the user already exists', (done) => {
-
-				const testPayload = {
-					firstName: 'test',
-					lastName: 'test',
-					company: 'test'
-				};
 
 				request(app)
 					.post('/form')
