@@ -5,6 +5,7 @@ import { ERROR_COOKIE } from './constants';
 export default {
 	setLocals: (req, res, next) => {
 		res.locals.campaignId = req.query.cpccampaign || '';
+		res.locals.contentUuid = req.query['ft-content-uuid'] || '';
 		return next();
 	},
 	validatePayload: (req, res, next) => {

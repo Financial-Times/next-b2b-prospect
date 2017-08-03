@@ -4,17 +4,22 @@ const overlay = document.querySelector('.prospect-form__overlay');
 const errorMessage = document.querySelector('.prospect-form__message');
 const formsEl = document.querySelector('[data-o-component="o-forms"]');
 
+function notifyParentFrame() {
+	// Add 5 just for padding etc
+	parent.postMessage(formsEl.clientHeight + 5, '*');
+}
+
 if (formsEl) {
 	new OForms(formsEl);
 
 	if(errorMessage) {
-		parent.postMessage(formsEl.clientHeight, '*');
+		notifyParentFrame();
 	}
 
 	var observer = new MutationObserver(mutations => {
 		mutations.forEach(mutation => {
 			if(mutation.target.className.includes('error')) {
-				parent.postMessage(formsEl.clientHeight, '*');
+				notifyParentFrame();
 			}
 		});
 	});
