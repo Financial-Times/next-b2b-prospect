@@ -1,0 +1,1 @@
+export const ERROR_COOKIE = 'PROSPECT_ERROR';
