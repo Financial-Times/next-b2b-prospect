@@ -1,3 +1,4 @@
+import { metrics } from '@financial-times/n-express';
 import raven from '@financial-times/n-raven';
 import MaskLogger from '@financial-times/n-mask-logger';
 
@@ -27,6 +28,7 @@ export default {
 
 		try {
 			const marketoResponse = await (req.query.pa11y ? Promise.resolve() : Marketo.createOrUpdate(req.body));
+			metrics.count('b2b-prospect.submission.success', 1);
 			return res.render('confirm', {
 				title: 'Signup',
 				layout: 'vanilla'
@@ -39,6 +41,10 @@ export default {
 			switch (err.type) {
 				case errors.LEAD_ALREADY_EXISTS_ERROR:
 					template = 'exists';
+					metrics.count('b2b-prospect.submission.existing', 1);
+					break;
+				default:
+					metrics.count('b2b-prospect.submission.error', 1);
 					break;
 			}
 
