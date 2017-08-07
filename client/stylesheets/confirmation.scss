@@ -6,6 +6,21 @@
 .confirmation__message {
 	@include oTypographySans($scale:1);
 	text-align: center;
+	padding-bottom: 10px;
+}
+
+.confirmation--wrapped {
+
+	margin-top: 25px;
+
+	.confirmation__title {
+		@include oTypographySans($scale:3);
+	}
+
+	.confirmation__message {
+		@include oTypographySans($scale:2);
+	}
+
 }
 
 .confirmation__panel {
@@ -22,4 +37,63 @@
 .confirmation__contact-list {
     list-style-type: none;
     padding: 0;
+}
+
+.confirmation-footer {
+	background: getColor('teal-50');
+	color: getColor('white');
+	padding: 15px;
+	padding-bottom: 25px;
+	margin-top: 30px;
+	align-items: center;
+	flex-direction: column;
+
+	@include oGridRespondTo(M) {
+		flex-direction: row;
+		padding: 25px 50px;
+	}
+
+}
+
+.confirmation-footer__link {
+	display: block;
+	border: none;
+	@include oTypographySerif($scale:1);
+	color: getColor('white');
+	padding: 10px 0 20px;
+
+	&:hover {
+		color: getColor('white');
+		text-decoration: underline;
+	}
+
+	@include oGridRespondTo(S) {
+		@include oTypographySerif($scale:2);
+	}
+
+	@include oGridRespondTo(M) {
+		@include oTypographySerif($scale:3);
+	}
+
+	@include oGridRespondTo(L) {
+		text-overflow: ellipsis;
+		white-space: nowrap;
+		overflow: hidden;
+	};
+
+}
+
+.confirmation-footer__navigation {
+	display: flex;
+	justify-content: center;
+}
+
+.confirmation-footer__button {
+	display: inline-block;
+	box-sizing: border-box;
+	font-weight: bold;
+	@include oButtonsSize(big);
+	@include oButtonsTheme(primary);
+	border: 1px solid getColor('white');
+	text-align: center;
 }
