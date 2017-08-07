@@ -17,6 +17,7 @@ app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: false }))
 
 app.get('/__gtg', (req, res) => res.send(200));
+app.get('/__sw-prod.js', (req, res) => res.redirect(303, 'https://ft.com/__sw-prod.js'));
 
 app.use('/form', formRouter);
 

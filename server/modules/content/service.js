@@ -1,16 +1,10 @@
 const fetchres = require('fetchres');
 
-module.exports =
-
-
-
 export default {
 
-	createAccessToken: ({ uuid }) => {
-		const expiryTime = new Date();
-		expiryTime.setMinutes(expiryTime.getMinutes() + 5);
-
-		return fetch(process.env.CONTENT_ACCESS_TOKEN_SVC_URL, {
+	createAccessToken: ({ uuid, tokenLifetimeMinutes = 5, fetch = global.fetch }) => {
+		const expiryTime = new Date((1000 * 60) * 5);
+		return fetch(`${process.env.CONTENT_ACCESS_TOKEN_SVC_URL}/sign`, {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',
@@ -23,6 +17,5 @@ export default {
 		})
 		.then(fetchres.json);
 	}
-
 
 };

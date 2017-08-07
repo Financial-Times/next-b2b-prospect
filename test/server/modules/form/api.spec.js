@@ -11,12 +11,15 @@ import app, { ready } from '../../../../server/app';
 import raven from '@financial-times/n-raven';
 import Marketo from '../../../../server/modules/marketo/service';
 import * as errors from '../../../../server/modules/marketo/constants';
+import Cache from '../../../../server/modules/cache/service';
+import ContentAccess from '../../../../server/modules/content/service';
+import ES from '../../../../server/modules/es/service';
 
 describe('Form', () => {
 
 	before(() => ready);
 
-	describe('GET', () => {
+	describe('GET /form', () => {
 
 		it('should render a contact form', (done) => {
 			request(app)
@@ -39,16 +42,22 @@ describe('Form', () => {
 
 	});
 
-	describe('POST', () => {
+	describe('POST /form', () => {
 
+		const mockAccessToken = 'heyhoaccessforyo';
+		const mockCacheToken = 'gottacachethemall';
 		let sandbox;
 		let marketoStub;
+		let accessStub;
+		let cacheStub;
 		let ravenStub;
 		let testPayload;
 
 		beforeEach(() => {
 			sandbox = sinon.sandbox.create();
 			marketoStub = sandbox.stub(Marketo, 'createOrUpdate').returns(Promise.resolve());
+			accessStub = sandbox.stub(ContentAccess, 'createAccessToken').returns(Promise.resolve({ accessToken: mockAccessToken }));
+			cacheStub = sandbox.stub(Cache, 'set').returns(mockCacheToken);
 			ravenStub = sandbox.stub(raven, 'captureError');
 			testPayload = {
 				firstName: 'test',
@@ -84,6 +93,49 @@ describe('Form', () => {
 					expectConfirmationPage(res);
 					done();
 				});
+		});
+
+		it('should create an access token if content-uuid specified', (done) => {
+			const mockUuid = 'test';
+
+			request(app)
+				.post(`/form?ft-content-uuid=${mockUuid}`)
+				.set('Content-Type', 'application/x-www-form-urlencoded')
+				.send(testPayload)
+				.expect(200)
+				.end((err, res) => {
+
+					expect(accessStub.calledOnce).to.equal(true);
+					expect(accessStub.calledWith({ uuid: mockUuid })).to.equal(true);
+
+					expectConfirmationPage(res);
+					done();
+				});
+
+		});
+
+		it('should create a cache record if an access token was created', (done) => {
+			const mockUuid = 'test';
+
+			request(app)
+				.post(`/form?ft-content-uuid=${mockUuid}`)
+				.set('Content-Type', 'application/x-www-form-urlencoded')
+				.send(testPayload)
+				.expect(200)
+				.end((err, res) => {
+
+					expect(cacheStub.calledOnce).to.equal(true);
+					expect(cacheStub.calledWith({
+						contentUuid: mockUuid,
+						accessToken: mockAccessToken
+					})).to.equal(true);
+
+					expectConfirmationPage(res);
+					expect(res.text).to.contain(`data-submission-token="${mockCacheToken}"`)
+
+					done();
+				});
+
 		});
 
 		it('should always notify sentry in a non-happy path journey', (done) => {
@@ -145,6 +197,37 @@ describe('Form', () => {
 		});
 
 	});
+
+	describe('GET /form/confirm', () => {
+
+		context('when no submission token specified', () => {
+
+			it('should redirect to FT.com', done => {
+				expect(true).to.eq(false);
+				done();
+			});
+
+		});
+
+		context('when submission token not found in cache', () => {
+
+			it('should redirect to FT.com', done => {
+				expect(true).to.eq(false);
+				done();
+			});
+
+		});
+
+		context('when submission token is valid', () => {
+
+			it('should retrieve content data from ES', done => {
+				expect(true).to.eq(false);
+				done();
+			});
+
+		});
+
+	})
 
 });
 
