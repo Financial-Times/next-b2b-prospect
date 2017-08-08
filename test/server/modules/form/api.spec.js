@@ -49,7 +49,7 @@ describe('Form', () => {
 		let sandbox;
 		let marketoStub;
 		let accessStub;
-		let cacheStub;
+		let cacheSetStub;
 		let ravenStub;
 		let testPayload;
 
@@ -57,7 +57,7 @@ describe('Form', () => {
 			sandbox = sinon.sandbox.create();
 			marketoStub = sandbox.stub(Marketo, 'createOrUpdate').returns(Promise.resolve());
 			accessStub = sandbox.stub(ContentAccess, 'createAccessToken').returns(Promise.resolve({ accessToken: mockAccessToken }));
-			cacheStub = sandbox.stub(Cache, 'set').returns(mockCacheToken);
+			cacheSetStub = sandbox.stub(Cache, 'set').returns(mockCacheToken);
 			ravenStub = sandbox.stub(raven, 'captureError');
 			testPayload = {
 				firstName: 'test',
@@ -124,8 +124,8 @@ describe('Form', () => {
 				.expect(200)
 				.end((err, res) => {
 
-					expect(cacheStub.calledOnce).to.equal(true);
-					expect(cacheStub.calledWith({
+					expect(cacheSetStub.calledOnce).to.equal(true);
+					expect(cacheSetStub.calledWith({
 						contentUuid: mockUuid,
 						accessToken: mockAccessToken
 					})).to.equal(true);
@@ -200,20 +200,47 @@ describe('Form', () => {
 
 	describe('GET /form/confirm', () => {
 
+		const mockCacheItem = {
+			contentUuid: 'mock-uuid',
+			accessToken: 'mock-access-token'
+		};
+		const mockContentItem = {
+			id: 'test-content-id',
+			title: 'Unit tests are the best'
+		};
+		let sandbox;
+		let cacheGetStub;
+		let esStub;
+
+		beforeEach(() => {
+			sandbox = sinon.sandbox.create();
+			cacheGetStub = sandbox.stub(Cache, 'get').returns(mockCacheItem);
+			esStub = sandbox.stub(ES, 'get').returns(Promise.resolve(mockContentItem));
+		});
+
+		afterEach(() => {
+			sandbox.restore();
+		});
+
 		context('when no submission token specified', () => {
-
 			it('should redirect to FT.com', done => {
-				expect(true).to.eq(false);
-				done();
+				request(app)
+					.get('/form/confirm')
+					.expect(303)
+					.expect('Location', 'http://ft.com')
+					.end(done);
 			});
-
 		});
 
 		context('when submission token not found in cache', () => {
 
 			it('should redirect to FT.com', done => {
-				expect(true).to.eq(false);
-				done();
+				cacheGetStub.returns(null);
+				request(app)
+					.get('/form/confirm')
+					.expect(303)
+					.expect('Location', 'http://ft.com')
+					.end(done);
 			});
 
 		});
@@ -221,8 +248,19 @@ describe('Form', () => {
 		context('when submission token is valid', () => {
 
 			it('should retrieve content data from ES', done => {
-				expect(true).to.eq(false);
-				done();
+
+				const mockCacheKey = 'some-unique-key';
+
+				request(app)
+					.get(`/form/confirm?submission=${mockCacheKey}`)
+					.expect(200)
+					.end((err, res) => {
+						expect(cacheGetStub.calledWith(mockCacheKey)).to.eq(true);
+						expect(esStub.calledWith(mockCacheItem.contentUuid)).to.eq(true);
+
+						expect(res.text).to.contain(mockContentItem.title);
+						done();
+					});
 			});
 
 		});

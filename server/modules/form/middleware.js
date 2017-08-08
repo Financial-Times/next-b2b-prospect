@@ -20,7 +20,7 @@ export default {
 		}
 		return next();
 	},
-	
+
 	validateRetrieval: (req, res, next) => {
 		const token = _get(req, 'query.submission', '');
 		const entry = Cache.get(token);
