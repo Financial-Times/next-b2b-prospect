@@ -30,12 +30,12 @@ run:
 
 provision:
 	nht deploy-hashed-assets
-	nht float -md --testapp ${TEST_APP}
+	nht float -md --vault --testapp ${TEST_APP}
 	make a11y
 
 deploy:
 	nht deploy-hashed-assets --monitor-assets
-	nht ship
+	nht ship --vault
 
 deploy-fastly:
 	fastly-tools deploy -e --service FASTLY_SERVICE_ID --backends cdn/backends.json --main main.vcl ./cdn/
