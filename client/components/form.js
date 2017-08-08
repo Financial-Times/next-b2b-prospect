@@ -1,5 +1,4 @@
 const OForms = require('o-forms');
-
 import { sendMessage } from './utils';
 
 const overlay = document.querySelector('.prospect-form__overlay');
