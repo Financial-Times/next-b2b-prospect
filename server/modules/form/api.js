@@ -2,6 +2,9 @@ import { metrics } from '@financial-times/n-express';
 import raven from '@financial-times/n-raven';
 import MaskLogger from '@financial-times/n-mask-logger';
 
+import Cache from '../cache/service';
+import Content from '../content/service';
+import ES from '../es/service';
 import Marketo from '../marketo/service';
 import * as errors from '../marketo/constants';
 
@@ -24,14 +27,29 @@ export default {
 		});
 
 	},
-	confirmation: async (req, res, next) => {
+
+	submit: async (req, res, next) => {
+
+		let cacheToken;
 
 		try {
 			const marketoResponse = await (req.query.pa11y ? Promise.resolve() : Marketo.createOrUpdate(req.body));
+
+			if (res.locals.contentUuid){
+				const { accessToken } = await Content.createAccessToken({
+					uuid: res.locals.contentUuid
+				});
+				cacheToken = Cache.set({
+					contentUuid: res.locals.contentUuid,
+					accessToken
+				});
+			}
+
 			metrics.count('b2b-prospect.submission.success', 1);
 			return res.render('confirm', {
 				title: 'Signup',
-				layout: 'vanilla'
+				layout: 'vanilla',
+				cacheToken
 			});
 
 		} catch (err) {
@@ -55,4 +73,26 @@ export default {
 		}
 
 	},
+
+	confirm: async (req, res, next) => {
+
+		const template = 'confirm';
+		const { contentUuid, accessToken } = res.locals.submission;
+		let article;
+
+		try {
+			article = await ES.get(contentUuid);
+		} catch (e) {
+			template = 'error';
+		} finally {
+			return res.render(template, {
+				title: 'Signup',
+				layout: 'wrapper',
+				wrapped: true,
+				article,
+				accessToken
+			});
+		}
+	}
+
 }

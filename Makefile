@@ -30,7 +30,7 @@ run:
 
 provision:
 	nht deploy-hashed-assets
-	nht float --vault -md --testapp ${TEST_APP}
+	nht float -md --vault --testapp ${TEST_APP}
 	make a11y
 
 deploy:

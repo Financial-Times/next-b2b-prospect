@@ -1,9 +1,9 @@
-<div class="o-grid-container" data-trackable-page="confirmation">
+<div class="o-grid-container {{#if wrapped}}confirmation--wrapped{{/if}}" data-submission-token="{{cacheToken}}" data-trackable-page="confirmation">
 	<div class="o-grid-row o-grid-row--compact">
 		<div data-o-grid-colspan="center 10 S8"><h1 class="confirmation__title">Thank you for your enquiry</h1></div>
 	</div>
 	<div class="o-grid-row o-grid-row--compact">
-		<div data-o-grid-colspan="center 10 S8" class="confirmation__message">A sales representative will get back to you about FT Group subscriptions within 48 hours.</div>
+		<div data-o-grid-colspan="center 10 S5" class="confirmation__message">A sales representative will get back to you about FT Group subscriptions within 48 hours.</div>
 	</div>
 	<div class="o-grid-row o-grid-row--compact">
 		<div class="confirmation__panel" data-o-grid-colspan="center 12 S10">
@@ -16,5 +16,17 @@
 			</ul>
 		</div>
 	</div>
+
+	{{#if article}}
+	<div class="o-grid-row o-grid-row--compact confirmation-footer" aria-label="For your free article">
+		<div class="confirmation-footer__content" data-o-grid-colspan="12 S10 M8">
+			<small>Your free article</small>
+			<a href="https://ft.com/content/{{article.id}}?accessToken={{accessToken}}" class="confirmation-footer__link" data-trackable="article-link">{{article.title}}</a>
+		</div>
+		<div data-o-grid-colspan="12 M4 center" class="confirmation-footer__navigation">
+			<a href="https://ft.com/content/{{article.id}}?accessToken={{accessToken}}" class="confirmation-footer__button" data-trackable="article-button">Continue reading</a>
+		</div>
+	</div>
+	{{/if}}
 
 </div>
