@@ -33,13 +33,14 @@ export default {
 		let cacheToken;
 
 		try {
-			const marketoResponse = await (req.query.pa11y ? Promise.resolve() : Marketo.createOrUpdate(req.body));
+			const { id } = await (req.query.pa11y ? Promise.resolve() : Marketo.createOrUpdate(req.body));
 
 			if (res.locals.contentUuid){
 				const { accessToken } = await Content.createAccessToken({
 					uuid: res.locals.contentUuid
 				});
 				cacheToken = Cache.set({
+					leadId: id,
 					contentUuid: res.locals.contentUuid,
 					accessToken
 				});
@@ -77,7 +78,7 @@ export default {
 	confirm: async (req, res, next) => {
 
 		const template = 'confirm';
-		const { contentUuid, accessToken } = res.locals.submission;
+		const { leadId, contentUuid, accessToken } = res.locals.submission;
 		let article;
 
 		try {
@@ -89,6 +90,7 @@ export default {
 				title: 'Signup',
 				layout: 'wrapper',
 				wrapped: true,
+				leadId,
 				article,
 				accessToken
 			});
