@@ -46,6 +46,7 @@ describe('Form', () => {
 
 		const mockAccessToken = 'heyhoaccessforyo';
 		const mockCacheToken = 'gottacachethemall';
+		const mockMarketoResponse = { id: 'test' };
 		let sandbox;
 		let marketoStub;
 		let accessStub;
@@ -55,7 +56,7 @@ describe('Form', () => {
 
 		beforeEach(() => {
 			sandbox = sinon.sandbox.create();
-			marketoStub = sandbox.stub(Marketo, 'createOrUpdate').returns(Promise.resolve());
+			marketoStub = sandbox.stub(Marketo, 'createOrUpdate').returns(Promise.resolve(mockMarketoResponse));
 			accessStub = sandbox.stub(ContentAccess, 'createAccessToken').returns(Promise.resolve({ accessToken: mockAccessToken }));
 			cacheSetStub = sandbox.stub(Cache, 'set').returns(mockCacheToken);
 			ravenStub = sandbox.stub(raven, 'captureError');
@@ -126,6 +127,7 @@ describe('Form', () => {
 
 					expect(cacheSetStub.calledOnce).to.equal(true);
 					expect(cacheSetStub.calledWith({
+						leadId: mockMarketoResponse.id,
 						contentUuid: mockUuid,
 						accessToken: mockAccessToken
 					})).to.equal(true);
@@ -201,6 +203,7 @@ describe('Form', () => {
 	describe('GET /form/confirm', () => {
 
 		const mockCacheItem = {
+			leadId: 'test',
 			contentUuid: 'mock-uuid',
 			accessToken: 'mock-access-token'
 		};
@@ -259,6 +262,19 @@ describe('Form', () => {
 						expect(esStub.calledWith(mockCacheItem.contentUuid)).to.eq(true);
 
 						expect(res.text).to.contain(mockContentItem.title);
+						done();
+					});
+			});
+
+			it('should track lead id', done => {
+
+				const mockCacheKey = 'some-unique-key';
+
+				request(app)
+					.get(`/form/confirm?submission=${mockCacheKey}`)
+					.expect(200)
+					.end((err, res) => {
+						expect(res.text).to.contain(`data-trackable-lead-id="${mockCacheItem.leadId}"`);
 						done();
 					});
 			});
