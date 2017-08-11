@@ -50,7 +50,7 @@ describe('Content Access Service', () => {
 			});
 		});
 
-		it('should format the body and set the expiryTime to 5 minutes time', () => {
+		it('should format the body and set the expiryTime to 60 minutes time', () => {
 			return AccessService.createAccessToken({
 				uuid: 'test',
 				fetch: fetchStub
@@ -63,7 +63,7 @@ describe('Content Access Service', () => {
 				expect(body).to.have.deep.property('contentUUIDs', ['test']);
 				expect(body).to.have.property('expiryTime');
 
-				expect(new Date(body.expiryTime).getTime()).to.eq(Date.now() + (5 * (60*1000)));
+				expect(new Date(body.expiryTime).getTime()).to.eq(Date.now() + (60 * (60*1000)));
 
 			});
 		});
