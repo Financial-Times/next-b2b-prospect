@@ -22,6 +22,7 @@ app.get('/__sw-prod.js', (req, res) => {
 	fetch('https://ft.com/__sw-prod.js')
 		.then(response => response.text())
 		.then(js => {
+			res.set('Content-Type', 'application/javascript');
 			res.send(js);
 		})
 
