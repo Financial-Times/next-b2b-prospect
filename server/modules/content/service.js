@@ -3,7 +3,7 @@ const fetchres = require('fetchres');
 export default {
 
 	createAccessToken: ({ uuid, tokenLifetimeMinutes = 60, fetch = global.fetch }) => {
-		const expiryTime = new Date((1000 * 60) * tokenLifetimeMinutes);
+		const expiryTime = new Date(Date.now() + (1000 * 60 * tokenLifetimeMinutes));
 		return fetch(`${process.env.CONTENT_ACCESS_TOKEN_SVC_URL}/sign`, {
 			method: 'POST',
 			headers: {
