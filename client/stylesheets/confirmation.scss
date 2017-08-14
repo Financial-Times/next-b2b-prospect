@@ -89,7 +89,11 @@
 
 .confirmation-footer__navigation {
 	display: flex;
-	justify-content: center;
+
+	@include oGridRespondTo(M) {
+		justify-content: center;
+	}
+
 }
 
 .confirmation-footer__button {
