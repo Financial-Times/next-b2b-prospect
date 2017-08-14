@@ -67,6 +67,10 @@
 		text-decoration: underline;
 	}
 
+	&:focus {
+		color: getColor('white');
+	}
+
 	@include oGridRespondTo(S) {
 		@include oTypographySerif($scale:2);
 	}
@@ -96,4 +100,8 @@
 	@include oButtonsTheme(primary);
 	border: 1px solid getColor('white');
 	text-align: center;
+
+	&:focus {
+		border: 1px solid getColor('white');
+	}
 }
