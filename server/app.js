@@ -29,6 +29,7 @@ app.get('/__sw-prod.js', (req, res) => {
 });
 
 app.use('/form', formRouter);
+app.get('*', (req, res) => res.redirect(302, `https://ft.com${req.originalUrl}`));
 
 export default app;
 
