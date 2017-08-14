@@ -266,7 +266,7 @@ describe('Form', () => {
 					});
 			});
 
-			it('should track lead id', done => {
+			it('should track lead and article IDs', done => {
 
 				const mockCacheKey = 'some-unique-key';
 
@@ -274,7 +274,8 @@ describe('Form', () => {
 					.get(`/form/confirm?submission=${mockCacheKey}`)
 					.expect(200)
 					.end((err, res) => {
-						expect(res.text).to.contain(`data-trackable-lead-id="${mockCacheItem.leadId}"`);
+						expect(res.text).to.contain(`data-lead-id="${mockCacheItem.leadId}"`);
+						expect(res.text).to.contain(`data-article-id="${mockContentItem.id}"`);
 						done();
 					});
 			});

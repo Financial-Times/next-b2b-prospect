@@ -1,5 +1,5 @@
 const OForms = require('o-forms');
-import { sendMessage } from './utils';
+import { sendMessage, dispatchTrackingEvent } from './utils';
 
 const overlay = document.querySelector('.prospect-form__overlay');
 const errorMessage = document.querySelector('.prospect-form__message');
@@ -33,6 +33,12 @@ export default {
   	formEl.addEventListener("submit", () => {
   		overlay.classList.add('prospect-form__overlay--active');
   	});
+
+    dispatchTrackingEvent({
+      category: 'b2b-prospect',
+      action: 'landing'
+    });
+
   }
 
 };
