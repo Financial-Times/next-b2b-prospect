@@ -71,6 +71,12 @@ describe('Cache Service', () => {
 			expect(decodedData).to.deep.equal(JSON.parse(toStringResponse));
 		});
 
+		it('should return null if the data is not valid', () => {
+			toStringStub.returns('THIS-IS-NOT-AN-OBJECT!')
+			const decodedData = Cache.decode(encodedStr);
+			expect(decodedData).to.equal(null);
+		});
+
 	});
 
 	describe('sanity', () => {
