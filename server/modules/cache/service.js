@@ -15,7 +15,7 @@ export default {
   },
   decode: data => {
     try {
-      const decoded = atob(data);
+      const decoded = atob(decodeURIComponent(data));
       return JSON.parse(decoded);
     } catch (error) {
       logger.error('Invalid cache data', { data, error });

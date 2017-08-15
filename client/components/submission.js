@@ -2,8 +2,11 @@ import { sendMessage } from './utils';
 
 export default {
 	init: (container) => {
-		sendMessage({
-			submission: true
-		});
+		const shouldRedirect = container.dataset['shouldRedirect'];
+		if (shouldRedirect) {
+			sendMessage({
+				submission: true
+			});
+		}
   }
 };

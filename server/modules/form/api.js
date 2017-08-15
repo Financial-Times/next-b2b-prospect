@@ -33,16 +33,17 @@ export default {
 	},
 
 	submit: async (req, res, next) => {
-
-		let cacheToken;
+		let shouldRedirect;
 
 		try {
 			const { id } = await (req.query.pa11y ? Promise.resolve({ id: 'pa11y' }) : Marketo.createOrUpdate(req.body));
 
 			if (res.locals.contentUuid){
+				shouldRedirect = true;
 				const { accessToken } = await Content.createAccessToken({
 					uuid: res.locals.contentUuid
 				});
+
 				res.cookie(SUBMISSION_COOKIE, Cache.encode({
 					leadId: id,
 					contentUuid: res.locals.contentUuid,
@@ -57,7 +58,7 @@ export default {
 				title: 'Signup',
 				layout: 'vanilla',
 				page: 'submission',
-				cacheToken
+				shouldRedirect
 			});
 
 		} catch (err) {
