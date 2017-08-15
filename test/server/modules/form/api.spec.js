@@ -27,6 +27,7 @@ describe('Form', () => {
 				.expect(200)
 				.end((err, res) => {
 					expect(res.headers['cache-control']).to.equal('max-age=3600, stale-while-revalidate=60, stale-if-error=86400');
+					expect(res.headers['surrogate-control']).to.equal('max-age=3600, stale-while-revalidate=60, stale-if-error=86400');
 					expect(res.text).to.contain('<form method="POST"');
 					expect(res.text).to.contain('First name');
 					expect(res.text).to.contain('Last name');
@@ -50,7 +51,7 @@ describe('Form', () => {
 		let sandbox;
 		let marketoStub;
 		let accessStub;
-		let cacheSetStub;
+		let cacheEncodeStub;
 		let ravenStub;
 		let testPayload;
 
@@ -58,7 +59,7 @@ describe('Form', () => {
 			sandbox = sinon.sandbox.create();
 			marketoStub = sandbox.stub(Marketo, 'createOrUpdate').returns(Promise.resolve(mockMarketoResponse));
 			accessStub = sandbox.stub(ContentAccess, 'createAccessToken').returns(Promise.resolve({ accessToken: mockAccessToken }));
-			cacheSetStub = sandbox.stub(Cache, 'set').returns(mockCacheToken);
+			cacheEncodeStub = sandbox.stub(Cache, 'encode').returns(mockCacheToken);
 			ravenStub = sandbox.stub(raven, 'captureError');
 			testPayload = {
 				firstName: 'test',
@@ -115,7 +116,7 @@ describe('Form', () => {
 
 		});
 
-		it('should create a cache record if an access token was created', (done) => {
+		it('should create a cache cookie if an access token was created', (done) => {
 			const mockUuid = 'test';
 
 			request(app)
@@ -125,15 +126,15 @@ describe('Form', () => {
 				.expect(200)
 				.end((err, res) => {
 
-					expect(cacheSetStub.calledOnce).to.equal(true);
-					expect(cacheSetStub.calledWith({
+					expect(res.headers['set-cookie'][0]).to.match(new RegExp(`PROSPECT_SUBMISSION=${mockCacheToken}`));
+					expect(cacheEncodeStub.calledOnce).to.equal(true);
+					expect(cacheEncodeStub.calledWith({
 						leadId: mockMarketoResponse.id,
 						contentUuid: mockUuid,
 						accessToken: mockAccessToken
 					})).to.equal(true);
 
 					expectConfirmationPage(res);
-					expect(res.text).to.contain(`data-submission-token="${mockCacheToken}"`)
 
 					done();
 				});
@@ -212,12 +213,12 @@ describe('Form', () => {
 			title: 'Unit tests are the best'
 		};
 		let sandbox;
-		let cacheGetStub;
+		let cacheDecodeStub;
 		let esStub;
 
 		beforeEach(() => {
 			sandbox = sinon.sandbox.create();
-			cacheGetStub = sandbox.stub(Cache, 'get').returns(mockCacheItem);
+			cacheDecodeStub = sandbox.stub(Cache, 'decode').returns(mockCacheItem);
 			esStub = sandbox.stub(ES, 'get').returns(Promise.resolve(mockContentItem));
 		});
 
@@ -225,7 +226,7 @@ describe('Form', () => {
 			sandbox.restore();
 		});
 
-		context('when no submission token specified', () => {
+		context('when no submission cookie specified', () => {
 			it('should redirect to FT.com', done => {
 				request(app)
 					.get('/form/confirm')
@@ -235,12 +236,13 @@ describe('Form', () => {
 			});
 		});
 
-		context('when submission token not found in cache', () => {
+		context('when submission cookie not valid', () => {
 
 			it('should redirect to FT.com', done => {
-				cacheGetStub.returns(null);
+				cacheDecodeStub.returns(null);
 				request(app)
 					.get('/form/confirm')
+					.set('Cookie', ['PROSPECT_SUBMISSION=something-invalid'])
 					.expect(303)
 					.expect('Location', 'http://ft.com')
 					.end(done);
@@ -255,10 +257,11 @@ describe('Form', () => {
 				const mockCacheKey = 'some-unique-key';
 
 				request(app)
-					.get(`/form/confirm?submission=${mockCacheKey}`)
+					.get(`/form/confirm`)
+					.set('Cookie', [`PROSPECT_SUBMISSION=${mockCacheKey}`])
 					.expect(200)
 					.end((err, res) => {
-						expect(cacheGetStub.calledWith(mockCacheKey)).to.eq(true);
+						expect(cacheDecodeStub.calledWith(mockCacheKey)).to.eq(true);
 						expect(esStub.calledWith(mockCacheItem.contentUuid)).to.eq(true);
 
 						expect(res.text).to.contain(mockContentItem.title);
@@ -267,11 +270,9 @@ describe('Form', () => {
 			});
 
 			it('should track lead and article IDs', done => {
-
-				const mockCacheKey = 'some-unique-key';
-
 				request(app)
-					.get(`/form/confirm?submission=${mockCacheKey}`)
+					.get(`/form/confirm`)
+					.set('Cookie', [`PROSPECT_SUBMISSION=valid-hash`])
 					.expect(200)
 					.end((err, res) => {
 						expect(res.text).to.contain(`data-lead-id="${mockCacheItem.leadId}"`);

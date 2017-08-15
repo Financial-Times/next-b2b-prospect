@@ -8,7 +8,7 @@ import ES from '../es/service';
 import Marketo from '../marketo/service';
 import * as errors from '../marketo/constants';
 
-import { ERROR_COOKIE } from './constants';
+import { SUBMISSION_COOKIE, ERROR_COOKIE } from './constants';
 
 const logger = new MaskLogger(['email', 'password']);
 
@@ -16,9 +16,13 @@ export default {
 	form: (req, res, next) => {
 
 		let error = req.cookies[ERROR_COOKIE];
-		res.clearCookie(ERROR_COOKIE);
+		if (error) {
+			res.clearCookie(ERROR_COOKIE);
+		}
 
 		res.set('Cache-Control', res.FT_HOUR_CACHE);
+		res.set('Surrogate-Control', res.FT_HOUR_CACHE);
+
 		return res.render('form', {
 			title: 'Signup',
 			layout: 'vanilla',
@@ -39,10 +43,12 @@ export default {
 				const { accessToken } = await Content.createAccessToken({
 					uuid: res.locals.contentUuid
 				});
-				cacheToken = Cache.set({
+				res.cookie(SUBMISSION_COOKIE, Cache.encode({
 					leadId: id,
 					contentUuid: res.locals.contentUuid,
 					accessToken
+				}), {
+					expiry: new Date(Date.now() + (1000 * 60 * 60)), httpOnly: true
 				});
 			}
 

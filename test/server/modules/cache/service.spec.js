@@ -1,75 +1,89 @@
 import sinon from 'sinon';
 import { expect } from 'chai';
 import proxyquire from 'proxyquire';
+import Cache from '../../../../server/modules/cache/service';
 
 describe('Cache Service', () => {
 
 	const sandbox = sinon.sandbox.create();
-	let Cache;
-	let setStub;
-	let getStub;
+	let bufferStub;
+	let toStringStub;
 
 	beforeEach(() => {
-		setStub = sandbox.stub();
-		getStub = sandbox.stub();
-		Cache = proxyquire('../../../../server/modules/cache/service', {
-			'@financial-times/n-map-cache-light': {
-				TimeCache: createMockCache(getStub, setStub)
-			}
+		toStringStub = sandbox.stub();
+		bufferStub = sandbox.stub(Buffer, 'from').returns({
+			toString: toStringStub
 		});
-
 	});
 
 	afterEach(() => {
 		sandbox.restore();
 	});
 
-	describe('set', () => {
+	describe('encode', () => {
 
-		it('should set the data with a unique UID', () => {
-			const cacheItem = 'test';
-			Cache.set(cacheItem);
-			expect(setStub.calledOnce).to.eq(true);
-			const [key, value] = setStub.getCall(0).args;
+		const toStringResponse = 'some-hash';
 
-			expect(/[\w]{8}-[\w]{4}-[\w]{4}-[\w]{4}-[\w]{12}/.test(key)).to.equal(true);
-			expect(value).to.equal(cacheItem);
+		beforeEach(() => {
+			toStringStub.returns(toStringResponse);
 		});
 
-		it('should return the cache key', () => {
-			const cacheKey = Cache.set('test');
-			expect(setStub.calledOnce).to.eq(true);
-			const [key, value] = setStub.getCall(0).args;
+		it('should convert data to a buffer', () => {
+			const cacheItem = { mock: 'object' };
+			Cache.encode(cacheItem);
 
-			expect(/[\w]{8}-[\w]{4}-[\w]{4}-[\w]{4}-[\w]{12}/.test(cacheKey)).to.equal(true);
-			expect(cacheKey).to.eq(key);
+			expect(bufferStub.calledOnce).to.eq(true);
+			expect(bufferStub.calledWith(JSON.stringify(cacheItem))).to.eq(true);
+		});
+
+		it('should return a base64 string', () => {
+			const cacheItem = { mock: 'object' };
+			const encodedData = Cache.encode(cacheItem);
+
+			expect(toStringStub.calledOnce).to.eq(true);
+			expect(toStringStub.calledWith('base64')).to.eq(true);
+			expect(encodedData).to.eq(toStringResponse);
 		});
 
 	});
 
-	describe('get', () => {
+	describe('decode', () => {
 
-		it('should retrieve the cache item', () => {
-			const cacheKey = 'test';
-			const cacheItem = 'item';
-			getStub.returns(cacheItem);
+		const toStringResponse = JSON.stringify({
+			decoded: 'payload'
+		});
+		const encodedStr = 'a-base64-string';
 
-			const result = Cache.get(cacheKey);
-			const [key] = getStub.getCall(0).args;
-
-			expect(key).to.eq(cacheKey);
-			expect(result).to.eq(cacheItem);
-
+		beforeEach(() => {
+			toStringStub.returns(toStringResponse);
 		});
 
+		it('should convert a base64 string to a buffer', () => {
+			Cache.decode(encodedStr);
+
+			expect(bufferStub.calledOnce).to.eq(true);
+			expect(bufferStub.calledWith(encodedStr, 'base64')).to.eq(true);
+			expect(toStringStub.calledOnce).to.eq(true);
+		});
+
+		it('should parse and return the payload', () => {
+			const decodedData = Cache.decode(encodedStr);
+			expect(decodedData).to.deep.equal(JSON.parse(toStringResponse));
+		});
+
+	});
+
+	describe('sanity', () => {
+
+		beforeEach(() => sandbox.restore());
+
+		it('should mean we actually confirm it works', () => {
+			const testData = { sanity: 'test' };
+			const encodedData = Cache.encode(testData);
+			const decodedData = Cache.decode(encodedData);
+
+			expect(decodedData).to.deep.equal(testData);
+
+		});
 	});
 });
-
-const createMockCache = (getStub, setStub) => class MockCache {
-	constructor() {
-		return {
-			get: getStub,
-			set: setStub
-		}
-	}
-}
