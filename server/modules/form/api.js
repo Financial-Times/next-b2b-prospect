@@ -49,7 +49,7 @@ export default {
 					contentUuid: res.locals.contentUuid,
 					accessToken
 				}), {
-					expiry: new Date(Date.now() + (1000 * 60 * 60)), httpOnly: true
+					expires: new Date(Date.now() + (1000 * 60 * 60)), httpOnly: true, secure: true
 				});
 			}
 
