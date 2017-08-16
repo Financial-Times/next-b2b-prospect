@@ -8,6 +8,13 @@ import { ERROR_COOKIE, SUBMISSION_COOKIE } from './constants';
 const logger = new MaskLogger(['email', 'password']);
 
 export default {
+
+	noCache: (req, res, next) => {
+		res.set('Cache-Control', res.FT_NO_CACHE);
+		res.set('Surrogate-Control', res.FT_NO_CACHE);
+		return next();
+	},
+
 	setLocals: (req, res, next) => {
 		res.locals.campaignId = req.query.cpccampaign || '';
 		res.locals.contentUuid = req.query['ft-content-uuid'] || '';

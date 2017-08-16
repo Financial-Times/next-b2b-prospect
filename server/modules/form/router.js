@@ -9,9 +9,9 @@ router.use(middleware.setLocals)
 
 router.route('/')
 	.get(api.form)
-	.post(middleware.validatePayload, api.submit);
+	.post(middleware.noCache, middleware.validatePayload, api.submit);
 
 router.route('/confirm')
-	.get(middleware.validateRetrieval, api.confirm);
+	.get(middleware.noCache, middleware.validateRetrieval, api.confirm);
 
 export default router;
