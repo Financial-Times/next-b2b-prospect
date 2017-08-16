@@ -1,7 +1,7 @@
 import MaskLogger from '@financial-times/n-mask-logger';
 import _get from 'lodash/get';
 
-import Cache from '../cache/service';
+import Encoder from '../encoding/service';
 import { ERROR_COOKIE, SUBMISSION_COOKIE } from './constants';
 
 const logger = new MaskLogger(['email', 'password']);
@@ -23,7 +23,7 @@ export default {
 
 	validateRetrieval: (req, res, next) => {
 		const submissionCookie = req.cookies[SUBMISSION_COOKIE]
-		const decodedData = Cache.decode(submissionCookie);
+		const decodedData = Encoder.decode(submissionCookie);
 
 		if (!submissionCookie || !decodedData) {
 			logger.error('Invalid or expired submission key', { cookieExists: !!submissionCookie });

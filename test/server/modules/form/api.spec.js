@@ -11,7 +11,7 @@ import app, { ready } from '../../../../server/app';
 import raven from '@financial-times/n-raven';
 import Marketo from '../../../../server/modules/marketo/service';
 import * as errors from '../../../../server/modules/marketo/constants';
-import Cache from '../../../../server/modules/cache/service';
+import Cache from '../../../../server/modules/encoding/service';
 import ContentAccess from '../../../../server/modules/content/service';
 import ES from '../../../../server/modules/es/service';
 
@@ -26,7 +26,7 @@ describe('Form', () => {
 				.get('/form')
 				.expect(200)
 				.end((err, res) => {
-					expect(res.headers['cache-control']).to.equal('max-age=3600, stale-while-revalidate=60, stale-if-error=86400');
+					expect(res.headers['cache-control']).to.equal('max-age=0, no-cache, no-store, must-revalidate');
 					expect(res.headers['surrogate-control']).to.equal('max-age=3600, stale-while-revalidate=60, stale-if-error=86400');
 					expect(res.text).to.contain('<form method="POST"');
 					expect(res.text).to.contain('First name');

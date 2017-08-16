@@ -2,7 +2,7 @@ import { metrics } from '@financial-times/n-express';
 import raven from '@financial-times/n-raven';
 import MaskLogger from '@financial-times/n-mask-logger';
 
-import Cache from '../cache/service';
+import Encoder from '../encoding/service';
 import Content from '../content/service';
 import ES from '../es/service';
 import Marketo from '../marketo/service';
@@ -20,7 +20,7 @@ export default {
 			res.clearCookie(ERROR_COOKIE);
 		}
 
-		res.set('Cache-Control', res.FT_HOUR_CACHE);
+		res.set('Cache-Control', res.FT_NO_CACHE);
 		res.set('Surrogate-Control', res.FT_HOUR_CACHE);
 
 		return res.render('form', {
@@ -44,7 +44,7 @@ export default {
 					uuid: res.locals.contentUuid
 				});
 
-				res.cookie(SUBMISSION_COOKIE, Cache.encode({
+				res.cookie(SUBMISSION_COOKIE, Encoder.encode({
 					leadId: id,
 					contentUuid: res.locals.contentUuid,
 					accessToken
