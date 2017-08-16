@@ -100,6 +100,11 @@ export default {
 				layout: 'wrapper',
 				wrapped: true,
 				page: 'confirmation',
+				nUi: {
+			    header: {
+						userNav: false // turns off the log-in/log-out/subscribe/etc links in the header
+					}
+				},
 				leadId,
 				article,
 				accessToken
