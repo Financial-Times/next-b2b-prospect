@@ -2,13 +2,13 @@ import { metrics } from '@financial-times/n-express';
 import raven from '@financial-times/n-raven';
 import MaskLogger from '@financial-times/n-mask-logger';
 
-import Cache from '../cache/service';
+import Encoder from '../encoding/service';
 import Content from '../content/service';
 import ES from '../es/service';
 import Marketo from '../marketo/service';
 import * as errors from '../marketo/constants';
 
-import { ERROR_COOKIE } from './constants';
+import { SUBMISSION_COOKIE, ERROR_COOKIE } from './constants';
 
 const logger = new MaskLogger(['email', 'password']);
 
@@ -16,9 +16,13 @@ export default {
 	form: (req, res, next) => {
 
 		let error = req.cookies[ERROR_COOKIE];
-		res.clearCookie(ERROR_COOKIE);
+		if (error) {
+			res.clearCookie(ERROR_COOKIE);
+		}
 
-		res.set('Cache-Control', res.FT_HOUR_CACHE);
+		res.set('Cache-Control', res.FT_NO_CACHE);
+		res.set('Surrogate-Control', res.FT_HOUR_CACHE);
+
 		return res.render('form', {
 			title: 'Signup',
 			layout: 'vanilla',
@@ -29,20 +33,23 @@ export default {
 	},
 
 	submit: async (req, res, next) => {
-
-		let cacheToken;
+		let shouldRedirect;
 
 		try {
 			const { id } = await (req.query.pa11y ? Promise.resolve({ id: 'pa11y' }) : Marketo.createOrUpdate(req.body));
 
 			if (res.locals.contentUuid){
+				shouldRedirect = true;
 				const { accessToken } = await Content.createAccessToken({
 					uuid: res.locals.contentUuid
 				});
-				cacheToken = Cache.set({
+
+				res.cookie(SUBMISSION_COOKIE, Encoder.encode({
 					leadId: id,
 					contentUuid: res.locals.contentUuid,
 					accessToken
+				}), {
+					expires: new Date(Date.now() + (1000 * 60 * 60)), httpOnly: true, secure: true
 				});
 			}
 
@@ -51,7 +58,7 @@ export default {
 				title: 'Signup',
 				layout: 'vanilla',
 				page: 'submission',
-				cacheToken
+				shouldRedirect
 			});
 
 		} catch (err) {

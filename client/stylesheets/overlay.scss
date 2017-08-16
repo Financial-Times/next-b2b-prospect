@@ -10,18 +10,16 @@
 	text-align: center;
 	height: 100vh;
 
-	> * {
-		position: absolute;
-		left: 50%;
-		top: 50%;
-		transform: translate(-50%, -50%);
-		@include oTypographySans($scale: 0);
-		color: getColor('white');
-	}
-
 	&--active {
 		visibility: visible;
 	}
+}
+
+.prospect-form__spinner {
+	@include oLoading();
+	@include oLoadingSize('large');
+	@include oLoadingColor('light');
+	margin-top: 250px;
 }
 
 // no loading spinner if no js
