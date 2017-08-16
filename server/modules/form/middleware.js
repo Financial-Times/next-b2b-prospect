@@ -1,3 +1,4 @@
+import { metrics } from '@financial-times/n-express';
 import MaskLogger from '@financial-times/n-mask-logger';
 import _get from 'lodash/get';
 
@@ -26,6 +27,7 @@ export default {
 		const decodedData = Encoder.decode(submissionCookie);
 
 		if (!submissionCookie || !decodedData) {
+			metrics.count('b2b-prospect.confirmation.invalid', 1);
 			logger.error('Invalid or expired submission key', { cookieExists: !!submissionCookie });
 			return res.redirect(303, 'http://ft.com');
 		}

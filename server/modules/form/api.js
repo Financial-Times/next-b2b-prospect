@@ -91,6 +91,7 @@ export default {
 
 		try {
 			article = await ES.get(contentUuid);
+			metrics.count('b2b-prospect.confirmation.success', 1);
 		} catch (e) {
 			template = 'error';
 		} finally {
