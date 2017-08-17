@@ -102,7 +102,8 @@ export default {
 				page: 'confirmation',
 				nUi: {
 			    header: {
-						userNav: false // turns off the log-in/log-out/subscribe/etc links in the header
+						userNav: false, // turns off the log-in/log-out/subscribe/etc links in the header
+						variant: 'logo-only'
 					}
 				},
 				leadId,
