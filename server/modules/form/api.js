@@ -27,6 +27,7 @@ export default {
 			title: 'Signup',
 			layout: 'vanilla',
 			campaignId: res.locals.campaignId,
+			marketingName: res.locals.marketingName,
 			error
 		});
 
