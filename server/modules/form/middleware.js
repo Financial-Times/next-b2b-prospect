@@ -3,7 +3,7 @@ import MaskLogger from '@financial-times/n-mask-logger';
 import _get from 'lodash/get';
 
 import Encoder from '../encoding/service';
-import { ERROR_COOKIE, SUBMISSION_COOKIE } from './constants';
+import { ERROR_COOKIE, SUBMISSION_COOKIE, FALLBACK_MARKETING_NAME } from './constants';
 
 const logger = new MaskLogger(['email', 'password']);
 
@@ -16,6 +16,7 @@ export default {
 	},
 
 	setLocals: (req, res, next) => {
+		res.locals.marketingName = req.query.marketingName || FALLBACK_MARKETING_NAME;
 		res.locals.campaignId = req.query.cpccampaign || '';
 		res.locals.contentUuid = req.query['ft-content-uuid'] || '';
 		return next();
