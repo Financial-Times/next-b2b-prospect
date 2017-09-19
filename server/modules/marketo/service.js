@@ -1,4 +1,5 @@
 import Marketo from 'node-marketo-rest';
+import Joi from 'joi';
 import * as constants from './constants';
 
 const endpoint = process.env.MARKETO_REST_ENDPOINT;
@@ -43,6 +44,10 @@ const parseResult = ({ result = [] } = {}) => {
 }
 
 export default {
+
+	validate: (payload) => {
+		return Joi.validate(payload, constants.SCHEMA, { abortEarly: false });
+	},
 
 	createOrUpdate: (payload) => {
 		return marketo.lead.createOrUpdate([ payload ], { action: 'createOnly', lookupField: 'email' })
