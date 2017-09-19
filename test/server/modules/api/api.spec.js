@@ -10,7 +10,7 @@ import app, { ready } from '../../../../server/app';
 import Marketo from '../../../../server/modules/marketo/service';
 import raven from '@financial-times/n-raven';
 
-describe.only('API Endpoints', () => {
+describe('API Endpoints', () => {
     
     before(() => ready);
 
