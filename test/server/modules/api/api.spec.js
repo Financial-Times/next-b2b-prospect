@@ -1,3 +1,4 @@
+process.env.CLIENT_API_KEY = 'test';
 process.env.MARKETO_REST_ENDPOINT = 'test';
 process.env.MARKETO_IDENTITY_ENDPOINT = 'test';
 process.env.MARKETO_CLIENT_ID = 'test';
@@ -44,15 +45,27 @@ describe('API Endpoints', () => {
             sandbox.restore();
         });
 
-        context('when invalid payload submitted', () => {
+        context('when no api-key submitted', () => {
 
-            it('should return a 400 status and error details', () => {
+            it('should return a 403 status', (done) => {
                 request(app)
                     .post('/api/marketo')
+                    .expect(403, done);
+            });
+
+        });
+
+        context('when invalid payload submitted', () => {
+
+            it('should return a 400 status and error details', (done) => {
+                request(app)
+                    .post('/api/marketo')
+                    .set('api-key', process.env.CLIENT_API_KEY)
                     .end((err, res) => {
                         expect(res.status).to.equal(400);
                         expect(res.body).to.have.property('error');
                         expect(res.body).to.have.property('errors');
+                        done();
                     });
             });
 
@@ -60,14 +73,16 @@ describe('API Endpoints', () => {
 
         context('when submitted successfully', () => {
 
-            it('should return a 200 status and details of the inserted user', () => {
+            it('should return a 200 status and details of the inserted user', (done) => {
                 request(app)
                     .post('/api/marketo')
+                    .set('api-key', process.env.CLIENT_API_KEY)
                     .send(acceptablePayload)
                     .end((err, res) => {
                         expect(res.status).to.equal(200);
                         expect(res.body).to.have.property('details');
                         expect(res.body.details).to.contain(Object.assign(mockMarketoResponse, acceptablePayload));
+                        done();
                     });
             });
 
@@ -79,13 +94,15 @@ describe('API Endpoints', () => {
                 Marketo.createOrUpdate.rejects({});                
             });
 
-            it('should return a 500 status and error details', () => {
+            it('should return a 500 status and error details', (done) => {
                 request(app)
                     .post('/api/marketo')
+                    .set('api-key', process.env.CLIENT_API_KEY)
                     .send(acceptablePayload)
                     .end((err, res) => {
                         expect(res.status).to.equal(500);
                         expect(res.body).to.have.property('error', 'MarketoError');
+                        done();
                     });
             });
 
