@@ -14,6 +14,7 @@ export const SCHEMA = Joi.object().keys({
     country: Joi.string().required(),
     numberOfEmployees: Joi.number().default('0'),
     rating: Joi.string().required(),
+    Third_Party_Opt_In__c: Joi.bool().required(),
     leadSource: Joi.string().default('FT.com'),
     Industry_Sector__c: Joi.string().default('null'),
     Lead_Type__c: Joi.string().default('Corporate'),
