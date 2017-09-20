@@ -28,7 +28,8 @@ describe('API Endpoints', () => {
             "email": "test@test.com",
             "phone": "07123456789",
             "country": "test",
-            "rating": "test"
+            "rating": "test",
+            "Third_Party_Opt_In__c": true
         }
         const mockMarketoResponse = {
             id: 'something',
