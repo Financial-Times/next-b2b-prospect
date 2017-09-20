@@ -4,6 +4,7 @@ import bodyParser from 'body-parser';
 import cookieParser from 'cookie-parser';
 
 import formRouter from './modules/form/router';
+import apiRouter from './modules/api/router';
 
 const logger = new MaskLogger(['email', 'password']);
 const PORT = Number(process.env.PORT || 5657);
@@ -29,6 +30,8 @@ app.get('/__sw-prod.js', (req, res) => {
 });
 
 app.use('/form', formRouter);
+app.use('/api', apiRouter);
+
 app.get('*', (req, res) => res.redirect(302, `https://ft.com${req.originalUrl}`));
 
 export default app;

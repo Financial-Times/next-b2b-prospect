@@ -5,6 +5,8 @@ module.exports = {
 	},
 	strings: {
 		deny: [],
-		denyOverrides: []
+		denyOverrides: [
+			'test@test.com'
+		]
 	}
 };
