@@ -1,7 +1,7 @@
 ## Slack channel
-**#ft-next-signup** is the main source for alerts and reports regarding the app.
+**#ft-next-conversion** is the main source for alerts and reports regarding the app.
 
-Pingdom checks & regression test results are reported here.
+Pingdom results are reported here.
 
 ## Grafana Dashboards
 
