@@ -34,5 +34,5 @@ The [health checks end point](https://next-b2b-prospect.ft.com/__health)
 
 These are a subset of the useful pingdom checks that can tell you if an app is down
 
-#### [Next Signup Form Uptime](https://my.pingdom.com/reports/uptime#check=3318043&daterange=7days&tab=uptime_tab)
+#### [Next B2B Prospect Form Uptime](https://my.pingdom.com/reports/uptime#check=3318043&daterange=7days&tab=uptime_tab)
 Hits next-b2b-prospect.ft.com/form
