@@ -30,7 +30,18 @@ describe('API Endpoints', () => {
             "country": "test",
             "rating": "test",
             "Third_Party_Opt_In__c": true
-        }
+        };
+        const renamedPayload = {
+            "firstName": "Test",
+            "lastName": "User",
+            "jobTitle": "Mr",
+            "company": "FT",
+            "email": "test@test.com",
+            "phone": "07123456789",
+            "country": "test",
+            "rating": "test",
+            "Third_Party_Opt_In__c": true
+        };
         const mockMarketoResponse = {
             id: 'something',
             status: 'created'
@@ -83,6 +94,19 @@ describe('API Endpoints', () => {
                         expect(res.status).to.equal(200);
                         expect(res.body).to.have.property('details');
                         expect(res.body.details).to.contain(Object.assign(mockMarketoResponse, acceptablePayload));
+                        done();
+                    });
+            });
+
+            it('should return a 200 status and details of the inserted user', (done) => {
+                request(app)
+                    .post('/api/marketo')
+                    .set('api-key', process.env.CLIENT_API_KEY)
+                    .send(renamedPayload)
+                    .end((err, res) => {
+                        expect(res.status).to.equal(200);
+                        const [ params ] = marketoStub.getCall(0).args
+                        expect(params).to.have.property('title', renamedPayload.jobTitle);
                         done();
                     });
             });

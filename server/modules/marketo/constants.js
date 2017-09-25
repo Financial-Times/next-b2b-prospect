@@ -21,4 +21,4 @@ export const SCHEMA = Joi.object().keys({
     CPCCampaign__c: Joi.string().default(''),
     GCLID__c: Joi.string().default(''),
     Comments: Joi.string().default('')
-}).rename('jobTitle', 'title');
+}).rename('jobTitle', 'title', { ignoreUndefined: true });
