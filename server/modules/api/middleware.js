@@ -12,7 +12,7 @@ export default {
             return res.status(426).send('Client request must use TLS'); // http://tools.ietf.org/html/rfc2817#section-4.2
         }
 
-        if (!req.headers['api-key'] || process.env.CLIENT_API_KEY !== req.headers['api-key']) {
+        if (!req.headers['x-api-key'] || process.env.CLIENT_API_KEY !== req.headers['x-api-key']) {
             return res.sendStatus(403);
         } else {
             next();

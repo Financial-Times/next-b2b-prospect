@@ -72,7 +72,7 @@ describe('API Endpoints', () => {
             it('should return a 400 status and error details', (done) => {
                 request(app)
                     .post('/api/marketo')
-                    .set('api-key', process.env.CLIENT_API_KEY)
+                    .set('x-api-key', process.env.CLIENT_API_KEY)
                     .end((err, res) => {
                         expect(res.status).to.equal(400);
                         expect(res.body).to.have.property('error');
@@ -88,7 +88,7 @@ describe('API Endpoints', () => {
             it('should return a 200 status and details of the inserted user', (done) => {
                 request(app)
                     .post('/api/marketo')
-                    .set('api-key', process.env.CLIENT_API_KEY)
+                    .set('x-api-key', process.env.CLIENT_API_KEY)
                     .send(acceptablePayload)
                     .end((err, res) => {
                         expect(res.status).to.equal(200);
@@ -101,7 +101,7 @@ describe('API Endpoints', () => {
             it('should return a 200 status and details of the inserted user', (done) => {
                 request(app)
                     .post('/api/marketo')
-                    .set('api-key', process.env.CLIENT_API_KEY)
+                    .set('x-api-key', process.env.CLIENT_API_KEY)
                     .send(renamedPayload)
                     .end((err, res) => {
                         expect(res.status).to.equal(200);
@@ -122,7 +122,7 @@ describe('API Endpoints', () => {
             it('should return a 500 status and error details', (done) => {
                 request(app)
                     .post('/api/marketo')
-                    .set('api-key', process.env.CLIENT_API_KEY)
+                    .set('x-api-key', process.env.CLIENT_API_KEY)
                     .send(acceptablePayload)
                     .end((err, res) => {
                         expect(res.status).to.equal(500);
