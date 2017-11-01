@@ -15,7 +15,7 @@ const app = express({
 });
 
 app.locals.nUiConfig = {
-	preset: 'discrete', 
+	preset: 'discrete',
 	features: {
 		header: false,
 		footer: false
@@ -24,6 +24,12 @@ app.locals.nUiConfig = {
 
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: false }))
+
+// HOTFIX to overwrite n-express/src/middleware/security.js
+app.use((req, res, next) => {
+	res.removeHeader('X-Frame-Options');
+	next();
+})
 
 app.get('/__gtg', (req, res) => res.send(200));
 
