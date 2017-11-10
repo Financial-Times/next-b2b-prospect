@@ -1,4 +1,4 @@
-import { sendMessage } from './utils';
+import { sendMessage, dispatchTrackingEvent } from './utils';
 
 export default {
 	init: (container) => {
@@ -8,5 +8,10 @@ export default {
 				submission: true
 			});
 		}
-  }
+
+		dispatchTrackingEvent({
+			category: 'b2b-prospect',
+			action: 'submit'
+		});
+	}
 };
