@@ -120,7 +120,7 @@ describe('Form', () => {
 			const mockUuid = 'test';
 
 			request(app)
-				.post(`/form?ft-content-uuid=${mockUuid}`)
+				.post(`/form?ft-content-uuid=${mockUuid}&marketingName=foo`)
 				.set('Content-Type', 'application/x-www-form-urlencoded')
 				.send(testPayload)
 				.expect(200)
@@ -130,6 +130,7 @@ describe('Form', () => {
 					expect(cacheEncodeStub.calledOnce).to.equal(true);
 					expect(cacheEncodeStub.calledWith({
 						leadId: mockMarketoResponse.id,
+						marketingName: 'foo',
 						contentUuid: mockUuid,
 						accessToken: mockAccessToken
 					})).to.equal(true);
