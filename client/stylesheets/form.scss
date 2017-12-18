@@ -11,11 +11,10 @@
 }
 
 .prospect-form__submit {
+	@include oButtons($size: big, $theme: primary);
 	max-width: $_o-forms-field-max-width;
 	width: 100%;
 	font-weight: bold;
-	@include oButtonsSize(big);
-	@include oButtonsTheme(primary);
 
 	@include _oFormsBreakpoint {
 			margin-right: $_o-forms-padding;
