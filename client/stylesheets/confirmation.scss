@@ -1,10 +1,10 @@
 .confirmation__title {
-	@include oTypographySans($scale:2);
+	@include oTypographySans($scale:3);
 	text-align: center;
 }
 
 .confirmation__message {
-	@include oTypographySans($scale:1);
+	@include oTypographySans($scale:3);
 	text-align: center;
 	padding-bottom: 10px;
 }
@@ -107,5 +107,47 @@
 
 	&:focus {
 		border: 1px solid getColor('white');
+	}
+}
+
+.confirmation-header {
+	background-color: getColor('teal-80');
+	margin-bottom: 20px;
+	padding: 15px;
+
+	&__title {
+		@include oTypographySerif($scale: 3);
+		font-weight: normal;
+		margin: 0;
+
+		&::before {
+			content: '“';
+		}
+
+		&::after {
+			content: '”';
+		}
+	}
+
+	&__button {
+		&-read-now {
+			@include oButtons($size: big, $theme: mono);
+		}
+
+		&-go-to-homepage {
+			@include oButtons($size: big, $theme: primary);
+			background-color: getColor('black');
+			margin: 0 auto;
+		}
+	}
+
+	&__strip {
+		align-items: center;
+		text-align: center;
+	}
+
+	&__column {
+		padding: 5px;
+		text-align: left;
 	}
 }

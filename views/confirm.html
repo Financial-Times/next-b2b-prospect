@@ -1,3 +1,23 @@
+{{#ifEquals marketingName 'factiva'}}
+<header class="confirmation-header">
+	<div class="o-grid-container">
+		<div class="confirmation-header__strip o-grid-row">
+			{{#ifAll article article.title}}
+			<div class="confirmation-header__column" data-o-grid-colspan="12 L8">
+				<h1 class="confirmation-header__title">{{{ article.title }}}</h1>
+			</div>
+			<div class="confirmation-header__column" data-o-grid-colspan="12 L4">
+				<a class="confirmation-header__button-read-now" href="https://www.ft.com/content/{{{ article.id }}}">Read now</a>
+			</div>
+			{{else}}
+			<div data-o-grid-colspan="12 center">
+				<a class="confirmation-header__button-go-to-homepage" href="https://www.ft.com/">Go to the FT.com homepage</a>
+			</div>
+			{{/ifAll}}
+		</div>
+	</div>
+</header>
+{{/ifEquals}}
 <div class="o-grid-container {{#if wrapped}}confirmation--wrapped{{/if}}"
 		data-page="{{page}}" data-lead-id="{{leadId}}"
 		data-should-redirect="{{ shouldRedirect }}"
@@ -20,16 +40,17 @@
 		</div>
 	</div>
 
-	{{#if article}}
-	<div class="o-grid-row o-grid-row--compact confirmation-footer" aria-label="For your free article">
-		<div class="confirmation-footer__content" data-o-grid-colspan="12 S10 M8">
-			<small>Your free article</small>
-			<a href="https://ft.com/content/{{article.id}}?accessToken={{accessToken}}" class="confirmation-footer__link" data-trackable="article-link">{{article.title}}</a>
+	{{#unlessEquals marketingName 'factiva'}}
+		{{#if article}}
+		<div class="o-grid-row o-grid-row--compact confirmation-footer" aria-label="For your free article">
+			<div class="confirmation-footer__content" data-o-grid-colspan="12 S10 M8">
+				<small>Your free article</small>
+				<a href="https://ft.com/content/{{article.id}}?accessToken={{accessToken}}" class="confirmation-footer__link" data-trackable="article-link">{{article.title}}</a>
+			</div>
+			<div data-o-grid-colspan="12 S10 M4 center" class="confirmation-footer__navigation">
+				<a href="https://ft.com/content/{{article.id}}?accessToken={{accessToken}}" class="confirmation-footer__button" data-trackable="article-button">Continue reading</a>
+			</div>
 		</div>
-		<div data-o-grid-colspan="12 S10 M4 center" class="confirmation-footer__navigation">
-			<a href="https://ft.com/content/{{article.id}}?accessToken={{accessToken}}" class="confirmation-footer__button" data-trackable="article-button">Continue reading</a>
-		</div>
-	</div>
-	{{/if}}
-
+		{{/if}}
+	{{/unlessEquals}}
 </div>
