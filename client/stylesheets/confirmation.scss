@@ -116,7 +116,7 @@
 	padding: 15px;
 
 	&__title {
-		@include oTypographySerif($scale: 3);
+		@include oTypographyDisplay($scale: 4);
 		font-weight: normal;
 		margin: 0;
 
