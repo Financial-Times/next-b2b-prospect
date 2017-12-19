@@ -47,6 +47,7 @@ export default {
 
 				res.cookie(SUBMISSION_COOKIE, Encoder.encode({
 					leadId: id,
+					marketingName: res.locals.marketingName,
 					contentUuid: res.locals.contentUuid,
 					accessToken
 				}), {
@@ -55,12 +56,22 @@ export default {
 			}
 
 			metrics.count('b2b-prospect.submission.success', 1);
+			let article;
+
+			try {
+				article = await ES.get(res.locals.contentUuid);
+			} catch (e) {
+				article = {};
+			}
+
 			return res.render('confirm', {
 				title: 'Signup',
+				marketingName: res.locals.marketingName,
+				article,
 				layout: 'vanilla',
 				page: 'submission',
 				shouldRedirect
-			});
+			});			
 
 		} catch (err) {
 			logger.error('Error submitting to Marketo', err);
@@ -85,9 +96,8 @@ export default {
 	},
 
 	confirm: async (req, res, next) => {
-
 		const template = 'confirm';
-		const { leadId, contentUuid, accessToken } = res.locals.submission;
+		const { leadId, contentUuid, accessToken, marketingName } = res.locals.submission;
 		let article;
 
 		try {
@@ -102,12 +112,13 @@ export default {
 				wrapped: true,
 				page: 'confirmation',
 				nUi: {
-			    header: {
+			    	header: {
 						userNav: false, // turns off the log-in/log-out/subscribe/etc links in the header
 						variant: 'logo-only'
 					}
 				},
 				leadId,
+				marketingName,
 				article,
 				accessToken
 			});

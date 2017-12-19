@@ -1,35 +1,58 @@
-<div class="o-grid-container {{#if wrapped}}confirmation--wrapped{{/if}}"
-		data-page="{{page}}" data-lead-id="{{leadId}}"
-		data-should-redirect="{{ shouldRedirect }}"
-		{{#if article}} data-article-id="{{article.id}}" {{/if}} >
-	<div class="o-grid-row o-grid-row--compact">
-		<div data-o-grid-colspan="center 10 S8"><h1 class="confirmation__title">Thank you for your enquiry</h1></div>
-	</div>
-	<div class="o-grid-row o-grid-row--compact">
-		<div data-o-grid-colspan="center 10 S5" class="confirmation__message">A sales representative will get back to you about FT Group subscriptions within 48 hours.</div>
-	</div>
-	<div class="o-grid-row o-grid-row--compact">
-		<div class="confirmation__panel" data-o-grid-colspan="center 12 S10">
-			<strong class="confirmation__call-us">Give us a call</strong>
-			<span>If you would like to talk to a sales representative immediately, please call one of the following numbers.</span>
-			<ul class="confirmation__contact-list">
-				<li>UK +44 (0)20 7873 4001</li>
-				<li>US (toll free) +1 1877 843 3399</li>
-				<li>Asia +632 982 5780</li>
-			</ul>
+<div
+	data-page="{{page}}" data-lead-id="{{leadId}}"
+	data-should-redirect="{{ shouldRedirect }}"
+	{{#if article}} data-article-id="{{article.id}}" {{/if}} >
+	{{#ifEquals marketingName 'factiva'}}
+	<header class="confirmation-header">
+		<div class="o-grid-container">
+			<div class="confirmation-header__strip o-grid-row">
+				{{#ifAll article article.title}}
+				<div class="confirmation-header__column" data-o-grid-colspan="12 L8">
+					<h1 class="confirmation-header__title" data-trackable="article-link">{{{ article.title }}}</h1>
+				</div>
+				<div class="confirmation-header__column" data-o-grid-colspan="12 L4">
+					<a class="confirmation-header__button-read-now" href="https://www.ft.com/content/{{{ article.id }}}" data-trackable="article-button">Read now</a>
+				</div>
+				{{else}}
+				<div data-o-grid-colspan="12 center">
+					<a class="confirmation-header__button-go-to-homepage" href="https://www.ft.com/">Go to the FT.com homepage</a>
+				</div>
+				{{/ifAll}}
+			</div>
 		</div>
-	</div>
-
-	{{#if article}}
-	<div class="o-grid-row o-grid-row--compact confirmation-footer" aria-label="For your free article">
-		<div class="confirmation-footer__content" data-o-grid-colspan="12 S10 M8">
-			<small>Your free article</small>
-			<a href="https://ft.com/content/{{article.id}}?accessToken={{accessToken}}" class="confirmation-footer__link" data-trackable="article-link">{{article.title}}</a>
+	</header>
+	{{/ifEquals}}	
+	<div class="o-grid-container {{#if wrapped}}confirmation--wrapped{{/if}}">
+		<div class="o-grid-row o-grid-row--compact">
+			<div data-o-grid-colspan="center 10 S8"><h1 class="confirmation__title">Thank you for your enquiry</h1></div>
 		</div>
-		<div data-o-grid-colspan="12 S10 M4 center" class="confirmation-footer__navigation">
-			<a href="https://ft.com/content/{{article.id}}?accessToken={{accessToken}}" class="confirmation-footer__button" data-trackable="article-button">Continue reading</a>
+		<div class="o-grid-row o-grid-row--compact">
+			<div data-o-grid-colspan="center 10 S5" class="confirmation__message">A sales representative will get back to you about FT Group subscriptions within 48 hours.</div>
 		</div>
+		<div class="o-grid-row o-grid-row--compact">
+			<div class="confirmation__panel" data-o-grid-colspan="center 12 S10">
+				<strong class="confirmation__call-us">Give us a call</strong>
+				<span>If you would like to talk to a sales representative immediately, please call one of the following numbers.</span>
+				<ul class="confirmation__contact-list">
+					<li>UK +44 (0)20 7873 4001</li>
+					<li>US (toll free) +1 1877 843 3399</li>
+					<li>Asia +632 982 5780</li>
+				</ul>
+			</div>
+		</div>
+	
+		{{#unlessEquals marketingName 'factiva'}}
+			{{#if article}}
+			<div class="o-grid-row o-grid-row--compact confirmation-footer" aria-label="For your free article">
+				<div class="confirmation-footer__content" data-o-grid-colspan="12 S10 M8">
+					<small>Your free article</small>
+					<a href="https://ft.com/content/{{article.id}}?accessToken={{accessToken}}" class="confirmation-footer__link" data-trackable="article-link">{{article.title}}</a>
+				</div>
+				<div data-o-grid-colspan="12 S10 M4 center" class="confirmation-footer__navigation">
+					<a href="https://ft.com/content/{{article.id}}?accessToken={{accessToken}}" class="confirmation-footer__button" data-trackable="article-button">Continue reading</a>
+				</div>
+			</div>
+			{{/if}}
+		{{/unlessEquals}}
 	</div>
-	{{/if}}
-
 </div>
