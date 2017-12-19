@@ -1,4 +1,7 @@
+import MaskLogger from '@financial-times/n-mask-logger';
+
 import Marketo from '../marketo/service';
+const logger = new MaskLogger(['firstName', 'lastName', 'email']);
 
 export default {
 
@@ -22,6 +25,8 @@ export default {
     validateMarketoPayload: (req, res, next) => {
 
         const { error, value } = Marketo.validate(req.body);
+
+        logger.error('validateMarketoPayload: invalid request', error, JSON.stringify(error), error.details); //todo remove JSON.stringify just there for debugging
 
         if (error) {
             return res.status(400).json({
