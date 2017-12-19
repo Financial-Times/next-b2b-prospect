@@ -26,12 +26,12 @@ export default {
 
         const { error, value } = Marketo.validate(req.body);
 
-        logger.error('validateMarketoPayload: invalid request', error, JSON.stringify(error), error.details); //todo remove JSON.stringify just there for debugging
-
         if (error) {
+            logger.error('validateMarketoPayload: invalid request', error, JSON.stringify(error), error.details); //todo remove JSON.stringify just there for debugging
+
             return res.status(400).json({
                 error: error.name,
-                errors: error.details.map(detail => ({ 
+                errors: error.details.map(detail => ({
                     message: detail.message,
                     property: detail.context.key
                 }))
