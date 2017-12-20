@@ -56,18 +56,11 @@ export default {
 			}
 
 			metrics.count('b2b-prospect.submission.success', 1);
-			let article;
-
-			try {
-				article = await ES.get(res.locals.contentUuid);
-			} catch (e) {
-				article = {};
-			}
 
 			return res.render('confirm', {
 				title: 'Signup',
 				marketingName: res.locals.marketingName,
-				article,
+				contentUuid: res.locals.contentUuid,
 				layout: 'vanilla',
 				page: 'submission',
 				shouldRedirect
@@ -119,6 +112,7 @@ export default {
 				},
 				leadId,
 				marketingName,
+				contentUuid,
 				article,
 				accessToken
 			});

@@ -4,7 +4,7 @@
 }
 
 .confirmation__message {
-	@include oTypographySans($scale:3);
+	@include oTypographySans($scale:2);
 	text-align: center;
 	padding-bottom: 10px;
 }
@@ -31,7 +31,6 @@
 
 .confirmation__call-us {
 	display: block;
-	padding-bottom: 10px;
 }
 
 .confirmation__contact-list {
@@ -110,44 +109,10 @@
 	}
 }
 
-.confirmation-header {
-	background-color: getColor('teal-80');
-	margin-bottom: 20px;
-	padding: 15px;
-
-	&__title {
-		@include oTypographyDisplay($scale: 4);
-		font-weight: normal;
-		margin: 0;
-
-		&::before {
-			content: '“';
-		}
-
-		&::after {
-			content: '”';
-		}
-	}
-
-	&__button {
-		&-read-now {
-			@include oButtons($size: big, $theme: mono);
-		}
-
-		&-go-to-homepage {
-			@include oButtons($size: big, $theme: primary);
-			background-color: getColor('black');
-			margin: 0 auto;
-		}
-	}
-
-	&__strip {
-		align-items: center;
-		text-align: center;
-	}
-
-	&__column {
-		padding: 5px;
-		text-align: left;
+.confirmation__cta {
+	margin: 20px 0 4px;
+	&-button {
+		@include oButtons($size: big, $theme: primary);
+		width: 100%;
 	}
 }
