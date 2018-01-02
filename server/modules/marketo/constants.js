@@ -15,10 +15,10 @@ export const SCHEMA = Joi.object().keys({
     numberOfEmployees: Joi.number().default('0'),
     rating: Joi.string().required(),
     Third_Party_Opt_In__c: Joi.bool().required(),
-    leadSource: Joi.string().default('FT.com'),
-    Industry_Sector__c: Joi.string().default('null'),
-    Lead_Type__c: Joi.string().default('Corporate'),
-    CPCCampaign__c: Joi.string().default(''),
-    GCLID__c: Joi.string().default(''),
-    Comments: Joi.string().default('')
+    leadSource: Joi.string().empty('').default('FT.com'),
+    Industry_Sector__c: Joi.string().empty('').default('null'),
+    Lead_Type__c: Joi.string().empty('').default('Corporate'),
+    CPCCampaign__c: Joi.string().empty('').default(''),
+    GCLID__c: Joi.string().empty('').default(''),
+    Comments: Joi.string().empty('').default('')
 }).rename('jobTitle', 'title', { ignoreUndefined: true });
