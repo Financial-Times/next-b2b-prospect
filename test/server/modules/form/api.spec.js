@@ -34,7 +34,7 @@ describe('Form', () => {
 					expect(res.text).to.contain('Job title');
 					expect(res.text).to.contain('Company name');
 					expect(res.text).to.contain('Work email address');
-					expect(res.text).to.contain('Phone number');
+					expect(res.text).to.contain('Work phone number');
 					expect(res.text).to.contain('Terms and conditions');
 					expect(res.text).to.contain('type="submit"');
 					done();
