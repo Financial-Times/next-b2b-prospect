@@ -1,7 +1,9 @@
 import express from '@financial-times/n-ui';
 import MaskLogger from '@financial-times/n-mask-logger';
+import nHealth from 'n-health';
 import bodyParser from 'body-parser';
 import cookieParser from 'cookie-parser';
+import path from 'path';
 
 import formRouter from './modules/form/router';
 import apiRouter from './modules/api/router';
@@ -10,7 +12,9 @@ const logger = new MaskLogger(['email', 'password']);
 const PORT = Number(process.env.PORT || 5657);
 
 const app = express({
-	systemCode: 'next-b2b-prospect',
+  systemCode: 'next-b2b-prospect',
+  withJsonLd: false,
+  healthChecks: nHealth(path.resolve(__dirname, './config/health-checks')).asArray(),
 	withBackendAuthentication: false
 });
 
