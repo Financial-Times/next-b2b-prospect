@@ -3,6 +3,7 @@ import MaskLogger from '@financial-times/n-mask-logger';
 import nHealth from 'n-health';
 import bodyParser from 'body-parser';
 import cookieParser from 'cookie-parser';
+import path from 'path';
 
 import formRouter from './modules/form/router';
 import apiRouter from './modules/api/router';
