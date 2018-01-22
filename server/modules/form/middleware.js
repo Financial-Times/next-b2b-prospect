@@ -16,9 +16,9 @@ export default {
 	},
 
 	setLocals: (req, res, next) => {
-		res.locals.marketingName = req.query.marketingName || FALLBACK_MARKETING_NAME;
-		res.locals.campaignId = req.query.cpccampaign || '';
-		res.locals.contentUuid = req.query['ft-content-uuid'] || '';
+		res.locals.marketingName = req.query.marketingName && escape(req.query.marketingName) || FALLBACK_MARKETING_NAME;
+		res.locals.campaignId = req.query.cpccampaign && escape(req.query.cpccampaign) || '';
+		res.locals.contentUuid = req.query['ft-content-uuid'] && escape(req.query['ft-content-uuid']) || '';
 		return next();
 	},
 
