@@ -8,8 +8,5 @@
     "o-typography": "^5.0.0",
     "o-grid": "^4.3.3",
     "o-loading": "^2.1.0"
-  },
-  "resolutions": {
-    "n-ui-foundations": "^3.0.0"
   }
 }
