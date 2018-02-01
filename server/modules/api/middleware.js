@@ -12,7 +12,7 @@ export default {
         }
 
         if (process.env.NODE_ENV === 'production' && req.headers['x-forwarded-proto'] !== 'https') {
-            return res.status(426).send('Client request must use TLS'); // http://tools.ietf.org/html/rfc2817#section-4.2
+            return res.status(426).send('Client request must use TLS');
         }
 
         if (!req.headers['x-api-key'] || process.env.CLIENT_API_KEY !== req.headers['x-api-key']) {
