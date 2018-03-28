@@ -20,5 +20,6 @@ export const SCHEMA = Joi.object().keys({
     Lead_Type__c: Joi.string().empty('').default('Corporate'),
     CPCCampaign__c: Joi.string().empty('').default(''),
     GCLID__c: Joi.string().empty('').default(''),
-    Comments: Joi.string().empty('').default('')
+    Comments: Joi.string().empty('').default(''),
+    Job_Function__c: Joi.string().empty('').default('')
 }).rename('jobTitle', 'title', { ignoreUndefined: true });
