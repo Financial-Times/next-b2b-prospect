@@ -10,7 +10,7 @@ export const SCHEMA = Joi.object().keys({
     title: Joi.string().required(),
     company: Joi.string().required(),
     email: Joi.string().email().required(),
-    phone: Joi.string().min(5).max(15).regex(/^[0-9]+$/, 'all numbers').required(),
+    phone: Joi.string().min(5).max(15).regex(/^([0-9()+\- ])+$/, 'all numbers').required(),
     country: Joi.string().required(),
     numberOfEmployees: Joi.number().default('0'),
     rating: Joi.string().required(),
