@@ -1,1 +1,1 @@
-web: forever server/init.js
+web: n-cluster server/init.js
