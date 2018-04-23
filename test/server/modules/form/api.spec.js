@@ -118,14 +118,12 @@ describe('Form', () => {
 
 		it('should create a cache cookie if an access token was created', (done) => {
 			const mockUuid = 'test';
-
 			request(app)
 				.post(`/form?ft-content-uuid=${mockUuid}&marketingName=foo`)
 				.set('Content-Type', 'application/x-www-form-urlencoded')
 				.send(testPayload)
 				.expect(200)
 				.end((err, res) => {
-
 					expect(res.headers['set-cookie'][0]).to.match(new RegExp(`PROSPECT_SUBMISSION=${mockCacheToken}`));
 					expect(cacheEncodeStub.calledOnce).to.equal(true);
 					expect(cacheEncodeStub.calledWith({
@@ -137,6 +135,22 @@ describe('Form', () => {
 
 					expectConfirmationPage(res);
 
+					done();
+				});
+		});
+
+		it('should clear barrier logic cookies after successful submission', (done) => {
+			const mockUuid = 'test';
+
+			request(app)
+				.post(`/form?ft-content-uuid=${mockUuid}&marketingName=foo`)
+				.set('Content-Type', 'application/x-www-form-urlencoded')
+				.send(testPayload)
+				.expect(200)
+				.end((err, res) => {
+					expect(res.headers['set-cookie'][1]).to.equal('FTBarrierAcqCtxRef=; Domain=.ft.com; Path=/; Expires=Thu, 01 Jan 1970 00:00:00 GMT');
+					expect(res.headers['set-cookie'][2]).to.equal('FTBarrier=; Domain=.ft.com; Path=/; Expires=Thu, 01 Jan 1970 00:00:00 GMT');
+					expectConfirmationPage(res);
 					done();
 				});
 

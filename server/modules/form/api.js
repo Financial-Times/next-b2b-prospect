@@ -57,6 +57,10 @@ export default {
 
 			metrics.count('b2b-prospect.submission.success', 1);
 
+			// Clear AcquisitionContextRef on successful submission
+			res.clearCookie('FTBarrierAcqCtxRef', { domain: '.ft.com', path: '/' });
+			res.clearCookie('FTBarrier', { domain: '.ft.com', path: '/' });
+
 			return res.render('confirm', {
 				title: 'Signup',
 				marketingName: res.locals.marketingName,
@@ -64,7 +68,7 @@ export default {
 				layout: 'vanilla',
 				page: 'submission',
 				shouldRedirect
-			});			
+			});
 
 		} catch (err) {
 			logger.error('Error submitting to Marketo', err);
