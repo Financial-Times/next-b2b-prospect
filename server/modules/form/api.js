@@ -28,6 +28,7 @@ export default {
 			layout: 'vanilla',
 			campaignId: res.locals.campaignId,
 			marketingName: res.locals.marketingName,
+			isUnmasking: res.locals.theme === 'unmasking',
 			error
 		});
 

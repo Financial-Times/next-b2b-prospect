@@ -1,29 +1,58 @@
-@include oForms($class: 'prospect-form');
+@include oForms();
 
-@include oFormsMessage($class: 'prospect-form');
+.prospect-form {
 
-.prospect-form__errortext {
-	display: none;
-}
+	&__title {
+		@include oTypographySans($scale: 2);
+		font-weight: bold;
 
-.o-forms--error .prospect-form__errortext {
-	display: block;
-}
-
-.prospect-form__submit {
-	@include oButtons($size: big, $theme: primary);
-	max-width: $_o-forms-field-max-width;
-	width: 100%;
-	font-weight: bold;
-
-	@include _oFormsBreakpoint {
-			margin-right: $_o-forms-padding;
-			margin-left: $_o-forms-padding;
+		@include oGridRespondTo(S) {
+			padding: 0 10px;
 		}
-}
+	}
 
-.prospect-form__heading {
-	@include oTypographySans($scale: 2);
-	padding: 0 10px;
-	font-weight: normal;
+	&__heading {
+		@include oTypographySans($scale: 2);
+		font-weight: normal;
+
+		@include oGridRespondTo(S) {
+			padding: 0 10px;
+		}
+	}
+
+	&__subheading {
+		@include oTypographySans($scale: 1);
+
+		@include oGridRespondTo(S) {
+			padding: 0 10px;
+		}
+	}
+
+	&-explination {
+		text-align: center;
+	}
+
+	&-section__message {
+		@include oTypographySize($scale: 0);
+	}
+	
+	&-table {
+		width: 100%;
+		padding-bottom: 10px;
+
+		&__header {
+			text-align: left;
+	
+			&--aside {
+				font-weight: normal;
+			}
+		}
+	}
+
+	&__submit {
+		@include oButtons($size: big, $theme: primary);
+		max-width: $_o-forms-field-max-width;
+		width: 100%;
+		font-weight: bold;
+	}
 }
