@@ -1,6 +1,14 @@
 {{#ifEquals marketingName 'factiva'}}
-	<h1 class="prospect-form__heading">Contact us for FT Group Subscription options</h1>
+<h1 class="prospect-form__heading">Contact us for FT Group Subscription options</h1>
 {{/ifEquals}}
+{{#if isUnmasking}}
+<h1 class="prospect-form__title">Keep your team informed</h1>
+<h2 class="prospect-form__heading">And get 30 more days of free FT</h2>
+<p class="prospect-form__subheading">
+	Fill in the form below and a product specialist will contact
+	you about a trial for your team
+</p>
+{{/if}}
 <form method="POST" data-trackable-page="form" data-trackable="b2b-prospect-form" data-o-component="o-forms">
 
 	<input type="hidden" name="numberOfEmployees" value="0" />
@@ -18,44 +26,76 @@
 	</div>
 	{{/if}}
 
-	<div class="prospect-form o-forms">
-		<label for="prospect-form__first-name" class="prospect-form__label">First name</label>
-		<input name="firstName" data-trackable="first-name" type="text" id="prospect-form__first-name" placeholder="Enter your first name" class="prospect-form__text" required></input>
-		<div class="prospect-form__errortext">Please enter your first name.</div>
+	<div class="o-forms">
+		<label for="prospect-form__first-name" class="o-forms__label">First name</label>
+		<input name="firstName" data-trackable="first-name" type="text" id="prospect-form__first-name" placeholder="Enter your first name" class="o-forms__text" required>
+		<div class="o-forms__errortext">Please enter your first name.</div>
 	</div>
-	<div class="prospect-form o-forms">
-		<label for="prospect-form__last-name" class="prospect-form__label">Last name</label>
-		<input name="lastName" data-trackable="last-name" type="text" id="prospect-form__last-name" placeholder="Enter your last name" class="prospect-form__text" required></input>
-		<div class="prospect-form__errortext">Please enter your last name.</div>
+	<div class="o-forms">
+		<label for="prospect-form__last-name" class="o-forms__label">Last name</label>
+		<input name="lastName" data-trackable="last-name" type="text" id="prospect-form__last-name" placeholder="Enter your last name" class="o-forms__text" required>
+		<div class="o-forms__errortext">Please enter your last name.</div>
 	</div>
-	<div class="prospect-form o-forms">
-		<label for="prospect-form__job-title" class="prospect-form__label">Job title</label>
-		<input name="title" data-trackable="job-title" type="text" id="prospect-form__job-title" placeholder="Enter your job title" class="prospect-form__text" required></input>
-		<div class="prospect-form__errortext">Please enter your job title.</div>
+	<div class="o-forms">
+		<label for="prospect-form__job-title" class="o-forms__label">Job title</label>
+		<input name="title" data-trackable="job-title" type="text" id="prospect-form__job-title" placeholder="Enter your job title" class="o-forms__text" required>
+		<div class="o-forms__errortext">Please enter your job title.</div>
 	</div>
-	<div class="prospect-form o-forms">
-		<label for="prospect-form__company-name" class="prospect-form__label">Company name</label>
-		<input name="company" data-trackable="company-name" type="text" id="prospect-form__company-name" placeholder="Enter your company name" class="prospect-form__text" required></input>
-		<div class="prospect-form__errortext">Please enter your company name.</div>
+	<div class="o-forms">
+		<label for="prospect-form__company-name" class="o-forms__label">Company name</label>
+		<input name="company" data-trackable="company-name" type="text" id="prospect-form__company-name" placeholder="Enter your company name" class="o-forms__text" required>
+		<div class="o-forms__errortext">Please enter your company name.</div>
 	</div>
-	<div class="prospect-form o-forms">
-		<label for="prospect-form__work-email" class="prospect-form__label">Work email address</label>
-		<input name="email" data-trackable="email-address" type="email" id="prospect-form__work-email" placeholder="Enter your work email address" class="prospect-form__text" required></input>
-		<div class="prospect-form__errortext">Please enter your work email address.</div>
+	{{#unless isUnmasking}}
+	<div class="o-forms">
+		<label for="prospect-form__work-email" class="o-forms__label">Work email address</label>
+		<input name="email" data-trackable="email-address" type="email" id="prospect-form__work-email" placeholder="Enter your work email address" class="o-forms__text" required>
+		<div class="o-forms__errortext">Please enter your work email address.</div>
 	</div>
-	<div class="prospect-form o-forms">
-		<label for="prospect-form__phone-number" class="prospect-form__label">Work phone number</label>
-		<small class="prospect-form__additional-info">5 to 15 characters (numbers only)</small>
-		<input name="phone" data-trackable="phone-number" type="text" id="prospect-form__phone-number" placeholder="Enter your phone number" class="prospect-form__text" required pattern="([0-9()+\- ])+" minlength="5" maxlength="15"></input>
-		<div class="prospect-form__errortext">Please enter a valid work phone number.</div>
+	{{/unless}}
+	<div class="o-forms">
+		<label for="prospect-form__phone-number" class="o-forms__label">{{#if isUnmasking}}Phone{{else}}Work phone{{/if}} number</label>
+		<small class="o-forms__additional-info">5 to 15 characters (numbers only)</small>
+		<input name="phone" data-trackable="phone-number" type="text" id="prospect-form__phone-number" placeholder="Enter your phone number" class="o-forms__text" required pattern="([0-9()+\- ])+" minlength="5" maxlength="15">
+		<div class="o-forms__errortext">Please enter a valid work phone number.</div>
 	</div>
+	{{#unless isUnmasking}}
 	{{> country }}
-	<fieldset class="prospect-form o-forms">
-		<legend class="prospect-form__label">Terms and conditions</legend>
-		<input data-trackable="terms" type="checkbox" class="prospect-form__checkbox" id="prospect-form__terms" name="Third_Party_Opt_In__c" checked></input>
-		<label for="prospect-form__terms" class="prospect-form__label"><p>By submitting this form, you indicate your consent to also being contacted by Financial Times by email, post, or phone about our other products, services or special offers unless you untick this box.
+	{{/unless}}
+	<fieldset class="o-forms">
+		<legend class="o-forms__label">Terms and conditions</legend>
+		<div class="o-forms__group">
+			<input data-trackable="terms" type="checkbox" class="o-forms__checkbox" id="prospect-form__terms" name="Third_Party_Opt_In__c" checked>
+			<label for="prospect-form__terms" class="o-forms__label">By submitting this form, you indicate your consent to also being contacted by Financial Times by email, post, or phone about our other products, services or special offers unless you untick this box.</label>
+		</div>
 	</fieldset>
-	<button class="prospect-form__submit" data-trackable="submit" type="submit">Submit enquiry</button>
+	<div class="o-forms">
+		{{#unless isUnmasking}}
+		<button class="prospect-form__submit" data-trackable="submit" type="submit">Submit enquiry</button>
+		{{else}}
+		<button class="prospect-form__submit" data-trackable="submit" type="submit">Request a call back</button>
+		<p class="prospect-form-explanation">We'll usually call you within 24 hours</p>
+		<div class="o-forms-section">
+			<div class="o-forms-section__message prospect-form-section__message">
+				<p>Or speak to a product specialist immediately:</p>
+				<table class="prospect-form-table">
+					<tr>
+						<th class="prospect-form-table__header">UK</th>
+						<td class="prospect-form-table__data"><a href="tel:+442078734001">+44 20 7873 4001</a></td>
+					</tr>
+					<tr>
+						<th class="prospect-form-table__header">Americas <span class="prospect-form-table__header--aside">(toll free)</span></th>
+						<td class="prospect-form-table__data"><a href="tel:+18778433399">+1 877 843 3399</a></td>
+					</tr>
+					<tr>
+						<th class="prospect-form-table__header">Asia</th>
+						<td class="prospect-form-table__data"><a href="tel:+6329825780">+632 982 5780</a></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+		{{/unless}}
+	</div>
 </form>
 <div class="prospect-form__overlay">
 	<div class="prospect-form__spinner"></div>

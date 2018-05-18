@@ -41,6 +41,49 @@ describe('Form', () => {
 				});
 		});
 
+		it('should customise form for factiva', (done) => {
+			request(app)
+				.get('/form?marketingName=factiva')
+				.expect(200)
+				.end((err, res) => {
+					expect(res.headers['cache-control']).to.equal('max-age=0, no-cache, must-revalidate');
+					expect(res.headers['surrogate-control']).to.equal('max-age=3600, stale-while-revalidate=60, stale-if-error=86400');
+					expect(res.text).to.contain('Contact us for FT Group Subscription options');
+					expect(res.text).to.contain('<form method="POST"');
+					expect(res.text).to.contain('First name');
+					expect(res.text).to.contain('Last name');
+					expect(res.text).to.contain('Job title');
+					expect(res.text).to.contain('Company name');
+					expect(res.text).to.contain('Work email address');
+					expect(res.text).to.contain('Work phone number');
+					expect(res.text).to.contain('Terms and conditions');
+					expect(res.text).to.contain('type="submit"');
+					done();
+			});
+		});
+
+		it('should customise form for unmasking theme', (done) => {
+			request(app)
+				.get('/form?theme=unmasking')
+				.expect(200)
+				.end((err, res) => {
+					expect(res.headers['cache-control']).to.equal('max-age=0, no-cache, must-revalidate');
+					expect(res.headers['surrogate-control']).to.equal('max-age=3600, stale-while-revalidate=60, stale-if-error=86400');
+					expect(res.text).to.contain('<form method="POST"');
+					expect(res.text).to.contain('First name');
+					expect(res.text).to.contain('Last name');
+					expect(res.text).to.contain('Job title');
+					expect(res.text).to.contain('Company name');
+					expect(res.text).to.not.contain('Work email address');
+					expect(res.text).to.not.contain('Work phone number');
+					expect(res.text).to.contain('Phone number');
+					expect(res.text).to.contain('Terms and conditions');
+					expect(res.text).to.contain('type="submit"');
+					expect(res.text).to.contain('<div class="o-forms-section">');
+					done();
+			});
+		});
+
 	});
 
 	describe('POST /form', () => {
