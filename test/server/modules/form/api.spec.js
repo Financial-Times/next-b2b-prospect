@@ -10,6 +10,7 @@ import app, { ready } from '../../../../server/app';
 
 import raven from '@financial-times/n-raven';
 import Marketo from '../../../../server/modules/marketo/service';
+import Profile from '../../../../server/modules/profile/service';
 import * as errors from '../../../../server/modules/marketo/constants';
 import Cache from '../../../../server/modules/encoding/service';
 import ContentAccess from '../../../../server/modules/content/service';
@@ -93,6 +94,7 @@ describe('Form', () => {
 		const mockMarketoResponse = { id: 'test' };
 		let sandbox;
 		let marketoStub;
+		let profileStub;
 		let accessStub;
 		let cacheEncodeStub;
 		let ravenStub;
@@ -101,6 +103,7 @@ describe('Form', () => {
 		beforeEach(() => {
 			sandbox = sinon.sandbox.create();
 			marketoStub = sandbox.stub(Marketo, 'createOrUpdate').returns(Promise.resolve(mockMarketoResponse));
+			profileStub = sandbox.stub(Profile, 'save').resolves();
 			accessStub = sandbox.stub(ContentAccess, 'createAccessToken').returns(Promise.resolve({ accessToken: mockAccessToken }));
 			cacheEncodeStub = sandbox.stub(Cache, 'encode').returns(mockCacheToken);
 			ravenStub = sandbox.stub(raven, 'captureError');
@@ -134,6 +137,21 @@ describe('Form', () => {
 
 					expect(marketoStub.calledOnce).to.equal(true);
 					expect(marketoStub.calledWith(testPayload)).to.equal(true);
+
+					expectConfirmationPage(res);
+					done();
+				});
+		});
+
+		it('should call Profile if marketingName is unmasking', (done) => {
+			request(app)
+				.post('/form?marketingName=unmasking')
+				.set('Content-Type', 'application/x-www-form-urlencoded')
+				.send(testPayload)
+				.expect(200)
+				.end((err, res) => {
+
+					expect(profileStub.calledOnce).to.equal(true);
 
 					expectConfirmationPage(res);
 					done();

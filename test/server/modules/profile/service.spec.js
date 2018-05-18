@@ -2,7 +2,7 @@ import sinon from 'sinon';
 import { expect } from 'chai';
 import service from '../../../../server/modules/profile/service';
 
-describe.only('Profile Service', () => {
+describe('Profile Service', () => {
     describe('save', () => {
         const sandbox = sinon.sandbox.create();
 

@@ -50,10 +50,9 @@ export default {
 						lastName: req.body.lastName,
 						phoneNumber: req.body.phone
 					});
-
-					const marketoResponse = await Marketo.createOrUpdate(req.body);
-					id = marketoResponse.id;
 				}
+				const marketoResponse = await Marketo.createOrUpdate(req.body);
+				id = marketoResponse.id;
 			}
 
 			if (res.locals.contentUuid){
