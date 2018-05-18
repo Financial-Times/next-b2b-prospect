@@ -43,7 +43,7 @@
 	</div>
 	<div class="o-forms">
 		<label for="prospect-form__company-name" class="o-forms__label">Company name</label>
-		<input name="company" data-trackable="company-name" type="text" id="prospect-formo__company-name" placeholder="Enter your company name" class="o-forms__text" required>
+		<input name="company" data-trackable="company-name" type="text" id="prospect-form__company-name" placeholder="Enter your company name" class="o-forms__text" required>
 		<div class="o-forms__errortext">Please enter your company name.</div>
 	</div>
 	{{#unless isUnmasking}}
@@ -69,7 +69,7 @@
 			<label for="prospect-form__terms" class="o-forms__label">By submitting this form, you indicate your consent to also being contacted by Financial Times by email, post, or phone about our other products, services or special offers unless you untick this box.</label>
 		</div>
 	</fieldset>
-	<fieldset class="o-forms">
+	<div class="o-forms">
 		{{#unless isUnmasking}}
 		<button class="prospect-form__submit" data-trackable="submit" type="submit">Submit enquiry</button>
 		{{else}}
@@ -95,8 +95,7 @@
 			</div>
 		</div>
 		{{/unless}}
-	</fieldset>
-
+	</div>
 </form>
 <div class="prospect-form__overlay">
 	<div class="prospect-form__spinner"></div>
