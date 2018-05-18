@@ -54,11 +54,7 @@
 	</div>
 	{{/unless}}
 	<div class="o-forms">
-		{{#if isUnmasking}}
-		<label for="prospect-form__phone-number" class="o-forms__label">Phone number</label>
-		{{else}}
-		<label for="prospect-form__phone-number" class="o-forms__label">Work phone number</label>
-		{{/if}}
+		<label for="prospect-form__phone-number" class="o-forms__label">{{#if isUnmasking}}Phone{{else}}Work phone{{/if}} number</label>
 		<small class="o-forms__additional-info">5 to 15 characters (numbers only)</small>
 		<input name="phone" data-trackable="phone-number" type="text" id="prospect-form__phone-number" placeholder="Enter your phone number" class="o-forms__text" required pattern="([0-9()+\- ])+" minlength="5" maxlength="15">
 		<div class="o-forms__errortext">Please enter a valid work phone number.</div>
@@ -78,7 +74,7 @@
 		<button class="prospect-form__submit" data-trackable="submit" type="submit">Submit enquiry</button>
 		{{else}}
 		<button class="prospect-form__submit" data-trackable="submit" type="submit">Request a call back</button>
-		<p class="prospect-form-explination">We'll usually call you within 24 hours</p>
+		<p class="prospect-form-explanation">We'll usually call you within 24 hours</p>
 		<div class="o-forms-section">
 			<div class="o-forms-section__message prospect-form-section__message">
 				<p>Or speak to a product specialist immediately:</p>
