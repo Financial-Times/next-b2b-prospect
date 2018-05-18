@@ -64,7 +64,7 @@ describe('Form', () => {
 
 		it('should customise form for unmasking theme', (done) => {
 			request(app)
-				.get('/form?theme=unmasking')
+				.get('/form?marketingName=unmasking')
 				.expect(200)
 				.end((err, res) => {
 					expect(res.headers['cache-control']).to.equal('max-age=0, no-cache, must-revalidate');

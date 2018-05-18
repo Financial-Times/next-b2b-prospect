@@ -6,6 +6,7 @@ import Encoder from '../encoding/service';
 import Content from '../content/service';
 import ES from '../es/service';
 import Marketo from '../marketo/service';
+import Profile from '../profile/service';
 import * as errors from '../marketo/constants';
 
 import { SUBMISSION_COOKIE, ERROR_COOKIE } from './constants';
@@ -28,7 +29,7 @@ export default {
 			layout: 'vanilla',
 			campaignId: res.locals.campaignId,
 			marketingName: res.locals.marketingName,
-			isUnmasking: res.locals.theme === 'unmasking',
+			isUnmasking: res.locals.marketingName === 'unmasking',
 			error
 		});
 
@@ -36,9 +37,24 @@ export default {
 
 	submit: async (req, res, next) => {
 		let shouldRedirect;
+		let id;
 
 		try {
-			const { id } = await (req.query.pa11y ? Promise.resolve({ id: 'pa11y' }) : Marketo.createOrUpdate(req.body));
+			if (req.query.pa11y) {
+				id = 'pally';
+			} else {
+				// Send off a save request, we don't care if it makes it
+				if (res.locals.marketingName === 'unmasking') {
+					Profile.save(res.locals.sessionToken, {
+						firstName: req.body.firstName,
+						lastName: req.body.lastName,
+						phoneNumber: req.body.phone
+					});
+
+					const marketoResponse = await Marketo.createOrUpdate(req.body);
+					id = marketoResponse.id;
+				}
+			}
 
 			if (res.locals.contentUuid){
 				shouldRedirect = true;

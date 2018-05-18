@@ -19,7 +19,7 @@ export default {
 		res.locals.marketingName = req.query.marketingName && escape(req.query.marketingName) || FALLBACK_MARKETING_NAME;
 		res.locals.campaignId = req.query.cpccampaign && escape(req.query.cpccampaign) || '';
 		res.locals.contentUuid = req.query['ft-content-uuid'] && escape(req.query['ft-content-uuid']) || '';
-		res.locals.theme = req.query.theme  && escape(req.query.theme) || 'default';
+		res.locals.sessionToken = req.cookies['FTSession_s'] || '';
 		return next();
 	},
 
