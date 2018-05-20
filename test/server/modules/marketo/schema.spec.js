@@ -3,7 +3,7 @@ import { expect } from 'chai';
 
 import { SCHEMA } from '../../../../server/modules/marketo/constants';
 
-const validPayload = {
+const basePayload = {
 	firstName: 'first',
 	lastName: 'last',
 	title: 'mr',
@@ -13,7 +13,6 @@ const validPayload = {
 	country: 'GBR',
 	numberOfEmployees: 5,
 	rating: '5',
-	Third_Party_Opt_In__c: true,
 	leadSource: '',
 	Industry_Sector__c: '',
 	Lead_Type__c: '',
@@ -22,12 +21,54 @@ const validPayload = {
 	Comments: ''
 };
 
-describe('Marketo Service Payload Schema', () => {
+const marketingPayload = {
+	Third_Party_Opt_In__c: true
+};
 
-	it('Pass valid payload, and sets safe defaults', () => {
-		const { error, value } = Joi.validate(validPayload, SCHEMA, { abortEarly: false });
+const consentPayload = {
+	Consent_category__channelOne: true,
+	Consent_category__channelTwo: false
+};
+
+describe('Marketo Service Payload Schema', () => {
+	let legacyPayload;
+	let validPayload;
+
+	beforeEach(() => {
+		// TODO: GDPR cleanup
+		legacyPayload = Object.assign(
+			marketingPayload,
+			basePayload
+		);
+		
+		validPayload = Object.assign(
+			consentPayload,
+			basePayload
+		);
+	});
+
+	it('Passes valid payload, and sets safe defaults', () => {
+		const { error, value } = Joi.validate(validPayload, SCHEMA, {
+			abortEarly: false
+		});
 		expect(value.leadSource).to.equal('FT.com');
 		expect(error).to.equal(null);
 	});
 
+	it('Validates consent payload', () => {
+		validPayload.Consent_category__channelOne = 'invalid';
+		const { error, value } = Joi.validate(validPayload, SCHEMA, {
+			abortEarly: false
+		});
+		expect(error).to.have.property('name', 'ValidationError');
+	});
+
+	// TODO: GDPR cleanup
+	it('Passes valid payload, and sets safe defaults (legacy marketing consent)', () => {
+		const { error, value } = Joi.validate(legacyPayload, SCHEMA, {
+			abortEarly: false
+		});
+		expect(value.leadSource).to.equal('FT.com');
+		expect(error).to.equal(null);
+	});
 });

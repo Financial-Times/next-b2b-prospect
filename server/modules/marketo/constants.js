@@ -21,7 +21,6 @@ export const SCHEMA = Joi.object()
 		country: Joi.string().required(),
 		numberOfEmployees: Joi.number().default('0'),
 		rating: Joi.string().required(),
-		Third_Party_Opt_In__c: Joi.bool().optional(),
 		leadSource: Joi.string()
 			.empty('')
 			.default('FT.com'),
@@ -42,7 +41,9 @@ export const SCHEMA = Joi.object()
 			.default(''),
 		Job_Function__c: Joi.string()
 			.empty('')
-			.default('')
+			.default(''),
+		// TODO: GDPR cleanup
+		Third_Party_Opt_In__c: Joi.bool().optional()
 	})
 	.rename('jobTitle', 'title', { ignoreUndefined: true })
 	.pattern(/Consent_\w*__\w*/, Joi.boolean());
