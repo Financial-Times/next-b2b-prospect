@@ -20,7 +20,8 @@ export default {
             return res.status(500).json({
                 error: 'MarketoError',
                 type: error.type,
-                message: error.message
+                message: error.message,
+                reason: error.reason
             });
         }
     }
