@@ -46,4 +46,4 @@ export const SCHEMA = Joi.object()
 		Third_Party_Opt_In__c: Joi.bool().optional()
 	})
 	.rename('jobTitle', 'title', { ignoreUndefined: true })
-	.pattern(/Consent_\w*__\w*/, Joi.boolean());
+	.pattern(/Consent_\w*_\w*/, Joi.boolean());

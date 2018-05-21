@@ -26,8 +26,8 @@ const marketingPayload = {
 };
 
 const consentPayload = {
-	Consent_category__channelOne: true,
-	Consent_category__channelTwo: false
+	Consent_category_channelOne: true,
+	Consent_category_channelTwo: false
 };
 
 describe('Marketo Service Payload Schema', () => {
@@ -56,7 +56,7 @@ describe('Marketo Service Payload Schema', () => {
 	});
 
 	it('Validates consent payload', () => {
-		validPayload.Consent_category__channelOne = 'invalid';
+		validPayload.Consent_category_channelOne = 'invalid';
 		const { error, value } = Joi.validate(validPayload, SCHEMA, {
 			abortEarly: false
 		});
