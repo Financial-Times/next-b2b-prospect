@@ -29,15 +29,15 @@
   },
   "devDependencies": {
     "@financial-times/fastly-tools": "^1.7.1",
-    "@financial-times/n-gage": "^1.19.14",
+    "@financial-times/n-gage": "^2.0.2",
     "@financial-times/n-heroku-tools": "^7.2.0",
     "bower": "^1.8.4",
     "chai": "^4.1.2",
-    "mocha": "^4.0.1",
+    "mocha": "^5.2.0",
     "nodemon": "^1.17.4",
-    "pa11y-ci": "^1.3.0",
-    "proxyquire": "^1.8.0",
-    "sinon": "^4.5.0",
+    "pa11y-ci": "^2.1.1",
+    "proxyquire": "^2.0.1",
+    "sinon": "^5.0.7",
     "supertest": "^3.1.0"
   }
 }
