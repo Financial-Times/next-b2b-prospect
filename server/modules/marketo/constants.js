@@ -43,7 +43,7 @@ export const SCHEMA = Joi.object()
 			.empty('')
 			.default(''),
 		// TODO: GDPR cleanup
-		Third_Party_Opt_In__c: Joi.bool().optional(),
+		Third_Party_Opt_In__c: Joi.bool().optional()
 	})
 	.rename('jobTitle', 'title', { ignoreUndefined: true })
 	.pattern(/Consent_\w*_\w*/, Joi.boolean());
