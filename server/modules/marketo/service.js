@@ -12,7 +12,7 @@ if (!endpoint || !identity || !clientId || !clientSecret){
 }
 const marketo = new Marketo({ endpoint, identity, clientId, clientSecret });
 
-const parseResult = ({ result = [] } = {}, allowUpdates = false) => {
+const parseResult = ({ result = [] } = {}) => {
 
 	if (result.length <= 0) {
 		const error = new Error('No results returned');
@@ -33,7 +33,7 @@ const parseResult = ({ result = [] } = {}, allowUpdates = false) => {
 		throw error;
 	}
 
-	if ((!allowUpdates && res.status !== 'created') || (allowUpdates && res.status !== 'created' && res.status !== 'updated')) {
+	if (res.status !== 'created' && res.status !== 'updated') {
 		const error = new Error('Marketo errored');
 		error.type = constants.UNEXPECTED_RESULT_ERROR;
 		error.reason = res.reasons;
@@ -49,10 +49,9 @@ export default {
 		return Joi.validate(payload, constants.SCHEMA, { abortEarly: false });
 	},
 
-	createOrUpdate: (payload, { allowUpdates } = {}) => {
-		const action = allowUpdates ? 'createOrUpdate' : 'createOnly';
-		return marketo.lead.createOrUpdate([ payload ], { action: action, lookupField: 'email' })
-			.then(res => parseResult(res, allowUpdates));
+	createOrUpdate: (payload) => {
+		return marketo.lead.createOrUpdate([ payload ], { lookupField: 'email' })
+			.then(parseResult);
 	}
 
 

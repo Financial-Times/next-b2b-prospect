@@ -12,11 +12,11 @@ import Marketo from '../../../../server/modules/marketo/service';
 import raven from '@financial-times/n-raven';
 
 describe('API Endpoints', () => {
-    
+
     before(() => ready);
 
     describe('Marketo', () => {
-        
+
         let sandbox;
         let marketoStub;
         let ravenStub;
@@ -48,7 +48,7 @@ describe('API Endpoints', () => {
         };
 
         beforeEach(() => {
-            sandbox = sinon.sandbox.create();
+            sandbox = sinon.createSandbox();
             marketoStub = sandbox.stub(Marketo, 'createOrUpdate').resolves(mockMarketoResponse);
             ravenStub = sandbox.stub(raven, 'captureError');
         });
@@ -116,7 +116,7 @@ describe('API Endpoints', () => {
         context('when a marketo error happens', () => {
 
             beforeEach(() => {
-                Marketo.createOrUpdate.rejects({});                
+                Marketo.createOrUpdate.rejects({});
             });
 
             it('should return a 500 status and error details', (done) => {

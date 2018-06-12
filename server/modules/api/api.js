@@ -9,7 +9,7 @@ export default {
 	marketo: async (req, res, next) => {
 
 		try {
-			const marketoResponse = await Marketo.createOrUpdate(res.locals.payload, { allowUpdates: req.query.allowUpdates === 'true' } );
+			const marketoResponse = await Marketo.createOrUpdate(res.locals.payload);
 			return res.status(200).json({
 				details: Object.assign(res.locals.payload, marketoResponse)
 			});

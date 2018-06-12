@@ -91,7 +91,8 @@ describe('Form', () => {
 
 		const mockAccessToken = 'heyhoaccessforyo';
 		const mockCacheToken = 'gottacachethemall';
-		const mockMarketoResponse = { id: 'test' };
+		const mockMarketoCreatedResponse = { id: 'test', status: 'created' };
+		const mockMarketoUpdatedResponse = { id: 'test', status: 'updated' };
 		let sandbox;
 		let marketoStub;
 		let profileStub;
@@ -101,8 +102,8 @@ describe('Form', () => {
 		let testPayload;
 
 		beforeEach(() => {
-			sandbox = sinon.sandbox.create();
-			marketoStub = sandbox.stub(Marketo, 'createOrUpdate').returns(Promise.resolve(mockMarketoResponse));
+			sandbox = sinon.createSandbox();
+			marketoStub = sandbox.stub(Marketo, 'createOrUpdate').returns(Promise.resolve(mockMarketoCreatedResponse));
 			profileStub = sandbox.stub(Profile, 'save').resolves();
 			accessStub = sandbox.stub(ContentAccess, 'createAccessToken').returns(Promise.resolve({ accessToken: mockAccessToken }));
 			cacheEncodeStub = sandbox.stub(Cache, 'encode').returns(mockCacheToken);
@@ -188,7 +189,7 @@ describe('Form', () => {
 					expect(res.headers['set-cookie'][0]).to.match(new RegExp(`PROSPECT_SUBMISSION=${mockCacheToken}`));
 					expect(cacheEncodeStub.calledOnce).to.equal(true);
 					expect(cacheEncodeStub.calledWith({
-						leadId: mockMarketoResponse.id,
+						leadId: mockMarketoCreatedResponse.id,
 						marketingName: 'foo',
 						contentUuid: mockUuid,
 						accessToken: mockAccessToken
@@ -235,9 +236,7 @@ describe('Form', () => {
 		context('when user already exists', () => {
 
 			beforeEach(() => {
-				marketoStub.returns(Promise.reject({
-					type: errors.LEAD_ALREADY_EXISTS_ERROR
-				}));
+				marketoStub.resolves(mockMarketoUpdatedResponse);
 			});
 
 			it('should display a page indicating the user already exists', (done) => {
@@ -293,7 +292,7 @@ describe('Form', () => {
 		let esStub;
 
 		beforeEach(() => {
-			sandbox = sinon.sandbox.create();
+			sandbox = sinon.createSandbox();
 			cacheDecodeStub = sandbox.stub(Cache, 'decode').returns(mockCacheItem);
 			esStub = sandbox.stub(ES, 'get').returns(Promise.resolve(mockContentItem));
 		});

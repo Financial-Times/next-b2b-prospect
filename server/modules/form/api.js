@@ -38,6 +38,7 @@ export default {
 	submit: async (req, res, next) => {
 		let shouldRedirect;
 		let id;
+		let marketoResponse = {};
 
 		try {
 			if (req.query.pa11y) {
@@ -51,8 +52,16 @@ export default {
 						phoneNumber: req.body.phone
 					});
 				}
-				const marketoResponse = await Marketo.createOrUpdate(req.body);
+				marketoResponse = await Marketo.createOrUpdate(req.body);
 				id = marketoResponse.id;
+			}
+
+			if (marketoResponse.status === 'updated') {
+				metrics.count('b2b-prospect.submission.existing', 1);
+				return res.render('exists', {
+					title: 'Signup',
+					layout: 'vanilla'
+				});
 			}
 
 			if (res.locals.contentUuid){
@@ -89,18 +98,8 @@ export default {
 		} catch (err) {
 			logger.error('Error submitting to Marketo', err);
 			raven.captureError(err);
-			let template = 'error';
-			switch (err.type) {
-				case errors.LEAD_ALREADY_EXISTS_ERROR:
-					template = 'exists';
-					metrics.count('b2b-prospect.submission.existing', 1);
-					break;
-				default:
-					metrics.count('b2b-prospect.submission.error', 1);
-					break;
-			}
-
-			return res.render(template, {
+			metrics.count('b2b-prospect.submission.error', 1);
+			return res.render('error', {
 				title: 'Signup',
 				layout: 'vanilla'
 			});

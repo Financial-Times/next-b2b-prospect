@@ -5,7 +5,7 @@ import Encoder from '../../../../server/modules/encoding/service';
 
 describe('Encoder Service', () => {
 
-	const sandbox = sinon.sandbox.create();
+	const sandbox = sinon.createSandbox();
 	let bufferStub;
 	let toStringStub;
 

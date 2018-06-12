@@ -6,7 +6,7 @@ import AccessService from '../../../../server/modules/content/service'
 
 describe('Content Access Service', () => {
 
-	const sandbox = sinon.sandbox.create();
+	const sandbox = sinon.createSandbox();
 	const mockProcessVar = 'test';
 	const mockResponse = '{}';
 	let fetchStub;

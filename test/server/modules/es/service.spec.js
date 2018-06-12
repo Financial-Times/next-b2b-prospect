@@ -6,7 +6,7 @@ import service from '../../../../server/modules/es/service'
 
 describe('ES Service', () => {
 
-	const sandbox = sinon.sandbox.create();
+	const sandbox = sinon.createSandbox();
 	let esStub;
 
 	beforeEach(() => {
