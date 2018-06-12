@@ -10,7 +10,7 @@ describe('Marketo Service', () => {
 
 	describe('createOrUpdate', () => {
 
-		const sandbox = sinon.sandbox.create();
+		const sandbox = sinon.createSandbox();
 		const mockResponse = {
 			result: [
 				{
@@ -41,7 +41,7 @@ describe('Marketo Service', () => {
 					// First argument should be an array of the payload
 					expect(args[0]).to.deep.equal([param]);
 					// Second
-					expect(args[1]).to.deep.equal({ action: 'createOnly', lookupField: 'email' });
+					expect(args[1]).to.deep.equal({ lookupField: 'email' });
 				});
 		});
 

@@ -4,7 +4,7 @@ import service from '../../../../server/modules/profile/service';
 
 describe('Profile Service', () => {
     describe('save', () => {
-        const sandbox = sinon.sandbox.create();
+        const sandbox = sinon.createSandbox();
 
 		beforeEach(() => {
 			sandbox.stub(global, 'fetch').resolves();
@@ -13,7 +13,7 @@ describe('Profile Service', () => {
 		afterEach(() => {
 			sandbox.restore();
         });
-        
+
         it('should reject before sending a response if no session', done => {
             service.save('', {})
                 .catch(() => {

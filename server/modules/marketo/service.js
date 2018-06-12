@@ -33,8 +33,8 @@ const parseResult = ({ result = [] } = {}) => {
 		throw error;
 	}
 
-	if (res.status !== 'created') {
-		const error = new Error('Lead was not created');
+	if (res.status !== 'created' && res.status !== 'updated') {
+		const error = new Error('Marketo errored');
 		error.type = constants.UNEXPECTED_RESULT_ERROR;
 		error.reason = res.reasons;
 		throw error;
@@ -50,7 +50,7 @@ export default {
 	},
 
 	createOrUpdate: (payload) => {
-		return marketo.lead.createOrUpdate([ payload ], { action: 'createOnly', lookupField: 'email' })
+		return marketo.lead.createOrUpdate([ payload ], { lookupField: 'email' })
 			.then(parseResult);
 	}
 
