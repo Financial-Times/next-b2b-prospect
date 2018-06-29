@@ -49,7 +49,7 @@
 			{{#> n-conversion-forms/partials/fieldset name="accept-terms" legend="Terms and conditions" }}
 			{{#*inline "fields"}}
 
-			{{> n-conversion-forms/partials/accept-terms isChecked=true customTerms="By submitting this form, you indicate your consent to also being contacted by Financial Times by email, post, or phone about our other products, services or special offers unless you untick this box." }}
+			{{> n-conversion-forms/partials/accept-terms isChecked=true isB2b=true }}
 
 			{{/inline}}
 			{{/ n-conversion-forms/partials/fieldset }}
@@ -63,7 +63,7 @@
 			{{> n-conversion-forms/partials/submit label="Request a call back" description="We'll usually call you within 24 hours" isCentered=true }}
 			{{#> n-conversion-forms/partials/section }}
 			{{#*inline "message"}}
-			<p>Or speak to a product specialist immediately:</p>
+			<p class="prospect-form-message">Or speak to a product specialist immediately:</p>
 			<table class="prospect-form-table">
 				<tr>
 					<th class="prospect-form-table__header">UK</th>
