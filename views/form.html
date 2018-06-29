@@ -1,5 +1,5 @@
 <div class="o-grid-container">
-	<div class="o-grid-row"{{#if isUnmasking}} data-o-grid-colspan="12 S8 center"{{/if}}>
+	<div class="o-grid-row" data-o-grid-colspan="{{#if isUnmasking}}12 S10 M8 L6 XL4 center{{else}}12 S7 M6 L5 XL4{{/if}}">
 		{{#ifEquals marketingName 'factiva'}}
 		<h1 class="prospect-form__heading">Contact us for FT Group Subscription options</h1>
 		{{/ifEquals}}
@@ -11,7 +11,7 @@
 			you about a trial for your team
 		</p>
 		{{/if}}
-		<form method="POST" data-trackable-page="form" data-trackable="b2b-prospect-form" data-o-component="o-forms">
+		<form class="ncf" method="POST" data-trackable-page="form" data-trackable="b2b-prospect-form" data-o-component="o-forms">
 		
 			<input type="hidden" name="numberOfEmployees" value="0" />
 			<input type="hidden" name="rating" value="{{ marketingName }}" />
@@ -27,77 +27,61 @@
 				<p>{{error}}</p>
 			</div>
 			{{/if}}
-		
-			<div class="o-forms">
-				<label for="prospect-form__first-name" class="o-forms__label">First name</label>
-				<input name="firstName" data-trackable="first-name" type="text" id="prospect-form__first-name" placeholder="Enter your first name" class="o-forms__text" required>
-				<div class="o-forms__errortext">Please enter your first name.</div>
-			</div>
-			<div class="o-forms">
-				<label for="prospect-form__last-name" class="o-forms__label">Last name</label>
-				<input name="lastName" data-trackable="last-name" type="text" id="prospect-form__last-name" placeholder="Enter your last name" class="o-forms__text" required>
-				<div class="o-forms__errortext">Please enter your last name.</div>
-			</div>
-			<div class="o-forms">
-				<label for="prospect-form__job-title" class="o-forms__label">Job title</label>
-				<input name="title" data-trackable="job-title" type="text" id="prospect-form__job-title" placeholder="Enter your job title" class="o-forms__text" required>
-				<div class="o-forms__errortext">Please enter your job title.</div>
-			</div>
-			<div class="o-forms">
-				<label for="prospect-form__company-name" class="o-forms__label">Company name</label>
-				<input name="company" data-trackable="company-name" type="text" id="prospect-form__company-name" placeholder="Enter your company name" class="o-forms__text" required>
-				<div class="o-forms__errortext">Please enter your company name.</div>
-			</div>
+
+			{{> n-conversion-forms/partials/firstname }}
+
+			{{> n-conversion-forms/partials/lastname }}
+
+			{{> n-conversion-forms/partials/job-title }}
+
+			{{> n-conversion-forms/partials/company-name }}
+
 			{{#unless isUnmasking}}
-			<div class="o-forms">
-				<label for="prospect-form__work-email" class="o-forms__label">Work email address</label>
-				<input name="email" data-trackable="email-address" type="email" id="prospect-form__work-email" placeholder="Enter your work email address" class="o-forms__text" required>
-				<div class="o-forms__errortext">Please enter your work email address.</div>
-			</div>
+			{{> n-conversion-forms/partials/email label="Work email address" }}
 			{{/unless}}
-			<div class="o-forms">
-				<label for="prospect-form__phone-number" class="o-forms__label">{{#if isUnmasking}}Phone{{else}}Work phone{{/if}} number</label>
-				<small class="o-forms__additional-info">5 to 15 characters (numbers only)</small>
-				<input name="phone" data-trackable="phone-number" type="text" id="prospect-form__phone-number" placeholder="Enter your phone number" class="o-forms__text" required pattern="([0-9()+\- ])+" minlength="5" maxlength="15">
-				<div class="o-forms__errortext">Please enter a valid work phone number.</div>
-			</div>
+			
+			{{> n-conversion-forms/partials/phone label="Work phone number" }}
+
 			{{#unless isUnmasking}}
-			{{> country }}
+			{{> n-conversion-forms/partials/country options=countries }}
 			{{/unless}}
-			<fieldset class="o-forms">
-				<legend class="o-forms__label">Terms and conditions</legend>
-				<div class="o-forms__group">
-					<input data-trackable="terms" type="checkbox" class="o-forms__checkbox" id="prospect-form__terms" name="Third_Party_Opt_In__c" checked>
-					<label for="prospect-form__terms" class="o-forms__label">By submitting this form, you indicate your consent to also being contacted by Financial Times by email, post, or phone about our other products, services or special offers unless you untick this box.</label>
-				</div>
-			</fieldset>
-			<div class="o-forms">
-				{{#unless isUnmasking}}
-				<button class="prospect-form__submit" data-trackable="submit" type="submit">Submit enquiry</button>
-				{{else}}
-				<button class="prospect-form__submit" data-trackable="submit" type="submit">Request a call back</button>
-				<p class="prospect-form-explanation">We'll usually call you within 24 hours</p>
-				<div class="o-forms-section">
-					<div class="o-forms-section__message prospect-form-section__message">
-						<p>Or speak to a product specialist immediately:</p>
-						<table class="prospect-form-table">
-							<tr>
-								<th class="prospect-form-table__header">UK</th>
-								<td class="prospect-form-table__data"><a href="tel:+442078734001">+44 (0)20 7873 4001</a></td>
-							</tr>
-							<tr>
-								<th class="prospect-form-table__header">Americas <span class="prospect-form-table__header--aside">(toll free)</span></th>
-								<td class="prospect-form-table__data"><a href="tel:+18778433399">+1 877 843 3399</a></td>
-							</tr>
-							<tr>
-								<th class="prospect-form-table__header">Asia</th>
-								<td class="prospect-form-table__data"><a href="tel:+6329825780">+632 982 5780</a></td>
-							</tr>
-						</table>
-					</div>
-				</div>
-				{{/unless}}
-			</div>
+
+			{{#> n-conversion-forms/partials/fieldset name="accept-terms" legend="Terms and conditions" }}
+			{{#*inline "fields"}}
+
+			{{> n-conversion-forms/partials/accept-terms isChecked=true customTerms="By submitting this form, you indicate your consent to also being contacted by Financial Times by email, post, or phone about our other products, services or special offers unless you untick this box." }}
+
+			{{/inline}}
+			{{/ n-conversion-forms/partials/fieldset }}
+
+			{{#unless isUnmasking}}
+
+			{{> n-conversion-forms/partials/submit label="Submit enquiry" }}
+
+			{{else}}
+
+			{{> n-conversion-forms/partials/submit label="Request a call back" description="We'll usually call you within 24 hours" isCentered=true }}
+			{{#> n-conversion-forms/partials/section }}
+			{{#*inline "message"}}
+			<p>Or speak to a product specialist immediately:</p>
+			<table class="prospect-form-table">
+				<tr>
+					<th class="prospect-form-table__header">UK</th>
+					<td class="prospect-form-table__data"><a href="tel:+442078734001">+44 (0)20 7873 4001</a></td>
+				</tr>
+				<tr>
+					<th class="prospect-form-table__header">Americas <span class="prospect-form-table__header--aside">(toll free)</span></th>
+					<td class="prospect-form-table__data"><a href="tel:+18778433399">+1 877 843 3399</a></td>
+				</tr>
+				<tr>
+					<th class="prospect-form-table__header">Asia</th>
+					<td class="prospect-form-table__data"><a href="tel:+6329825780">+632 982 5780</a></td>
+				</tr>
+			</table>
+			{{/inline}}
+			{{/ n-conversion-forms/partials/section }}
+
+			{{/unless}}
 		</form>
 		<div class="prospect-form__overlay">
 			<div class="prospect-form__spinner"></div>

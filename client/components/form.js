@@ -30,7 +30,7 @@ export default {
   	var config = { subtree: true, attributes: true };
   	observer.observe(formEl, config);
 
-  	formEl.addEventListener("submit", () => {
+  	formEl.addEventListener('submit', () => {
   		overlay.classList.add('prospect-form__overlay--active');
   	});
 
