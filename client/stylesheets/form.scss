@@ -14,14 +14,19 @@
 		@include oTypographySans($scale: 1);
 	}
 
-	&-message {
-		@include oTypographySize($scale: 0);
-	}
-	
 	&-table {
 		@include oTypographySize($scale: 0);
 		width: 100%;
 		padding-bottom: 10px;
+
+		&__introduction {
+			margin-bottom: 40px;
+			text-align: center;
+		}
+
+		&__description {
+			@include oTypographySize($scale: 0);
+		}
 
 		&__header {
 			text-align: left;
