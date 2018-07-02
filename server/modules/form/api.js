@@ -7,7 +7,6 @@ import Content from '../content/service';
 import ES from '../es/service';
 import Marketo from '../marketo/service';
 import Profile from '../profile/service';
-import * as errors from '../marketo/constants';
 import { countries } from '../../config/data.json';
 
 import { SUBMISSION_COOKIE, ERROR_COOKIE } from './constants';
@@ -55,10 +54,12 @@ export default {
 					});
 				}
 
-				// Move the primaryTelephone field to the expeted phone feild for marketo
+				// Move the primaryTelephone and termsAcceptance field to expeted marketo fields
 				let marketoPayload = Object.assign({}, req.body);
 				marketoPayload.phone = marketoPayload.primaryTelephone;
+				marketoPayload.Third_Party_Opt_In__c = marketoPayload.termsAcceptance;
 				delete marketoPayload.primaryTelephone;
+				delete marketoPayload.termsAcceptance;
 
 				marketoResponse = await Marketo.createOrUpdate(marketoPayload);
 				id = marketoResponse.id;
