@@ -78,7 +78,7 @@ describe('Form', () => {
 					expect(res.text).to.contain('Work phone number');
 					expect(res.text).to.contain('Terms and conditions');
 					expect(res.text).to.contain('type="submit"');
-					expect(res.text).to.contain('<div class="o-forms-section">');
+					expect(res.text).to.contain('<div class="o-forms-section');
 					done();
 			});
 		});
