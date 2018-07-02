@@ -37,10 +37,10 @@
 			{{> n-conversion-forms/partials/company-name }}
 
 			{{#unless isUnmasking}}
-			{{> n-conversion-forms/partials/email label="Work email address" }}
+			{{> n-conversion-forms/partials/email isB2b=true }}
 			{{/unless}}
 			
-			{{> n-conversion-forms/partials/phone label="Work phone number" }}
+			{{> n-conversion-forms/partials/phone isB2b=true }}
 
 			{{#unless isUnmasking}}
 			{{> n-conversion-forms/partials/country options=countries }}
