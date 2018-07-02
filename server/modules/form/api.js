@@ -7,7 +7,7 @@ import Content from '../content/service';
 import ES from '../es/service';
 import Marketo from '../marketo/service';
 import Profile from '../profile/service';
-import * as errors from '../marketo/constants';
+import { countries } from '../../config/data.json';
 
 import { SUBMISSION_COOKIE, ERROR_COOKIE } from './constants';
 
@@ -30,6 +30,7 @@ export default {
 			campaignId: res.locals.campaignId,
 			marketingName: res.locals.marketingName,
 			isUnmasking: res.locals.marketingName === 'unmasking',
+			countries,
 			error
 		});
 
@@ -49,10 +50,18 @@ export default {
 					Profile.save(res.locals.sessionToken, {
 						firstName: req.body.firstName,
 						lastName: req.body.lastName,
-						phoneNumber: req.body.phone
+						primaryTelephone: req.body.primaryTelephone
 					});
 				}
-				marketoResponse = await Marketo.createOrUpdate(req.body);
+
+				// Move the primaryTelephone and termsAcceptance field to expeted marketo fields
+				let marketoPayload = Object.assign({}, req.body);
+				marketoPayload.phone = marketoPayload.primaryTelephone;
+				marketoPayload.Third_Party_Opt_In__c = marketoPayload.termsAcceptance;
+				delete marketoPayload.primaryTelephone;
+				delete marketoPayload.termsAcceptance;
+
+				marketoResponse = await Marketo.createOrUpdate(marketoPayload);
 				id = marketoResponse.id;
 			}
 

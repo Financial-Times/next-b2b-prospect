@@ -11,7 +11,6 @@ import app, { ready } from '../../../../server/app';
 import raven from '@financial-times/n-raven';
 import Marketo from '../../../../server/modules/marketo/service';
 import Profile from '../../../../server/modules/profile/service';
-import * as errors from '../../../../server/modules/marketo/constants';
 import Cache from '../../../../server/modules/encoding/service';
 import ContentAccess from '../../../../server/modules/content/service';
 import ES from '../../../../server/modules/es/service';
@@ -29,7 +28,7 @@ describe('Form', () => {
 				.end((err, res) => {
 					expect(res.headers['cache-control']).to.equal('max-age=0, no-cache, must-revalidate');
 					expect(res.headers['surrogate-control']).to.equal('max-age=3600, stale-while-revalidate=60, stale-if-error=86400');
-					expect(res.text).to.contain('<form method="POST"');
+					expect(res.text).to.contain('<form');
 					expect(res.text).to.contain('First name');
 					expect(res.text).to.contain('Last name');
 					expect(res.text).to.contain('Job title');
@@ -50,7 +49,7 @@ describe('Form', () => {
 					expect(res.headers['cache-control']).to.equal('max-age=0, no-cache, must-revalidate');
 					expect(res.headers['surrogate-control']).to.equal('max-age=3600, stale-while-revalidate=60, stale-if-error=86400');
 					expect(res.text).to.contain('Contact us for FT Group Subscription options');
-					expect(res.text).to.contain('<form method="POST"');
+					expect(res.text).to.contain('<form');
 					expect(res.text).to.contain('First name');
 					expect(res.text).to.contain('Last name');
 					expect(res.text).to.contain('Job title');
@@ -70,17 +69,16 @@ describe('Form', () => {
 				.end((err, res) => {
 					expect(res.headers['cache-control']).to.equal('max-age=0, no-cache, must-revalidate');
 					expect(res.headers['surrogate-control']).to.equal('max-age=3600, stale-while-revalidate=60, stale-if-error=86400');
-					expect(res.text).to.contain('<form method="POST"');
+					expect(res.text).to.contain('<form');
 					expect(res.text).to.contain('First name');
 					expect(res.text).to.contain('Last name');
 					expect(res.text).to.contain('Job title');
 					expect(res.text).to.contain('Company name');
 					expect(res.text).to.not.contain('Work email address');
-					expect(res.text).to.not.contain('Work phone number');
-					expect(res.text).to.contain('Phone number');
+					expect(res.text).to.contain('Work phone number');
 					expect(res.text).to.contain('Terms and conditions');
 					expect(res.text).to.contain('type="submit"');
-					expect(res.text).to.contain('<div class="o-forms-section">');
+					expect(res.text).to.contain('<div class="o-forms-section');
 					done();
 			});
 		});
@@ -137,7 +135,7 @@ describe('Form', () => {
 				.end((err, res) => {
 
 					expect(marketoStub.calledOnce).to.equal(true);
-					expect(marketoStub.calledWith(testPayload)).to.equal(true);
+					expect(marketoStub.calledWithMatch(testPayload)).to.equal(true);
 
 					expectConfirmationPage(res);
 					done();

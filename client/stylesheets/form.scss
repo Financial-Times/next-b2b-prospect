@@ -1,45 +1,32 @@
-@include oForms();
-
 .prospect-form {
 
 	&__title {
 		@include oTypographySans($scale: 2);
 		font-weight: bold;
-
-		@include oGridRespondTo(S) {
-			padding: 0 10px;
-		}
 	}
 
 	&__heading {
 		@include oTypographySans($scale: 2);
 		font-weight: normal;
-
-		@include oGridRespondTo(S) {
-			padding: 0 10px;
-		}
 	}
 
 	&__subheading {
 		@include oTypographySans($scale: 1);
-
-		@include oGridRespondTo(S) {
-			padding: 0 10px;
-		}
 	}
 
-	&-explanation {
-		text-align: center;
-		margin-top: 5px;
-	}
-
-	&-section__message {
-		@include oTypographySize($scale: 0);
-	}
-	
 	&-table {
+		@include oTypographySize($scale: 0);
 		width: 100%;
 		padding-bottom: 10px;
+
+		&__introduction {
+			margin-bottom: 40px;
+			text-align: center;
+		}
+
+		&__description {
+			@include oTypographySize($scale: 0);
+		}
 
 		&__header {
 			text-align: left;
@@ -48,12 +35,5 @@
 				font-weight: normal;
 			}
 		}
-	}
-
-	&__submit {
-		@include oButtons($size: big, $theme: primary);
-		max-width: $_o-forms-field-max-width;
-		width: 100%;
-		font-weight: bold;
 	}
 }
