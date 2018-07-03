@@ -2,22 +2,19 @@ const OForms = require('o-forms');
 import { sendMessage, dispatchTrackingEvent } from './utils';
 
 const overlay = document.querySelector('.prospect-form__overlay');
-const errorMessage = document.querySelector('.prospect-form__message');
 
 const notify = (form) => {
   sendMessage({
-    height: form.clientHeight + 5
+    height: form.clientHeight + 20
   });
 };
 
 export default {
 
 	init: (formEl) => {
-  	new OForms(formEl);
+		new OForms(formEl);
 
-  	if(errorMessage) {
-  		notify(formEl);
-  	}
+  	notify(formEl);
 
   	var observer = new MutationObserver(mutations => {
   		mutations.forEach(mutation => {
