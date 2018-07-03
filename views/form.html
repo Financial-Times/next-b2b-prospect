@@ -1,18 +1,19 @@
 <div class="o-grid-container">
 	<div class="o-grid-row" data-o-grid-colspan="12 S10 M8 L6 XL4 center">
-		{{#ifEquals marketingName 'factiva'}}
-		<h1 class="prospect-form__heading">Contact us for FT Group Subscription options</h1>
-		{{/ifEquals}}
-		{{#if isUnmasking}}
-		<h1 class="prospect-form__title">Keep your team informed</h1>
-		<h2 class="prospect-form__heading">And get 30 more days of free FT</h2>
-		<p class="prospect-form__subheading">
-			Fill in the form below and a product specialist will contact
-			you about a trial for your team
-		</p>
-		{{/if}}
 		<form class="ncf" method="POST" data-trackable-page="form" data-trackable="b2b-prospect-form" data-o-component="o-forms">
-		
+
+			{{#ifEquals marketingName 'factiva'}}
+			<h1 class="prospect-form__heading">Contact us for FT Group Subscription options</h1>
+			{{/ifEquals}}
+			{{#if isUnmasking}}
+			<h1 class="prospect-form__title">Keep your team informed</h1>
+			<h2 class="prospect-form__heading">And get 30 more days of free FT</h2>
+			<p class="prospect-form__subheading">
+				Fill in the form below and a product specialist will contact
+				you about a trial for your team
+			</p>
+			{{/if}}
+
 			<input type="hidden" name="numberOfEmployees" value="0" />
 			<input type="hidden" name="rating" value="{{ marketingName }}" />
 			<input type="hidden" name="leadSource" value="FT.com" />
