@@ -14,27 +14,27 @@ export default {
 	init: (formEl) => {
 		new OForms(formEl);
 
-  	notify(formEl);
+		notify(formEl);
 
-  	var observer = new MutationObserver(mutations => {
-  		mutations.forEach(mutation => {
-  			if(mutation.target.className.includes('error')) {
-  				notify(formEl);
-  			}
-  		});
-  	});
+		var observer = new MutationObserver(mutations => {
+			mutations.forEach(mutation => {
+				if(mutation.target.className.includes('error')) {
+					notify(formEl);
+				}
+			});
+		});
 
-  	var config = { subtree: true, attributes: true };
-  	observer.observe(formEl, config);
+		var config = { subtree: true, attributes: true };
+		observer.observe(formEl, config);
 
-  	formEl.addEventListener('submit', () => {
-  		overlay.classList.add('prospect-form__overlay--active');
-  	});
+		formEl.addEventListener('submit', () => {
+			overlay.classList.add('prospect-form__overlay--active');
+		});
 
-    dispatchTrackingEvent({
-      category: 'b2b-prospect',
-      action: 'landing'
-    });
+		dispatchTrackingEvent({
+			category: 'b2b-prospect',
+			action: 'landing'
+		});
 
   }
 
