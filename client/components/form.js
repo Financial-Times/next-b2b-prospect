@@ -5,7 +5,7 @@ const overlay = document.querySelector('.prospect-form__overlay');
 
 const notify = (form) => {
   sendMessage({
-    height: form.clientHeight + 20
+    height: form.clientHeight + 20 // Adding body padding to the height
   });
 };
 
