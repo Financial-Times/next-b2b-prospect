@@ -19,13 +19,13 @@
     "@financial-times/n-es-client": "^1.6.1",
     "@financial-times/n-mask-logger": "^2.1.0",
     "@financial-times/n-raven": "^3.0.3",
-    "@financial-times/n-ui": "^8.8.0",
+    "@financial-times/n-ui": "^8.22.1",
     "body-parser": "^1.18.3",
     "cookie-parser": "^1.4.3",
     "fetchres": "^1.7.2",
     "joi": "^13.3.0",
     "lodash": "^4.17.10",
-    "n-health": "^2.3.2",
+    "n-health": "^2.4.0",
     "node-marketo-rest": "^0.7.0"
   },
   "devDependencies": {
@@ -35,7 +35,6 @@
     "bower": "^1.8.4",
     "chai": "^4.1.2",
     "mocha": "^5.2.0",
-    "nodemon": "^1.17.4",
     "pa11y-ci": "^2.1.1",
     "proxyquire": "^2.0.1",
     "sinon": "^5.0.7",
