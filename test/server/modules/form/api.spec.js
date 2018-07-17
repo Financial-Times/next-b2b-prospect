@@ -83,6 +83,16 @@ describe('Form', () => {
 			});
 		});
 
+		it('should render consent fields if consent flag is on', done => {
+			request(app)
+				.get('/form?marketingName=factiva')
+				.set('FT-Flags', 'channelsBarrierConsent:on')
+				.end((err, res) => {
+					expect(res.text).to.contain('<div class="consent-form');
+					done();
+				});
+		});
+
 	});
 
 	describe('POST /form', () => {
@@ -270,6 +280,35 @@ describe('Form', () => {
 					});
 			});
 
+		});
+
+		it('should correctly map consent fields to Marketo fields', () => {
+			const payload = Object.assign({}, testPayload, {
+				formOfWordsId: 'test-fow-id',
+				formOfWordsScope: 'test-fow-scope',
+				consentSource: 'next-b2b-prospect',
+				'lbi-enhancement-byEmail': 'yes',
+				'lbi-enhancement-byPost': 'no'
+			});
+
+			const expectedPayload = Object.assign({}, testPayload, {
+				'Consent_enhancement_byEmail': true,
+				'Consent_enhancement_byPost': false
+			});
+
+			request(app)
+				.post('/form')
+				.set('Content-Type', 'application/x-www-form-urlencoded')
+				.set('FT-Flags', 'channelsBarrierConsent:on')
+				.send(payload)
+				.expect(200)
+				.end((err, res) => {
+					expect(marketoStub.calledOnce).to.equal(true);
+					expect(marketoStub.calledWithMatch(expectedPayload)).to.equal(true);
+
+					expectConfirmationPage(res);
+					done();
+				});
 		});
 
 	});
