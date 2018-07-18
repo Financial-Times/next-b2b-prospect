@@ -7,6 +7,7 @@ import sinon from 'sinon';
 import request from 'supertest';
 import { expect } from 'chai';
 import app, { ready } from '../../../../server/app';
+import nock from 'nock';
 
 import raven from '@financial-times/n-raven';
 import Marketo from '../../../../server/modules/marketo/service';
@@ -83,6 +84,45 @@ describe('Form', () => {
 			});
 		});
 
+		context('when the consent flag is on', () => {
+			it('should render consent fields if the form of words can be retrieved', done => {
+				nock(process.env.FOW_API_HOST)
+					.get('/api/v1/FTPINK/consentB2BProspect')
+					.reply(200, {
+						consents: [
+							{
+								category: 'enhancement',
+								channels: [
+									{ channel: 'byEmail' }
+								]
+							}
+						]
+					});
+
+				request(app)
+					.get('/form?marketingName=factiva')
+					.set('FT-Flags', 'channelsBarrierConsent:on')
+					.end((err, res) => {
+						expect(res.text).to.contain('<div class="consent-form');
+						done();
+					});
+			});
+
+			it('should render the legacy terms and conditions section if form of words cannot be retrieved', done => {
+				nock(process.env.FOW_API_HOST)
+					.get('/api/v1/FTPINK/consentB2BProspect')
+					.reply(404);
+
+				request(app)
+					.get('/form?marketingName=factiva')
+					.set('FT-Flags', 'channelsBarrierConsent:on')
+					.end((err, res) => {
+						expect(res.text).to.not.contain('<div class="consent-form');
+						expect(res.text).to.contain('<input type="checkbox" id="termsAcceptance');
+						done();
+					});
+			});
+		});
 	});
 
 	describe('POST /form', () => {
@@ -270,6 +310,35 @@ describe('Form', () => {
 					});
 			});
 
+		});
+
+		it('should correctly map consent fields to Marketo fields', () => {
+			const payload = Object.assign({}, testPayload, {
+				formOfWordsId: 'test-fow-id',
+				formOfWordsScope: 'test-fow-scope',
+				consentSource: 'next-b2b-prospect',
+				'lbi-enhancement-byEmail': 'yes',
+				'lbi-enhancement-byPost': 'no'
+			});
+
+			const expectedPayload = Object.assign({}, testPayload, {
+				'Consent_enhancement_byEmail': true,
+				'Consent_enhancement_byPost': false
+			});
+
+			request(app)
+				.post('/form')
+				.set('Content-Type', 'application/x-www-form-urlencoded')
+				.set('FT-Flags', 'channelsBarrierConsent:on')
+				.send(payload)
+				.expect(200)
+				.end((err, res) => {
+					expect(marketoStub.calledOnce).to.equal(true);
+					expect(marketoStub.calledWithMatch(expectedPayload)).to.equal(true);
+
+					expectConfirmationPage(res);
+					done();
+				});
 		});
 
 	});

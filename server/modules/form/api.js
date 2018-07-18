@@ -1,6 +1,7 @@
 import { metrics } from '@financial-times/n-express';
 import raven from '@financial-times/n-raven';
 import MaskLogger from '@financial-times/n-mask-logger';
+import { helpers as consentUtil, getFormOfWords } from '@financial-times/n-profile-ui';
 
 import Encoder from '../encoding/service';
 import Content from '../content/service';
@@ -9,16 +10,35 @@ import Marketo from '../marketo/service';
 import Profile from '../profile/service';
 import { countries } from '../../config/data.json';
 
-import { SUBMISSION_COOKIE, ERROR_COOKIE } from './constants';
+import { SUBMISSION_COOKIE, ERROR_COOKIE, FORM_OF_WORDS, CONSENT_SOURCE } from './constants';
 
 const logger = new MaskLogger(['email', 'password']);
 
 export default {
-	form: (req, res, next) => {
+	form: async (req, res, next) => {
+		const error = req.cookies[ERROR_COOKIE];
+		let consent;
 
-		let error = req.cookies[ERROR_COOKIE];
 		if (error) {
 			res.clearCookie(ERROR_COOKIE);
+		}
+
+		if (res.locals.flags.channelsBarrierConsent) {
+			try {
+				const fow = await getFormOfWords(FORM_OF_WORDS);
+
+				consent = consentUtil.populateConsentModel({
+					fow,
+					source: CONSENT_SOURCE,
+					elementAttrs: [{ name: 'required' }]
+				});
+			} catch (e) {
+				logger.error({
+					event:'RETRIEVE_FORM_OF_WORDS_FAILURE',
+					error: e.name, message: e.message || e.errorMessage
+				}, e.data);
+			}
+
 		}
 
 		res.set('Cache-Control', res.FT_NO_CACHE);
@@ -31,7 +51,8 @@ export default {
 			marketingName: res.locals.marketingName,
 			isUnmasking: res.locals.marketingName === 'unmasking',
 			countries,
-			error
+			error,
+			consent
 		});
 
 	},
@@ -55,11 +76,31 @@ export default {
 				}
 
 				// Move the primaryTelephone and termsAcceptance field to expeted marketo fields
-				let marketoPayload = Object.assign({}, req.body);
+				const marketoPayload = Object.assign({}, req.body);
+
 				marketoPayload.phone = marketoPayload.primaryTelephone;
-				marketoPayload.Third_Party_Opt_In__c = marketoPayload.termsAcceptance;
 				delete marketoPayload.primaryTelephone;
-				delete marketoPayload.termsAcceptance;
+
+				// the flag may have been set but there might still have been
+				// an error retrieving the form of words
+				if (res.locals.flags.channelsBarrierConsent && req.body.formOfWordsId) {
+					for (let [key, value] of Object.entries(req.body)) {
+						const consent = consentUtil.extractMetaFromString(key);
+
+						if (consent) {
+							const { category, channel } = consent;
+							marketoPayload[`Consent_${category}_${channel}`] = value === 'yes'
+							delete marketoPayload[key];
+						}
+					}
+
+					delete marketoPayload.formOfWordsId;
+					delete marketoPayload.formOfWordsScope;
+					delete marketoPayload.consentSource;
+				} else {
+					marketoPayload.Third_Party_Opt_In__c = marketoPayload.termsAcceptance;
+					delete marketoPayload.termsAcceptance;
+				}
 
 				marketoResponse = await Marketo.createOrUpdate(marketoPayload);
 				id = marketoResponse.id;

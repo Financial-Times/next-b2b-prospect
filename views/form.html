@@ -22,7 +22,7 @@
 			<input type="hidden" name="CPCCampaign__c" value="{{campaignId}}" />
 			<input type="hidden" name="GCLID__c" value="" />
 			<input type="hidden" name="Comments" value="" />
-		
+
 			{{#if error}}
 			<div class="prospect-form__message prospect-form__message--error">
 				<p>{{error}}</p>
@@ -40,20 +40,26 @@
 			{{#unless isUnmasking}}
 			{{> n-conversion-forms/partials/email isB2b=true }}
 			{{/unless}}
-			
+
 			{{> n-conversion-forms/partials/phone isB2b=true }}
 
 			{{#unless isUnmasking}}
 			{{> n-conversion-forms/partials/country options=countries }}
 			{{/unless}}
 
-			{{#> n-conversion-forms/partials/fieldset name="accept-terms" legend="Terms and conditions" }}
-			{{#*inline "fields"}}
+			{{#ifAll @root.flags.channelsBarrierConsent consent}}
+				<div>
+				{{> n-profile-ui/templates/consent showHeading=true showSubmitButton=false formOfWords=consent isSubsection=true}}
+				</div>
+			{{else}}
+				{{#> n-conversion-forms/partials/fieldset name="accept-terms" legend="Terms and conditions" }}
+				{{#*inline "fields"}}
 
-			{{> n-conversion-forms/partials/accept-terms isChecked=true isB2b=true }}
+				{{> n-conversion-forms/partials/accept-terms isChecked=true isB2b=true }}
 
-			{{/inline}}
-			{{/ n-conversion-forms/partials/fieldset }}
+				{{/inline}}
+				{{/ n-conversion-forms/partials/fieldset }}
+			{{/ifAll}}
 
 			{{#unless isUnmasking}}
 
@@ -87,6 +93,6 @@
 		</form>
 		<div class="prospect-form__overlay">
 			<div class="prospect-form__spinner"></div>
-		</div>			
+		</div>
 	</div>
 </div>
