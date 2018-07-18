@@ -81,7 +81,9 @@ export default {
 				marketoPayload.phone = marketoPayload.primaryTelephone;
 				delete marketoPayload.primaryTelephone;
 
-				if (res.locals.flags.channelsBarrierConsent) {
+				// the flag may have been set but there might still have been
+				// an error retrieving the form of words
+				if (res.locals.flags.channelsBarrierConsent && req.body.formOfWordsId) {
 					for (let [key, value] of Object.entries(req.body)) {
 						const consent = consentUtil.extractMetaFromString(key);
 
