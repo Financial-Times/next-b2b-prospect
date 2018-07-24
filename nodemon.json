@@ -1,0 +1,10 @@
+{
+	"ignoreRoot": [],
+	"watch": [
+	  "client", "docs", "public", "server", "test", "views"
+	],
+	"events": {
+	  "restart": "echo 'restarting' "
+	},
+	"ext": "js,json,html,css,scss"
+  }
