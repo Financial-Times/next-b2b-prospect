@@ -2,13 +2,13 @@ import { metrics } from '@financial-times/n-express';
 import raven from '@financial-times/n-raven';
 import MaskLogger from '@financial-times/n-mask-logger';
 import { helpers as consentUtil, getFormOfWords } from '@financial-times/n-profile-ui';
-
 import Encoder from '../encoding/service';
 import Content from '../content/service';
 import ES from '../es/service';
 import Marketo from '../marketo/service';
 import Profile from '../profile/service';
 import { countries } from '../../config/data.json';
+import getUserEmail from '../graph-ql/getUserEmail'
 
 import { SUBMISSION_COOKIE, ERROR_COOKIE, FORM_OF_WORDS, CONSENT_SOURCE } from './constants';
 
@@ -43,6 +43,7 @@ export default {
 
 		res.set('Cache-Control', res.FT_NO_CACHE);
 		res.set('Surrogate-Control', res.FT_HOUR_CACHE);
+		const emailValue = await getUserEmail(req);
 
 		return res.render('form', {
 			title: 'Signup',
@@ -50,6 +51,7 @@ export default {
 			campaignId: res.locals.campaignId,
 			marketingName: res.locals.marketingName,
 			isUnmasking: res.locals.marketingName === 'unmasking',
+			emailValue,
 			countries,
 			error,
 			consent
