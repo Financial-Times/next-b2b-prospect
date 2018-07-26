@@ -19,6 +19,8 @@ test:
 	make verify && make unit-test
 
 unit-test:
+	export MEMBQL_API_ENDPOINT_PROD=1; \
+	export MEMBQL_API_KEY_PROD=1; \
 	mocha --require server/setup --exit --require test/setup --recursive ./test
 
 smoke:
