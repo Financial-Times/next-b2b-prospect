@@ -141,9 +141,9 @@ describe('Form', () => {
 
 		beforeEach(() => {
 			sandbox = sinon.createSandbox();
-			marketoStub = sandbox.stub(Marketo, 'createOrUpdate').returns(Promise.resolve(mockMarketoCreatedResponse));
+			marketoStub = sandbox.stub(Marketo, 'createOrUpdate').resolves(mockMarketoCreatedResponse);
 			profileStub = sandbox.stub(Profile, 'save').resolves();
-			accessStub = sandbox.stub(ContentAccess, 'createAccessToken').returns(Promise.resolve({ accessToken: mockAccessToken }));
+			accessStub = sandbox.stub(ContentAccess, 'createAccessToken').resolves({ accessToken: mockAccessToken });
 			cacheEncodeStub = sandbox.stub(Cache, 'encode').returns(mockCacheToken);
 			ravenStub = sandbox.stub(raven, 'captureError');
 			testPayload = {
@@ -258,7 +258,7 @@ describe('Form', () => {
 
 		it('should always notify sentry in a non-happy path journey', (done) => {
 
-			marketoStub.returns(Promise.reject('test'));
+			marketoStub.rejects('test');
 
 			request(app)
 				.post('/form')
@@ -294,9 +294,9 @@ describe('Form', () => {
 		context('when an unexpected error occurs', () => {
 
 			beforeEach(() => {
-				marketoStub.returns(Promise.reject({
+				marketoStub.rejects({
 					type: 'anything_else'
-				}));
+				});
 			});
 
 			it('should display an error page', (done) => {
@@ -361,7 +361,7 @@ describe('Form', () => {
 		beforeEach(() => {
 			sandbox = sinon.createSandbox();
 			cacheDecodeStub = sandbox.stub(Cache, 'decode').returns(mockCacheItem);
-			esStub = sandbox.stub(ES, 'get').returns(Promise.resolve(mockContentItem));
+			esStub = sandbox.stub(ES, 'get').resolves(mockContentItem);
 		});
 
 		afterEach(() => {

@@ -22,7 +22,7 @@ describe('Marketo Service', () => {
 		let createLeadStub;
 
 		beforeEach(() => {
-			createLeadStub = sandbox.stub().returns(Promise.resolve(mockResponse));
+			createLeadStub = sandbox.stub().resolves(mockResponse);
 			service = proxyquire('../../../../server/modules/marketo/service', {
 				'node-marketo-rest': createMarketoMock(createLeadStub)
 			});
@@ -59,7 +59,7 @@ describe('Marketo Service', () => {
 		context('when no results returned', () => {
 
 			beforeEach(() => {
-				createLeadStub.returns(Promise.resolve({result: []}));
+				createLeadStub.resolves({result: []});
 			});
 
 			it('should reject with a "No results returned error"', () => {
@@ -74,7 +74,7 @@ describe('Marketo Service', () => {
 		context('when multiple results returned', () => {
 
 			beforeEach(() => {
-				createLeadStub.returns(Promise.resolve({result: [1,2,3,4]}));
+				createLeadStub.resolves({result: [1,2,3,4]});
 			});
 
 			it('should reject with a "Unexpected result returned - multiple results"', () => {
@@ -89,7 +89,7 @@ describe('Marketo Service', () => {
 		context('when first result is skipped', () => {
 
 			beforeEach(() => {
-				createLeadStub.returns(Promise.resolve({result: [{status: 'skipped'}]}));
+				createLeadStub.resolves({result: [{status: 'skipped'}]});
 			});
 
 			it('should reject with a "LEAD_ALREADY_EXISTS_ERROR"', () => {
@@ -104,7 +104,7 @@ describe('Marketo Service', () => {
 		context('when first result is anything other than created', () => {
 
 			beforeEach(() => {
-				createLeadStub.returns(Promise.resolve({result: [{status: 'unknown'}]}));
+				createLeadStub.resolves({result: [{status: 'unknown'}]});
 			});
 
 			it('should reject with a "UNEXPECTED_RESULT_ERROR"', () => {

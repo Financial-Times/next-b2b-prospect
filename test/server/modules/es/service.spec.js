@@ -10,7 +10,7 @@ describe('ES Service', () => {
 	let esStub;
 
 	beforeEach(() => {
-		esStub = sandbox.stub(es, 'get').returns(Promise.resolve());
+		esStub = sandbox.stub(es, 'get').resolves();
 	});
 
 	afterEach(() => {

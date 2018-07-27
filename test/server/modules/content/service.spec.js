@@ -16,7 +16,7 @@ describe('Content Access Service', () => {
 		sandbox.useFakeTimers();
 		process.env.CONTENT_ACCESS_TOKEN_SVC_URL = mockProcessVar;
 		process.env.CONTENT_ACCESS_TOKEN_SVC_KEY = mockProcessVar;
-		fetchStub = sandbox.stub().returns(Promise.resolve(mockResponse));
+		fetchStub = sandbox.stub().resolves(mockResponse);
 		parseStub = sandbox.stub(fetchres, 'json');
 	});
 
