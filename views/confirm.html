@@ -1,6 +1,7 @@
 <div
-	data-page="{{page}}" data-lead-id="{{leadId}}"
-	data-should-redirect="{{ shouldRedirect }}"
+	data-page="{{page}}"
+	data-lead-id="{{leadId}}"
+	data-should-redirect="{{shouldRedirect}}"
 	{{#if article}} data-article-id="{{article.id}}" {{/if}} >
 	<div class="o-grid-container {{#if wrapped}}confirmation--wrapped{{/if}}">
 		<div class="o-grid-row o-grid-row--compact">
@@ -19,7 +20,7 @@
 				{{/if}}
 			</div>
 		</div>
-		{{/ifEquals}}	
+		{{/ifEquals}}
 		<div class="o-grid-row o-grid-row--compact">
 			<div class="confirmation__panel" data-o-grid-colspan="center 12 S10">
 				<strong class="confirmation__call-us">Give us a call</strong>
@@ -31,7 +32,7 @@
 				</ul>
 			</div>
 		</div>
-	
+
 		{{#unlessEquals marketingName 'factiva'}}
 			{{#if article}}
 			<div class="o-grid-row o-grid-row--compact confirmation-footer" aria-label="For your free article">
