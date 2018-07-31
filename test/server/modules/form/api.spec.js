@@ -257,8 +257,8 @@ describe('Form', () => {
 		});
 
 		it('should always notify sentry in a non-happy path journey', (done) => {
-
-			marketoStub.rejects('test');
+			const testError = new Error('test');
+			marketoStub.rejects(testError);
 
 			request(app)
 				.post('/form')
@@ -266,7 +266,7 @@ describe('Form', () => {
 				.send(testPayload)
 				.end((err, res) => {
 					expect(ravenStub.calledOnce).to.equal(true);
-					expect(ravenStub.calledWith('test')).to.equal(true);
+					expect(ravenStub.calledWith(testError)).to.equal(true);
 					done();
 				});
 		});
