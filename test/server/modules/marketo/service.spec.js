@@ -116,6 +116,36 @@ describe('Marketo Service', () => {
 
 		});
 
+		context.only('when marketo times out', () => {
+
+			let clock;
+
+			beforeEach(() => {
+					clock = sinon.useFakeTimers();
+					createLeadStub.callsFake(() => {
+						return new Promise(resolve => {
+							setTimeout(() => {
+								return resolve(mockResponse);
+							}, 20000)
+						});
+					});
+			});
+
+			afterEach(() => {
+				clock.restore();
+			});
+
+			it('after 8 seconds should return a timeout status error', () => {
+					const promise = service.createOrUpdate();
+					clock.tick(8000);
+					return promise
+						.catch((err) => {
+							expect(err.type).to.equal(constants.API_TIMEOUT_ERROR);
+						});
+			});
+
+	});
+
 	});
 
 });

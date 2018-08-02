@@ -33,6 +33,13 @@ const parseResult = ({ result = [] } = {}) => {
 		throw error;
 	}
 
+	if (res.status === 'timeout') {
+		const error = new Error('Marketo timeout');
+		error.type = constants.API_TIMEOUT_ERROR;
+		error.reason = res.reasons;
+		throw error;
+	}
+
 	if (res.status !== 'created' && res.status !== 'updated') {
 		const error = new Error('Marketo errored');
 		error.type = constants.UNEXPECTED_RESULT_ERROR;
@@ -50,8 +57,11 @@ export default {
 	},
 
 	createOrUpdate: (payload) => {
-		return marketo.lead.createOrUpdate([ payload ], { lookupField: 'email' })
-			.then(parseResult);
+		const eightSecondTimeout = new Promise(resolve => setTimeout(resolve, 8000, { result: [{ status: 'timeout' }] }));
+		return Promise.race([
+			eightSecondTimeout,
+			marketo.lead.createOrUpdate([ payload ], { lookupField: 'email' })
+		]).then(parseResult);
 	}
 
 
