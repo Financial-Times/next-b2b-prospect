@@ -144,7 +144,7 @@ describe('Marketo Service', () => {
 						});
 			});
 
-	});
+		});
 
 	});
 
