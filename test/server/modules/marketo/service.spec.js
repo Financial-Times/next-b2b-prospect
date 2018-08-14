@@ -116,7 +116,7 @@ describe('Marketo Service', () => {
 
 		});
 
-		context.only('when marketo times out', () => {
+		context('when marketo times out', () => {
 
 			let clock;
 

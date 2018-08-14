@@ -19,6 +19,13 @@ export default {
 		const error = req.cookies[ERROR_COOKIE];
 		let consent;
 
+		logger.info({
+			event: 'RENDER_B2B_FORM',
+			gdprFlag: res.locals.flags.channelsBarrierConsent,
+			sessionPresent: !!req.cookies.FTSession_s,
+			marketingName: res.locals.marketingName
+		});
+
 		if (error) {
 			res.clearCookie(ERROR_COOKIE);
 		}

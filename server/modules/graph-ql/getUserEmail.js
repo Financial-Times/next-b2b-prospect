@@ -8,6 +8,11 @@ const MEMB_GRAPH_QL_SVC = 'membership-graph-ql';
 
 module.exports = async function returnEmail (session) {
     try {
+
+				if (!session) {
+					return null;
+				}
+
         const membQueryResult = await membQl.query(STATIC_DATA.graphQL.userEmailQuery, { session });
         if (!membQueryResult._ok) {
             throw new Error ({name: 'content_error', message:'Membership API response content error'});
