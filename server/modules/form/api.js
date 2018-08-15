@@ -98,6 +98,7 @@ export default {
 			return res.render('confirm', {
 				title: 'Signup',
 				marketingName: res.locals.marketingName,
+				isFactiva: res.locals.marketingName === 'factiva',
 				contentUuid: res.locals.contentUuid,
 				layout: 'vanilla',
 				page: 'submission',

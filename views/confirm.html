@@ -47,3 +47,36 @@
 		{{/unlessEquals}}
 	</div>
 </div>
+
+<div class="o-grid-container" data-page="{{page}}" data-lead-id="{{leadId}}" data-should-redirect="{{shouldRedirect}}"{{#if article}} data-article-id="{{article.id}}"{{/if}}>
+	<div class="o-grid-row" data-o-grid-colspan="12 S10 M8 L6 XL4 center">
+		<h1 class="prospect-form__title">Thank you for your enquiry</h1>
+		<h2 class="prospect-form__heading">
+			A sales representative will get back to you about FT Group 
+			subscriptions within 48 hours.
+		</h2>
+		<p>
+			{{#if isFactiva}}
+				{{#if contentUuid}}
+			<a class="confirmation__cta-button" href="https://www.ft.com/content/{{{ contentUuid }}}" data-trackable="article-button">Read article now</a>
+				{{else}}
+			<a class="confirmation__cta-button" href="https://www.ft.com/" data-trackable="homepage-button">Go to the FT.com homepage</a>
+				{{/if}}
+			{{/if}}
+		</p>
+		{{> contact description="If you would like to talk to a sales representative immediately, please call one of the following numbers." }}
+		{{#unless isFactiva}}
+			{{#if article}}
+		<div class="o-grid-row o-grid-row--compact confirmation-footer" aria-label="For your free article">
+			<div class="confirmation-footer__content" data-o-grid-colspan="12 S10 M8">
+				<small>Your free article</small>
+				<a href="https://ft.com/content/{{article.id}}?accessToken={{accessToken}}" class="confirmation-footer__link" data-trackable="article-link">{{article.title}}</a>
+			</div>
+			<div data-o-grid-colspan="12 S10 M4 center" class="confirmation-footer__navigation">
+				<a href="https://ft.com/content/{{article.id}}?accessToken={{accessToken}}" class="confirmation-footer__button" data-trackable="article-button">Continue reading</a>
+			</div>
+		</div>
+			{{/if}}
+		{{/unless}}
+	</div>
+</div>
