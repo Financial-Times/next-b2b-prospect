@@ -22,6 +22,7 @@
 			<input type="hidden" name="CPCCampaign__c" value="{{campaignId}}" />
 			<input type="hidden" name="GCLID__c" value="" />
 			<input type="hidden" name="Comments" value="" />
+			<input type="hidden" name="mkto2__Original_Referrer__c" value="{{spoorId}}" />
 
 			{{#if error}}
 			<div class="prospect-form__message prospect-form__message--error">
@@ -41,9 +42,7 @@
 
 			{{> n-conversion-forms/partials/phone isB2b=true }}
 
-			{{#unless isUnmasking}}
 			{{> n-conversion-forms/partials/country options=countries }}
-			{{/unless}}
 
 			{{#ifAll @root.flags.channelsBarrierConsent consent}}
 				<div>
