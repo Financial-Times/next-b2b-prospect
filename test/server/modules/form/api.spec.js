@@ -36,7 +36,6 @@ describe('Form', () => {
 					expect(res.text).to.contain('Company name');
 					expect(res.text).to.contain('Work email address');
 					expect(res.text).to.contain('Work phone number');
-					expect(res.text).to.contain('Terms and conditions');
 					expect(res.text).to.contain('type="submit"');
 					done();
 				});
@@ -57,7 +56,6 @@ describe('Form', () => {
 					expect(res.text).to.contain('Company name');
 					expect(res.text).to.contain('Work email address');
 					expect(res.text).to.contain('Work phone number');
-					expect(res.text).to.contain('Terms and conditions');
 					expect(res.text).to.contain('type="submit"');
 					done();
 			});
@@ -75,10 +73,9 @@ describe('Form', () => {
 					expect(res.text).to.contain('Last name');
 					expect(res.text).to.contain('Job title');
 					expect(res.text).to.contain('Company name');
-					expect(res.text).to.not.contain('Country');
+					expect(res.text).to.contain('Country');
 					expect(res.text).to.contain('Work email address');
 					expect(res.text).to.contain('Work phone number');
-					expect(res.text).to.contain('Terms and conditions');
 					expect(res.text).to.contain('type="submit"');
 					expect(res.text).to.contain('<div class="o-forms-section');
 					done();
