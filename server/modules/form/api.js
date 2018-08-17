@@ -57,6 +57,7 @@ export default {
 			layout: 'vanilla',
 			campaignId: res.locals.campaignId,
 			marketingName: res.locals.marketingName,
+			isFactiva: res.locals.marketingName === 'factiva',
 			isUnmasking: res.locals.marketingName === 'unmasking',
 			emailValue,
 			countries,

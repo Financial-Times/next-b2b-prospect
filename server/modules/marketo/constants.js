@@ -43,6 +43,9 @@ export const SCHEMA = Joi.object()
 		Job_Function__c: Joi.string()
 			.empty('')
 			.default(''),
+		Original_Referrer__c: Joi.string()
+			.empty('')
+			.default(''),
 		// TODO: GDPR cleanup
 		Third_Party_Opt_In__c: Joi.bool().optional()
 	})

@@ -20,6 +20,7 @@ export default {
 		res.locals.campaignId = req.query.cpccampaign && escape(req.query.cpccampaign) || '';
 		res.locals.contentUuid = req.query['ft-content-uuid'] && escape(req.query['ft-content-uuid']) || '';
 		res.locals.sessionToken = req.cookies['FTSession_s'] || '';
+		res.locals.spoorId = req.cookies['spoor-id'] || '';
 		return next();
 	},
 
