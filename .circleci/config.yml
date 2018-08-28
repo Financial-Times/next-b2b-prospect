@@ -62,6 +62,9 @@ jobs:
   build:
     <<: *container_config_node8
     steps:
+      - run:
+          name: Update npm
+          command: sudo npm install --global npm@5.7.0
       - checkout
       - run:
           name: Checkout next-ci-shared-helpers
