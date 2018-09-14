@@ -28,7 +28,7 @@ describe('Form', () => {
 				.expect(200)
 				.end((err, res) => {
 					expect(res.headers['cache-control']).to.equal('max-age=0, no-cache, must-revalidate');
-					expect(res.headers['surrogate-control']).to.equal('max-age=3600, stale-while-revalidate=60, stale-if-error=86400');
+					expect(res.headers['surrogate-control']).to.equal('max-age=0, no-cache, must-revalidate');
 					expect(res.text).to.contain('<form');
 					expect(res.text).to.contain('First name');
 					expect(res.text).to.contain('Last name');
@@ -47,7 +47,7 @@ describe('Form', () => {
 				.expect(200)
 				.end((err, res) => {
 					expect(res.headers['cache-control']).to.equal('max-age=0, no-cache, must-revalidate');
-					expect(res.headers['surrogate-control']).to.equal('max-age=3600, stale-while-revalidate=60, stale-if-error=86400');
+					expect(res.headers['surrogate-control']).to.equal('max-age=0, no-cache, must-revalidate');
 					expect(res.text).to.contain('Contact us for FT Group Subscription options');
 					expect(res.text).to.contain('<form');
 					expect(res.text).to.contain('First name');
@@ -67,7 +67,7 @@ describe('Form', () => {
 				.expect(200)
 				.end((err, res) => {
 					expect(res.headers['cache-control']).to.equal('max-age=0, no-cache, must-revalidate');
-					expect(res.headers['surrogate-control']).to.equal('max-age=3600, stale-while-revalidate=60, stale-if-error=86400');
+					expect(res.headers['surrogate-control']).to.equal('max-age=0, no-cache, must-revalidate');
 					expect(res.text).to.contain('<form');
 					expect(res.text).to.contain('First name');
 					expect(res.text).to.contain('Last name');
