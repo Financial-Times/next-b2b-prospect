@@ -5,13 +5,14 @@ import middleware from './middleware';
 
 const router = express.Router();
 
-router.use(middleware.setLocals)
+router.use([middleware.setLocals, middleware.noCache])
+
 
 router.route('/')
 	.get(api.form)
-	.post(middleware.noCache, middleware.validatePayload, api.submit);
+	.post(middleware.validatePayload, api.submit);
 
 router.route('/confirm')
-	.get(middleware.noCache, middleware.validateRetrieval, api.confirm);
+	.get(middleware.validateRetrieval, api.confirm);
 
 export default router;
