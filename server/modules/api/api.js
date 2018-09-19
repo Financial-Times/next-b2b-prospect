@@ -1,6 +1,6 @@
 import raven from '@financial-times/n-raven';
 import MaskLogger from '@financial-times/n-mask-logger';
-import LEAD_ALREADY_EXISTS_ERROR from '../marketo/constants';
+import { LEAD_ALREADY_EXISTS_ERROR } from '../marketo/constants';
 
 import Marketo from '../marketo/service';
 const logger = new MaskLogger(['firstName', 'lastName', 'email']);
