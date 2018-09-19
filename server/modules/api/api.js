@@ -1,5 +1,6 @@
 import raven from '@financial-times/n-raven';
 import MaskLogger from '@financial-times/n-mask-logger';
+import { LEAD_ALREADY_EXISTS_ERROR } from '../marketo/constants';
 
 import Marketo from '../marketo/service';
 const logger = new MaskLogger(['firstName', 'lastName', 'email']);
@@ -17,7 +18,8 @@ export default {
 		} catch (error) {
 			logger.error(`marketo api - Error submitting to Marketo: ${error.message}`);
 			raven.captureError(error);
-			return res.status(500).json({
+			const statusCode = (error.type === LEAD_ALREADY_EXISTS_ERROR) ? 400 : 500;
+			return res.status(statusCode).json({
 				error: 'MarketoError',
 				type: error.type,
 				message: error.message,

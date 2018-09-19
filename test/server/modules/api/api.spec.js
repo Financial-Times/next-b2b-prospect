@@ -7,9 +7,10 @@ process.env.MARKETO_CLIENT_SECRET = 'test';
 import sinon from 'sinon';
 import request from 'supertest';
 import { expect } from 'chai';
+import raven from '@financial-times/n-raven';
 import app, { ready } from '../../../../server/app';
 import Marketo from '../../../../server/modules/marketo/service';
-import raven from '@financial-times/n-raven';
+import { LEAD_ALREADY_EXISTS_ERROR } from '../../../../server/modules/marketo/constants';
 
 describe('API Endpoints', () => {
 
@@ -113,7 +114,7 @@ describe('API Endpoints', () => {
 
         });
 
-        context('when a marketo error happens', () => {
+        context('when a marketo error happens and it\'s not because the lead already exists', () => {
 
             beforeEach(() => {
                 Marketo.createOrUpdate.rejects({});
@@ -126,6 +127,27 @@ describe('API Endpoints', () => {
                     .send(acceptablePayload)
                     .end((err, res) => {
                         expect(res.status).to.equal(500);
+                        expect(res.body).to.have.property('error', 'MarketoError');
+                        done();
+                    });
+            });
+
+        });
+
+        context('when a marketo error happens and it\'s because the lead already exists in marketo', () => {
+            beforeEach(() => {
+                const alreadyExistsError = new Error();
+                alreadyExistsError.type = LEAD_ALREADY_EXISTS_ERROR;
+                Marketo.createOrUpdate.rejects(alreadyExistsError);
+            });
+
+            it('should return a 400 status and error details', (done) => {
+                request(app)
+                    .post('/api/marketo')
+                    .set('x-api-key', process.env.CLIENT_API_KEY)
+                    .send(acceptablePayload)
+                    .end((err, res) => {
+                        expect(res.status).to.equal(400);
                         expect(res.body).to.have.property('error', 'MarketoError');
                         done();
                     });
