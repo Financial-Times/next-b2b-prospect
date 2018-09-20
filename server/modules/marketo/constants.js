@@ -43,7 +43,7 @@ export const SCHEMA = Joi.object()
 		Job_Function__c: Joi.string()
 			.empty('')
 			.default(''),
-		Original_Referrer__c: Joi.string()
+		mkto2__Original_Referrer__c: Joi.string()
 			.empty('')
 			.default(''),
 		// TODO: GDPR cleanup
