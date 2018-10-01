@@ -16,11 +16,31 @@ export default {
 	},
 
 	setLocals: (req, res, next) => {
-		res.locals.marketingName = req.query.marketingName && escape(req.query.marketingName) || FALLBACK_MARKETING_NAME;
+		res.locals.marketingName = escape(req.params.marketingName || req.query.marketingName || '') || FALLBACK_MARKETING_NAME;
 		res.locals.campaignId = req.query.cpccampaign && escape(req.query.cpccampaign) || '';
 		res.locals.contentUuid = req.query['ft-content-uuid'] && escape(req.query['ft-content-uuid']) || '';
 		res.locals.sessionToken = req.cookies['FTSession_s'] || '';
 		res.locals.spoorId = req.cookies['spoor-id'] || '';
+		return next();
+	},
+
+	setTemplate: (req, res, next) => {
+
+		const isTeamTrial = res.locals.marketingName === 'teamtrial';
+		res.locals.layout = isTeamTrial ? 'wrapper' : 'vanilla',
+		res.locals.nUi = {
+			header: {
+				disableSticky: true,
+				variant: 'logo-only'
+			}
+		};
+		res.locals.nUiConfig = {
+			features: {
+				header: isTeamTrial,
+				footer: isTeamTrial
+			}
+		}
+
 		return next();
 	},
 
