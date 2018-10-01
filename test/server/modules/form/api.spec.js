@@ -37,6 +37,9 @@ describe('Form', () => {
 					expect(headers['cache-control']).to.equal('max-age=0, no-cache, must-revalidate');
 					expect(headers['surrogate-control']).to.equal('max-age=0, no-cache, must-revalidate');
 
+					expect($('header#site-navigation').length).to.equal(0);
+					expect($('footer#site-footer').length).to.equal(0);
+
 					expect($('form').length).to.equal(1);
 					expect($('label[for="firstName"]').text().trim()).to.equal('First name');
 					expect($('label[for="lastName"]').text().trim()).to.equal('Last name');
@@ -58,6 +61,9 @@ describe('Form', () => {
 					expect(headers['cache-control']).to.equal('max-age=0, no-cache, must-revalidate');
 					expect(headers['surrogate-control']).to.equal('max-age=0, no-cache, must-revalidate');
 
+					expect($('header#site-navigation').length).to.equal(0);
+					expect($('footer#site-footer').length).to.equal(0);
+
 					expect($('.prospect-form__heading').text()).to.contain('Contact us for FT Group Subscription options');
 					expect($('form').length).to.equal(1);
 					expect($('label[for="firstName"]').text().trim()).to.equal('First name');
@@ -68,30 +74,31 @@ describe('Form', () => {
 					expect($('label[for="primaryTelephone"]').text().trim()).to.equal('Work phone number');
 					expect($('label[for="country"]').text().trim()).to.equal('Country');
 					expect($('button[type="submit"]').length).to.equal(1);
-
-
 				});
 		});
 
-		it('should customise form for unmasking theme', (done) => {
-			request(app)
-				.get('/form?marketingName=unmasking')
-				.expect(200)
-				.end((err, res) => {
-					expect(res.headers['cache-control']).to.equal('max-age=0, no-cache, must-revalidate');
-					expect(res.headers['surrogate-control']).to.equal('max-age=0, no-cache, must-revalidate');
-					expect(res.text).to.contain('<form');
-					expect(res.text).to.contain('First name');
-					expect(res.text).to.contain('Last name');
-					expect(res.text).to.contain('Job title');
-					expect(res.text).to.contain('Company name');
-					expect(res.text).to.contain('Country');
-					expect(res.text).to.contain('Work email address');
-					expect(res.text).to.contain('Work phone number');
-					expect(res.text).to.contain('type="submit"');
-					expect(res.text).to.contain('<div class="o-forms-section');
-					done();
-			});
+		it('should customise form for unmasking theme', () => {
+			return tester.get({ path: '/form/unmasking' })
+				.then(({ status, headers, $ }) => {
+					expect(status).to.equal(200);
+					expect(headers['cache-control']).to.equal('max-age=0, no-cache, must-revalidate');
+					expect(headers['surrogate-control']).to.equal('max-age=0, no-cache, must-revalidate');
+
+					expect($('header#site-navigation').length).to.equal(0);
+					expect($('footer#site-footer').length).to.equal(0);
+
+					expect($('form').length).to.equal(1);
+					expect($('label[for="firstName"]').text().trim()).to.equal('First name');
+					expect($('label[for="lastName"]').text().trim()).to.equal('Last name');
+					expect($('label[for="jobTitle"]').text().trim()).to.equal('Job title');
+					expect($('label[for="companyName"]').text().trim()).to.equal('Company name');
+					expect($('label[for="email"]').text().trim()).to.equal('Work email address');
+					expect($('label[for="primaryTelephone"]').text().trim()).to.equal('Work phone number');
+					expect($('label[for="country"]').text().trim()).to.equal('Country');
+					expect($('button[type="submit"]').length).to.equal(1);
+
+					expect($('.o-forms-section').text()).to.contain('Or speak to a product specialist immediately');
+				});
 		});
 
 		it('should customise form for teamtrial theme', () => {
