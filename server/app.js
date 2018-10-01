@@ -18,14 +18,6 @@ const app = express({
 	withBackendAuthentication: false
 });
 
-app.locals.nUiConfig = {
-	preset: 'discrete',
-	features: {
-		header: false,
-		footer: false
-	}
-};
-
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: false }))
 

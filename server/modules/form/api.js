@@ -52,11 +52,10 @@ export default {
 
 		return res.render('form', {
 			title: 'Signup',
-			layout: 'vanilla',
 			campaignId: res.locals.campaignId,
 			marketingName: res.locals.marketingName,
 			isFactiva: res.locals.marketingName === 'factiva',
-			isUnmasking: res.locals.marketingName === 'unmasking',
+			isUnmasking: res.locals.marketingName === 'unmasking' || res.locals.marketingName === 'teamtrial',
 			emailValue,
 			countries,
 			error,
@@ -75,7 +74,7 @@ export default {
 				id = 'pally';
 			} else {
 				// Send off a save request, we don't care if it makes it
-				if (res.locals.marketingName === 'unmasking') {
+				if (res.locals.marketingName === 'unmasking' || res.locals.marketingName === 'teamtrial') {
 					Profile.save(res.locals.sessionToken, {
 						firstName: req.body.firstName,
 						lastName: req.body.lastName,
@@ -117,8 +116,7 @@ export default {
 			if (marketoResponse.status === 'updated') {
 				metrics.count('b2b-prospect.submission.existing', 1);
 				return res.render('exists', {
-					title: 'Signup',
-					layout: 'vanilla'
+					title: 'Signup'
 				});
 			}
 

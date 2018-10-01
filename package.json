@@ -43,6 +43,7 @@
     "pa11y-ci": "^2.1.1",
     "proxyquire": "^2.0.1",
     "sinon": "^5.0.7",
-    "supertest": "^3.1.0"
+    "supertest": "^3.1.0",
+    "supertest-parse": "^1.0.0"
   }
 }
