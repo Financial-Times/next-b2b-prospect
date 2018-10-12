@@ -21,7 +21,6 @@ export default {
 
 		logger.info({
 			event: 'RENDER_B2B_FORM',
-			gdprFlag: res.locals.flags.channelsBarrierConsent,
 			sessionPresent: !!req.cookies.FTSession_s,
 			marketingName: res.locals.marketingName
 		});
@@ -30,22 +29,19 @@ export default {
 			res.clearCookie(ERROR_COOKIE);
 		}
 
-		if (res.locals.flags.channelsBarrierConsent) {
-			try {
-				const fow = await getFormOfWords(FORM_OF_WORDS);
+		try {
+			const fow = await getFormOfWords(FORM_OF_WORDS);
 
-				consent = consentUtil.populateConsentModel({
-					fow,
-					source: CONSENT_SOURCE,
-					elementAttrs: [{ name: 'required' }]
-				});
-			} catch (e) {
-				logger.error({
-					event:'RETRIEVE_FORM_OF_WORDS_FAILURE',
-					error: e.name, message: e.message || e.errorMessage
-				}, e.data);
-			}
-
+			consent = consentUtil.populateConsentModel({
+				fow,
+				source: CONSENT_SOURCE,
+				elementAttrs: [{ name: 'required' }]
+			});
+		} catch (e) {
+			logger.error({
+				event:'RETRIEVE_FORM_OF_WORDS_FAILURE',
+				error: e.name, message: e.message || e.errorMessage
+			}, e.data);
 		}
 
 		const emailValue = await getUserEmail(req.cookies.FTSession_s);

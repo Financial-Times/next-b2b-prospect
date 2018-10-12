@@ -125,45 +125,40 @@ describe('Form', () => {
 				});
 		});
 
-		context('when the consent flag is on', () => {
+		it('should render consent fields if the form of words can be retrieved', done => {
+			nock(process.env.FOW_API_HOST)
+				.get('/api/v1/FTPINK/consentB2BProspect')
+				.reply(200, {
+					consents: [
+						{
+							category: 'enhancement',
+							channels: [
+								{ channel: 'byEmail' }
+							]
+						}
+					]
+				});
 
-			it('should render consent fields if the form of words can be retrieved', done => {
-				nock(process.env.FOW_API_HOST)
-					.get('/api/v1/FTPINK/consentB2BProspect')
-					.reply(200, {
-						consents: [
-							{
-								category: 'enhancement',
-								channels: [
-									{ channel: 'byEmail' }
-								]
-							}
-						]
-					});
+			request(app)
+				.get('/form?marketingName=factiva')
+				.end((err, res) => {
+					expect(res.text).to.contain('<div class="consent-form');
+					done();
+				});
+		});
 
-				request(app)
-					.get('/form?marketingName=factiva')
-					.set('FT-Flags', 'channelsBarrierConsent:on')
-					.end((err, res) => {
-						expect(res.text).to.contain('<div class="consent-form');
-						done();
-					});
-			});
+		it('should render the legacy terms and conditions section if form of words cannot be retrieved', done => {
+			nock(process.env.FOW_API_HOST)
+				.get('/api/v1/FTPINK/consentB2BProspect')
+				.reply(404);
 
-			it('should render the legacy terms and conditions section if form of words cannot be retrieved', done => {
-				nock(process.env.FOW_API_HOST)
-					.get('/api/v1/FTPINK/consentB2BProspect')
-					.reply(404);
-
-				request(app)
-					.get('/form?marketingName=factiva')
-					.set('FT-Flags', 'channelsBarrierConsent:on')
-					.end((err, res) => {
-						expect(res.text).to.not.contain('<div class="consent-form');
-						expect(res.text).to.contain('<input type="checkbox" id="termsAcceptance');
-						done();
-					});
-			});
+			request(app)
+				.get('/form?marketingName=factiva')
+				.end((err, res) => {
+					expect(res.text).to.not.contain('<div class="consent-form');
+					expect(res.text).to.contain('<input type="checkbox" id="termsAcceptance');
+					done();
+				});
 		});
 	});
 

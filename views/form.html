@@ -46,7 +46,7 @@
 
 			{{> n-conversion-forms/partials/country options=countries }}
 
-			{{#ifAll @root.flags.channelsBarrierConsent consent}}
+			{{#if consent}}
 				<div>
 				{{> n-profile-ui/templates/consent showHeading=true showSubmitButton=false formOfWords=consent isSubsection=true}}
 				</div>
@@ -58,7 +58,7 @@
 
 				{{/inline}}
 				{{/ n-conversion-forms/partials/fieldset }}
-			{{/ifAll}}
+			{{/if}}
 
 			{{#unless isUnmasking}}
 
