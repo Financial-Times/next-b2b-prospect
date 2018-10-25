@@ -7,8 +7,8 @@ import Content from '../content/service';
 import ES from '../es/service';
 import Marketo from '../marketo/service';
 import Profile from '../profile/service';
-import { countries } from '../../config/data.json';
-import getUserEmail from '../graph-ql/getUserEmail'
+import getUserEmail from '../graph-ql/getUserEmail';
+import { billingCountries } from 'n-common-static-data';
 
 import { SUBMISSION_COOKIE, ERROR_COOKIE, FORM_OF_WORDS, CONSENT_SOURCE } from './constants';
 
@@ -53,7 +53,6 @@ export default {
 			isFactiva: res.locals.marketingName === 'factiva',
 			isUnmasking: res.locals.marketingName === 'unmasking' || res.locals.marketingName === 'teamtrial',
 			emailValue,
-			countries,
 			error,
 			consent
 		});
@@ -83,6 +82,9 @@ export default {
 
 				marketoPayload.phone = marketoPayload.primaryTelephone;
 				delete marketoPayload.primaryTelephone;
+
+				// Marketo expects the country field to be a full string name rather than the ISO code
+				marketoPayload.country = findSalesforceNameFromCountryCode(billingCountries.countries, marketoPayload.country);
 
 				// the flag may have been set but there might still have been
 				// an error retrieving the form of words
@@ -190,4 +192,19 @@ export default {
 		}
 	}
 
+}
+
+/**
+ * Find the full name for a ISO country code
+ * @param {array} countries Array of country objects
+ * @param {string} countryCode ISO 3 digit country code
+ * @return {string} Full name that Salesforce expect
+ */
+function findSalesforceNameFromCountryCode (countries, countryCode) {
+	const selectedCountry = countries.find(country => country.code === countryCode);
+	if (!selectedCountry) {
+		logger.error('Selected country not found in billing countries');
+		return '';
+	}
+	return selectedCountry.salesforceName;
 }
