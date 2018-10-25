@@ -12,10 +12,11 @@ const logger = new MaskLogger(['email', 'password']);
 const PORT = Number(process.env.PORT || 5657);
 
 const app = express({
-  systemCode: 'next-b2b-prospect',
-  withJsonLd: false,
-  healthChecks: nHealth(path.resolve(__dirname, './config/health-checks')).asArray(),
-	withBackendAuthentication: false
+	systemCode: 'next-b2b-prospect',
+	withJsonLd: false,
+	healthChecks: nHealth(path.resolve(__dirname, './config/health-checks')).asArray(),
+	withBackendAuthentication: false,
+	helpers: require('@financial-times/n-conversion-forms/helpers')
 });
 
 app.locals.nUiConfig = {

@@ -42,7 +42,7 @@
 			{{> n-conversion-forms/partials/phone isB2b=true }}
 
 			{{#unless isUnmasking}}
-			{{> n-conversion-forms/partials/country options=countries }}
+			{{> n-conversion-forms/partials/country }}
 			{{/unless}}
 
 			{{#ifAll @root.flags.channelsBarrierConsent consent}}
