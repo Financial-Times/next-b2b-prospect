@@ -203,7 +203,8 @@ export default {
 function findSalesforceNameFromCountryCode (countries, countryCode) {
 	const selectedCountry = countries.find(country => country.code === countryCode);
 	if (!selectedCountry) {
-		throw new Error('Selected country not found in billing countries');
+		logger.error('Selected country not found in billing countries');
+		return '';
 	}
 	return selectedCountry.salesforceName;
 }
