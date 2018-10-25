@@ -19,14 +19,6 @@ const app = express({
 	helpers: require('@financial-times/n-conversion-forms/helpers')
 });
 
-app.locals.nUiConfig = {
-	preset: 'discrete',
-	features: {
-		header: false,
-		footer: false
-	}
-};
-
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: false }))
 

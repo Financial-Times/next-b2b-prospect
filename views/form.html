@@ -2,16 +2,18 @@
 	<div class="o-grid-row" data-o-grid-colspan="12 S10 M8 L6 XL4 center">
 		<form class="ncf" method="POST" data-trackable-page="form" data-trackable="b2b-prospect-form" data-o-component="o-forms">
 
-			{{#ifEquals marketingName 'factiva'}}
+			{{#if isFactiva}}
 			<h1 class="prospect-form__heading">Contact us for FT Group Subscription options</h1>
-			{{/ifEquals}}
-			{{#if isUnmasking}}
+			{{else if isUnmasking}}
 			<h1 class="prospect-form__title">Keep your team informed</h1>
 			<h2 class="prospect-form__heading">And get 30 more days of free FT</h2>
 			<p class="prospect-form__subheading">
 				Fill in the form below and a product specialist will contact
 				you about a trial for your team
 			</p>
+			{{else}}
+			{{!-- Added for PA11Y --}}
+			<h1 class="n-ui-hide">Contact us for FT Group Subscription options</h1>
 			{{/if}}
 
 			<input type="hidden" name="numberOfEmployees" value="0" />
@@ -22,6 +24,7 @@
 			<input type="hidden" name="CPCCampaign__c" value="{{campaignId}}" />
 			<input type="hidden" name="GCLID__c" value="" />
 			<input type="hidden" name="Comments" value="" />
+			<input type="hidden" name="mkto2__Original_Referrer__c" value="{{spoorId}}" />
 
 			{{#if error}}
 			<div class="prospect-form__message prospect-form__message--error">
@@ -41,11 +44,9 @@
 
 			{{> n-conversion-forms/partials/phone isB2b=true }}
 
-			{{#unless isUnmasking}}
-			{{> n-conversion-forms/partials/country }}
-			{{/unless}}
+			{{> n-conversion-forms/partials/country options=countries }}
 
-			{{#ifAll @root.flags.channelsBarrierConsent consent}}
+			{{#if consent}}
 				<div>
 				{{> n-profile-ui/templates/consent showHeading=true showSubmitButton=false formOfWords=consent isSubsection=true}}
 				</div>
@@ -57,7 +58,7 @@
 
 				{{/inline}}
 				{{/ n-conversion-forms/partials/fieldset }}
-			{{/ifAll}}
+			{{/if}}
 
 			{{#unless isUnmasking}}
 

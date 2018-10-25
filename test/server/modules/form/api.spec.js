@@ -8,6 +8,7 @@ import request from 'supertest';
 import { expect } from 'chai';
 import app, { ready } from '../../../../server/app';
 import nock from 'nock';
+import SuperTester from 'supertest-parse';
 
 import raven from '@financial-times/n-raven';
 import Marketo from '../../../../server/modules/marketo/service';
@@ -22,107 +23,142 @@ describe('Form', () => {
 
 	describe('GET /form', () => {
 
-		it('should render a contact form', (done) => {
+		let tester;
+
+		before(() => {
+			tester = new SuperTester({ app });
+		});
+
+		it('should render a contact form', () => {
+
+			return tester.get({ path: '/form' })
+				.then(({ status, headers, $ }) => {
+					expect(status).to.equal(200);
+					expect(headers['cache-control']).to.equal('max-age=0, no-cache, must-revalidate');
+					expect(headers['surrogate-control']).to.equal('max-age=0, no-cache, must-revalidate');
+
+					expect($('header#site-navigation').length).to.equal(0);
+					expect($('footer#site-footer').length).to.equal(0);
+
+					expect($('form').length).to.equal(1);
+					expect($('label[for="firstName"]').text().trim()).to.equal('First name');
+					expect($('label[for="lastName"]').text().trim()).to.equal('Last name');
+					expect($('label[for="jobTitle"]').text().trim()).to.equal('Job title');
+					expect($('label[for="companyName"]').text().trim()).to.equal('Company name');
+					expect($('label[for="email"]').text().trim()).to.equal('Work email address');
+					expect($('label[for="primaryTelephone"]').text().trim()).to.equal('Work phone number');
+					expect($('label[for="country"]').text().trim()).to.equal('Country');
+					expect($('button[type="submit"]').length).to.equal(1);
+
+				});
+
+		});
+
+		it('should customise form for factiva', () => {
+			return tester.get({ path: '/form/factiva' })
+				.then(({ status, headers, $ }) => {
+					expect(status).to.equal(200);
+					expect(headers['cache-control']).to.equal('max-age=0, no-cache, must-revalidate');
+					expect(headers['surrogate-control']).to.equal('max-age=0, no-cache, must-revalidate');
+
+					expect($('header#site-navigation').length).to.equal(0);
+					expect($('footer#site-footer').length).to.equal(0);
+
+					expect($('.prospect-form__heading').text()).to.contain('Contact us for FT Group Subscription options');
+					expect($('form').length).to.equal(1);
+					expect($('label[for="firstName"]').text().trim()).to.equal('First name');
+					expect($('label[for="lastName"]').text().trim()).to.equal('Last name');
+					expect($('label[for="jobTitle"]').text().trim()).to.equal('Job title');
+					expect($('label[for="companyName"]').text().trim()).to.equal('Company name');
+					expect($('label[for="email"]').text().trim()).to.equal('Work email address');
+					expect($('label[for="primaryTelephone"]').text().trim()).to.equal('Work phone number');
+					expect($('label[for="country"]').text().trim()).to.equal('Country');
+					expect($('button[type="submit"]').length).to.equal(1);
+				});
+		});
+
+		it('should customise form for unmasking theme', () => {
+			return tester.get({ path: '/form/unmasking' })
+				.then(({ status, headers, $ }) => {
+					expect(status).to.equal(200);
+					expect(headers['cache-control']).to.equal('max-age=0, no-cache, must-revalidate');
+					expect(headers['surrogate-control']).to.equal('max-age=0, no-cache, must-revalidate');
+
+					expect($('header#site-navigation').length).to.equal(0);
+					expect($('footer#site-footer').length).to.equal(0);
+
+					expect($('form').length).to.equal(1);
+					expect($('label[for="firstName"]').text().trim()).to.equal('First name');
+					expect($('label[for="lastName"]').text().trim()).to.equal('Last name');
+					expect($('label[for="jobTitle"]').text().trim()).to.equal('Job title');
+					expect($('label[for="companyName"]').text().trim()).to.equal('Company name');
+					expect($('label[for="email"]').text().trim()).to.equal('Work email address');
+					expect($('label[for="primaryTelephone"]').text().trim()).to.equal('Work phone number');
+					expect($('label[for="country"]').text().trim()).to.equal('Country');
+					expect($('button[type="submit"]').length).to.equal(1);
+
+					expect($('.o-forms-section').text()).to.contain('Or speak to a product specialist immediately');
+				});
+		});
+
+		it('should customise form for teamtrial theme', () => {
+			return tester.get({ path: '/form/teamtrial' })
+				.then(({ status, headers, $ }) => {
+					expect(status).to.equal(200);
+					expect(headers['cache-control']).to.equal('max-age=0, no-cache, must-revalidate');
+					expect(headers['surrogate-control']).to.equal('max-age=0, no-cache, must-revalidate');
+
+					expect($('header#site-navigation').length).to.equal(1);
+					expect($('footer#site-footer').length).to.equal(1);
+
+					expect($('form').length).to.equal(1);
+					expect($('label[for="firstName"]').text().trim()).to.equal('First name');
+					expect($('label[for="lastName"]').text().trim()).to.equal('Last name');
+					expect($('label[for="jobTitle"]').text().trim()).to.equal('Job title');
+					expect($('label[for="companyName"]').text().trim()).to.equal('Company name');
+					expect($('label[for="email"]').text().trim()).to.equal('Work email address');
+					expect($('label[for="primaryTelephone"]').text().trim()).to.equal('Work phone number');
+					expect($('label[for="country"]').text().trim()).to.equal('Country');
+					expect($('button[type="submit"]').length).to.equal(1);
+
+					expect($('.o-forms-section').text()).to.contain('Or speak to a product specialist immediately');
+				});
+		});
+
+		it('should render consent fields if the form of words can be retrieved', done => {
+			nock(process.env.FOW_API_HOST)
+				.get('/api/v1/FTPINK/consentB2BProspect')
+				.reply(200, {
+					consents: [
+						{
+							category: 'enhancement',
+							channels: [
+								{ channel: 'byEmail' }
+							]
+						}
+					]
+				});
+
 			request(app)
-				.get('/form')
-				.expect(200)
+				.get('/form?marketingName=factiva')
 				.end((err, res) => {
-					expect(res.headers['cache-control']).to.equal('max-age=0, no-cache, must-revalidate');
-					expect(res.headers['surrogate-control']).to.equal('max-age=3600, stale-while-revalidate=60, stale-if-error=86400');
-					expect(res.text).to.contain('<form');
-					expect(res.text).to.contain('First name');
-					expect(res.text).to.contain('Last name');
-					expect(res.text).to.contain('Job title');
-					expect(res.text).to.contain('Company name');
-					expect(res.text).to.contain('Work email address');
-					expect(res.text).to.contain('Work phone number');
-					expect(res.text).to.contain('Terms and conditions');
-					expect(res.text).to.contain('type="submit"');
+					expect(res.text).to.contain('<div class="consent-form');
 					done();
 				});
 		});
 
-		it('should customise form for factiva', (done) => {
+		it('should render the legacy terms and conditions section if form of words cannot be retrieved', done => {
+			nock(process.env.FOW_API_HOST)
+				.get('/api/v1/FTPINK/consentB2BProspect')
+				.reply(404);
+
 			request(app)
 				.get('/form?marketingName=factiva')
-				.expect(200)
 				.end((err, res) => {
-					expect(res.headers['cache-control']).to.equal('max-age=0, no-cache, must-revalidate');
-					expect(res.headers['surrogate-control']).to.equal('max-age=3600, stale-while-revalidate=60, stale-if-error=86400');
-					expect(res.text).to.contain('Contact us for FT Group Subscription options');
-					expect(res.text).to.contain('<form');
-					expect(res.text).to.contain('First name');
-					expect(res.text).to.contain('Last name');
-					expect(res.text).to.contain('Job title');
-					expect(res.text).to.contain('Company name');
-					expect(res.text).to.contain('Work email address');
-					expect(res.text).to.contain('Work phone number');
-					expect(res.text).to.contain('Terms and conditions');
-					expect(res.text).to.contain('type="submit"');
+					expect(res.text).to.not.contain('<div class="consent-form');
+					expect(res.text).to.contain('<input type="checkbox" id="termsAcceptance');
 					done();
-			});
-		});
-
-		it('should customise form for unmasking theme', (done) => {
-			request(app)
-				.get('/form?marketingName=unmasking')
-				.expect(200)
-				.end((err, res) => {
-					expect(res.headers['cache-control']).to.equal('max-age=0, no-cache, must-revalidate');
-					expect(res.headers['surrogate-control']).to.equal('max-age=3600, stale-while-revalidate=60, stale-if-error=86400');
-					expect(res.text).to.contain('<form');
-					expect(res.text).to.contain('First name');
-					expect(res.text).to.contain('Last name');
-					expect(res.text).to.contain('Job title');
-					expect(res.text).to.contain('Company name');
-					expect(res.text).to.not.contain('Country');
-					expect(res.text).to.contain('Work email address');
-					expect(res.text).to.contain('Work phone number');
-					expect(res.text).to.contain('Terms and conditions');
-					expect(res.text).to.contain('type="submit"');
-					expect(res.text).to.contain('<div class="o-forms-section');
-					done();
-			});
-		});
-
-		context('when the consent flag is on', () => {
-			it('should render consent fields if the form of words can be retrieved', done => {
-				nock(process.env.FOW_API_HOST)
-					.get('/api/v1/FTPINK/consentB2BProspect')
-					.reply(200, {
-						consents: [
-							{
-								category: 'enhancement',
-								channels: [
-									{ channel: 'byEmail' }
-								]
-							}
-						]
-					});
-
-				request(app)
-					.get('/form?marketingName=factiva')
-					.set('FT-Flags', 'channelsBarrierConsent:on')
-					.end((err, res) => {
-						expect(res.text).to.contain('<div class="consent-form');
-						done();
-					});
-			});
-
-			it('should render the legacy terms and conditions section if form of words cannot be retrieved', done => {
-				nock(process.env.FOW_API_HOST)
-					.get('/api/v1/FTPINK/consentB2BProspect')
-					.reply(404);
-
-				request(app)
-					.get('/form?marketingName=factiva')
-					.set('FT-Flags', 'channelsBarrierConsent:on')
-					.end((err, res) => {
-						expect(res.text).to.not.contain('<div class="consent-form');
-						expect(res.text).to.contain('<input type="checkbox" id="termsAcceptance');
-						done();
-					});
-			});
+				});
 		});
 	});
 
@@ -184,6 +220,21 @@ describe('Form', () => {
 		});
 
 		it('should call Profile if marketingName is unmasking', (done) => {
+			request(app)
+				.post('/form?marketingName=unmasking')
+				.set('Content-Type', 'application/x-www-form-urlencoded')
+				.send(testPayload)
+				.expect(200)
+				.end((err, res) => {
+
+					expect(profileStub.calledOnce).to.equal(true);
+
+					expectConfirmationPage(res);
+					done();
+				});
+		});
+
+		it('should call Profile if marketingName is teamtrial', (done) => {
 			request(app)
 				.post('/form?marketingName=unmasking')
 				.set('Content-Type', 'application/x-www-form-urlencoded')
@@ -313,7 +364,7 @@ describe('Form', () => {
 
 		});
 
-		it('should correctly map consent fields to Marketo fields', () => {
+		it('should correctly map consent fields to Marketo fields', (done) => {
 			const payload = Object.assign({}, testPayload, {
 				formOfWordsId: 'test-fow-id',
 				formOfWordsScope: 'test-fow-scope',

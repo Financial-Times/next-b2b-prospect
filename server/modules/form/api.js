@@ -21,7 +21,6 @@ export default {
 
 		logger.info({
 			event: 'RENDER_B2B_FORM',
-			gdprFlag: res.locals.flags.channelsBarrierConsent,
 			sessionPresent: !!req.cookies.FTSession_s,
 			marketingName: res.locals.marketingName
 		});
@@ -30,33 +29,29 @@ export default {
 			res.clearCookie(ERROR_COOKIE);
 		}
 
-		if (res.locals.flags.channelsBarrierConsent) {
-			try {
-				const fow = await getFormOfWords(FORM_OF_WORDS);
+		try {
+			const fow = await getFormOfWords(FORM_OF_WORDS);
 
-				consent = consentUtil.populateConsentModel({
-					fow,
-					source: CONSENT_SOURCE,
-					elementAttrs: [{ name: 'required' }]
-				});
-			} catch (e) {
-				logger.error({
-					event:'RETRIEVE_FORM_OF_WORDS_FAILURE',
-					error: e.name, message: e.message || e.errorMessage
-				}, e.data);
-			}
+			consent = consentUtil.populateConsentModel({
+				fow,
+				source: CONSENT_SOURCE,
+				elementAttrs: [{ name: 'required' }]
+			});
+		} catch (e) {
+			logger.error({
+				event:'RETRIEVE_FORM_OF_WORDS_FAILURE',
+				error: e.name, message: e.message || e.errorMessage
+			}, e.data);
 		}
 
-		res.set('Cache-Control', res.FT_NO_CACHE);
-		res.set('Surrogate-Control', res.FT_HOUR_CACHE);
 		const emailValue = await getUserEmail(req.cookies.FTSession_s);
 
 		return res.render('form', {
 			title: 'Signup',
-			layout: 'vanilla',
 			campaignId: res.locals.campaignId,
 			marketingName: res.locals.marketingName,
-			isUnmasking: res.locals.marketingName === 'unmasking',
+			isFactiva: res.locals.marketingName === 'factiva',
+			isUnmasking: res.locals.marketingName === 'unmasking' || res.locals.marketingName === 'teamtrial',
 			emailValue,
 			error,
 			consent
@@ -74,7 +69,7 @@ export default {
 				id = 'pally';
 			} else {
 				// Send off a save request, we don't care if it makes it
-				if (res.locals.marketingName === 'unmasking') {
+				if (res.locals.marketingName === 'unmasking' || res.locals.marketingName === 'teamtrial') {
 					Profile.save(res.locals.sessionToken, {
 						firstName: req.body.firstName,
 						lastName: req.body.lastName,
@@ -119,8 +114,7 @@ export default {
 			if (marketoResponse.status === 'updated') {
 				metrics.count('b2b-prospect.submission.existing', 1);
 				return res.render('exists', {
-					title: 'Signup',
-					layout: 'vanilla'
+					title: 'Signup'
 				});
 			}
 
