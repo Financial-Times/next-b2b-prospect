@@ -46,7 +46,7 @@ export const SCHEMA = Joi.object()
 		Job_Function__c: Joi.string()
 			.empty('')
 			.default(''),
-		mkto2__Original_Referrer__c: Joi.string()
+		Spoor_Id__c: Joi.string()
 			.empty('')
 			.default(''),
 		// TODO: GDPR cleanup
