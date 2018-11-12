@@ -18,6 +18,7 @@ export default {
 	setLocals: (req, res, next) => {
 		res.locals.marketingName = escape(req.params.marketingName || req.query.marketingName || '') || FALLBACK_MARKETING_NAME;
 		res.locals.campaignId = req.query.cpccampaign && escape(req.query.cpccampaign) || '';
+		res.locals.segmentId = req.query.segmentId && escape(req.query.segmentId) || '';
 		res.locals.contentUuid = req.query['ft-content-uuid'] && escape(req.query['ft-content-uuid']) || '';
 		res.locals.sessionToken = req.cookies['FTSession_s'] || '';
 		res.locals.spoorId = req.cookies['spoor-id'] || '';

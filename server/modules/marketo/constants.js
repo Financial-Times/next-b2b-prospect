@@ -34,6 +34,9 @@ export const SCHEMA = Joi.object()
 		CPCCampaign__c: Joi.string()
 			.empty('')
 			.default(''),
+		Segment_Id__c: Joi.string()
+			.empty('')
+			.default(''),
 		GCLID__c: Joi.string()
 			.empty('')
 			.default(''),
