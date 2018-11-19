@@ -2,7 +2,7 @@ export const sendMessage = data => {
   parent.postMessage(JSON.stringify(data), '*');
 }
 
-export const dispatchTrackingEvent = ({ action, category, data = {} }) => {
+export const dispatchTrackingEvent = ({ action, category, data = { formType: 'next.contact.signup' } }) => {
 
   let detail = Object.assign({}, data, { action, category });
   let event = (() => {
