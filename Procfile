@@ -1,1 +1,1 @@
-web: n-cluster server/init.js
+web: node server/init.js
