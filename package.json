@@ -13,20 +13,20 @@
     "prepush": "make verify -j3"
   },
   "dependencies": {
-    "@financial-times/n-conversion-forms": "^3.0.0",
-    "@financial-times/n-es-client": "^1.6.1",
-    "@financial-times/n-mask-logger": "^2.1.0",
-    "@financial-times/n-memb-gql-client": "^1.0.0-beta.2",
-    "@financial-times/n-profile-ui": "^10.20.0",
-    "@financial-times/n-raven": "^3.0.3",
+    "@financial-times/n-conversion-forms": "3.5.1",
+    "@financial-times/n-es-client": "1.6.2",
+    "@financial-times/n-mask-logger": "2.1.0",
+    "@financial-times/n-memb-gql-client": "1.0.0-beta.2",
+    "@financial-times/n-profile-ui": "10.24.0",
+    "@financial-times/n-raven": "3.0.4",
     "@financial-times/n-ui": "^8.22.1",
     "body-parser": "^1.18.3",
     "cookie-parser": "^1.4.3",
-    "fetchres": "^1.7.2",
+    "fetchres": "1.7.2",
     "joi": "^13.3.0",
     "lodash": "^4.17.10",
     "n-common-static-data": "git+ssh://git@github.com/Financial-Times/n-common-static-data.git#v1.6.2",
-    "n-health": "^3.0.0",
+    "n-health": "3.2.0",
     "node-marketo-rest": "^0.7.0"
   },
   "devDependencies": {
