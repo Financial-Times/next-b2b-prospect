@@ -10,7 +10,8 @@
   "scripts": {
     "precommit": "node_modules/.bin/secret-squirrel",
     "commitmsg": "node_modules/.bin/secret-squirrel-commitmsg",
-    "prepush": "make verify -j3"
+    "prepush": "make verify -j3",
+    "heroku-postbuild": "make heroku-postbuild"
   },
   "dependencies": {
     "@financial-times/n-conversion-forms": "3.5.1",
