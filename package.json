@@ -31,8 +31,8 @@
   },
   "devDependencies": {
     "@financial-times/fastly-tools": "^1.7.1",
-    "@financial-times/n-gage": "^2.0.2",
-    "@financial-times/n-heroku-tools": "^7.2.0",
+    "@financial-times/n-gage": "^3.0.0",
+    "@financial-times/n-heroku-tools": "^8.0.0",
     "bower": "^1.8.4",
     "chai": "^4.1.2",
     "mocha": "^5.2.0",
@@ -42,6 +42,7 @@
     "proxyquire": "^2.0.1",
     "sinon": "^5.0.7",
     "supertest": "^3.1.0",
-    "supertest-parse": "^1.0.0"
+    "supertest-parse": "^1.0.0",
+    "@financial-times/n-test": "^1.13.2"
   }
 }
