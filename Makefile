@@ -6,7 +6,7 @@ node_modules/@financial-times/n-gage/index.mk:
 
 VAULT_NAME=ft-next-b2b-prospect
 HEROKU_APP_STAGING=ft-next-b2b-prospect-staging
-HEROKU_APP_EU=ft-next-b2b-prospect
+HEROKU_APP_EU=ft-next-b2b-prospect-eu
 
 build:
 	nui build
