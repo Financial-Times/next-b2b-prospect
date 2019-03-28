@@ -5,5 +5,13 @@
       "quantity": 1,
       "size": "Standard-1X"
     }
-  }
+  },
+  "buildpacks": [
+    {
+      "url": "https://github.com/timshadel/heroku-buildpack-github-netrc"
+    },
+    {
+      "url": "heroku/nodejs"
+    }
+  ]
 }
