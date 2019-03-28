@@ -4,7 +4,9 @@ node_modules/@financial-times/n-gage/index.mk:
 
 -include node_modules/@financial-times/n-gage/index.mk
 
-TEST_APP := "ft-next-b2b-prspct-branch-${CIRCLE_BUILD_NUM}"
+VAULT_NAME=ft-next-b2b-prospect
+HEROKU_APP_STAGING=ft-next-b2b-prospect-staging
+HEROKU_APP_EU=ft-next-b2b-prospect-eu
 
 build:
 	nui build
@@ -23,24 +25,9 @@ unit-test:
 	export MEMBQL_API_KEY_PROD=1; \
 	mocha --require server/setup --exit --require test/setup --recursive ./test
 
-smoke:
-	nht smoke ${TEST_APP}
-
 run:
 	export DEBUG=ft-next-b2b-prospect-debug; \
 	nht run --https --local
 
-provision:
-	nht deploy-hashed-assets
-	nht float -md --testapp ${TEST_APP}
-	make a11y
-
-deploy:
-	nht deploy-hashed-assets --monitor-assets
-	nht ship
-
 deploy-fastly:
 	fastly-tools deploy -e --service FASTLY_SERVICE_ID --backends cdn/backends.json --main main.vcl ./cdn/
-
-tidy:
-	nht destroy ${TEST_APP}

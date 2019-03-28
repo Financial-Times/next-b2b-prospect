@@ -122,12 +122,8 @@ jobs:
           environment:
             HEROKU_LOGIN: next.developers@ft.com
       - run:
-          name: Provision Heroku branch app
-          command: make provision
-      - run:
-          name: Tidy up Heroku branch app
-          command: make tidy
-          when: always
+          name: Create and test Heroku review app
+          command: make test-review-app
 
   deploy:
     <<: *container_config_node8
@@ -144,7 +140,7 @@ jobs:
           command: bash .circleci/shared-helpers/helper-install-puppeteer-deps
       - run:
           name: Deploy to production
-          command: make deploy-by-day
+          command: make deploy
 
 workflows:
 
@@ -162,7 +158,7 @@ workflows:
           requires:
             - build
 
-  build-test-provision-deploy:
+  build-test-deploy:
     jobs:
       - build:
           filters:
@@ -170,13 +166,9 @@ workflows:
       - test:
           requires:
             - build
-      - provision:
-          requires:
-            - build
       - deploy:
           requires:
             - test
-            - provision
 
   nightly:
     triggers:
