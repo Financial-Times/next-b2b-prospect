@@ -12,7 +12,8 @@
     "commitmsg": "node_modules/.bin/secret-squirrel-commitmsg",
     "prepush": "make verify -j3",
     "heroku-postbuild": "make heroku-postbuild",
-    "prepare": "npx snyk protect || npx snyk protect -d || true"
+    "snyk-protect": "snyk protect",
+    "prepublish": "npm run snyk-protect"
   },
   "dependencies": {
     "@financial-times/n-conversion-forms": "8.2.0",
@@ -29,7 +30,8 @@
     "lodash": "^4.17.10",
     "n-common-static-data": "github:Financial-Times/n-common-static-data.git#v1.6.2",
     "n-health": "3.3.1",
-    "node-marketo-rest": "^0.7.0"
+    "node-marketo-rest": "^0.7.0",
+    "snyk": "^1.163.3"
   },
   "devDependencies": {
     "@financial-times/fastly-tools": "^1.7.1",
@@ -47,5 +49,6 @@
     "snyk": "^1.167.0",
     "supertest": "^3.1.0",
     "supertest-parse": "^1.0.0"
-  }
+  },
+  "snyk": true
 }
