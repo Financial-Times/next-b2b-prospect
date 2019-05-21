@@ -138,6 +138,7 @@ jobs:
       - run:
           name: shared-helper / helper-install-puppeteer-deps
           command: bash .circleci/shared-helpers/helper-install-puppeteer-deps
+      - run: snyk monitor --org=customer-products
       - run:
           name: Deploy to production
           command: make deploy
