@@ -16,9 +16,10 @@
 }
 
 .prospect-form__spinner {
-	@include oLoading();
-	@include oLoadingSize('large');
-	@include oLoadingColor('light');
+	@include oLoadingContent($opts: (
+		'theme': 'light',
+		'size': 'large'
+	));
 	margin-top: 250px;
 }
 

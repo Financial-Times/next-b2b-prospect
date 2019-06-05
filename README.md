@@ -21,6 +21,9 @@ make run
 `Access the form locally via: 
 `https://local.ft.com:3002/form
 
+`Production: 
+`https://next-b2b-prospect.ft.com/form
+
 ### Endpoints
 
 *	`GET /form`
