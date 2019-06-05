@@ -24,7 +24,7 @@
     "body-parser": "^1.18.3",
     "cookie-parser": "^1.4.3",
     "fetchres": "1.7.2",
-    "joi": "^13.3.0",
+    "joi": "^14.0.0",
     "lodash": "^4.17.10",
     "n-common-static-data": "github:Financial-Times/n-common-static-data.git#v1.6.2",
     "n-health": "3.2.0",
