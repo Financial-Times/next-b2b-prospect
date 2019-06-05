@@ -8,7 +8,7 @@ import sinon from 'sinon';
 import request from 'supertest';
 import { expect } from 'chai';
 import raven from '@financial-times/n-raven';
-import app, { ready } from '../../../../server/app';
+import app, { ready } from '../../../../server/server';
 import Marketo from '../../../../server/modules/marketo/service';
 import { LEAD_ALREADY_EXISTS_ERROR } from '../../../../server/modules/marketo/constants';
 

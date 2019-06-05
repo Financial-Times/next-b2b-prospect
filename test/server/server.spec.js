@@ -1,7 +1,7 @@
 import sinon from 'sinon';
 import request from 'supertest';
 import { expect } from 'chai';
-import app, { ready } from '../../server/app';
+import app, { ready } from '../../server/server';
 
 describe('App', () => {
 
