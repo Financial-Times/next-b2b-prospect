@@ -13,6 +13,7 @@ const PORT = Number(process.env.PORT || 5657);
 
 const app = express({
 	systemCode: 'next-b2b-prospect',
+	graphiteName: 'b2b-prospect',
 	withJsonLd: false,
 	healthChecks: nHealth(path.resolve(__dirname, './config/health-checks')).asArray(),
 	withBackendAuthentication: false,
