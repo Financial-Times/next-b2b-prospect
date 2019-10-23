@@ -1,7 +1,6 @@
 {
   "name": "next-b2b-prospect",
   "dependencies": {
-    "n-ui": "^8.8.0",
     "o-buttons": "^5.11.6",
     "o-colors": "^4.4.1",
     "o-typography": "^5.6.5",

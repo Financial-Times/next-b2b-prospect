@@ -1,4 +1,4 @@
-import express from '@financial-times/n-ui';
+import express from '@financial-times/n-express';
 import MaskLogger from '@financial-times/n-mask-logger';
 import nHealth from 'n-health';
 import bodyParser from 'body-parser';
@@ -13,7 +13,10 @@ const PORT = Number(process.env.PORT || 5657);
 
 const app = express({
 	systemCode: 'next-b2b-prospect',
+	appName: 'b2b-prospect',
 	graphiteName: 'b2b-prospect',
+	withConsent: true,
+	withAnonMiddleware: true,
 	withJsonLd: false,
 	healthChecks: nHealth(path.resolve(__dirname, './config/health-checks')).asArray(),
 	withBackendAuthentication: false,

@@ -7,7 +7,7 @@ dist
 .haikro-cache/
 node-*
 bower-*
-public
+public/
 .vim.custom
 *.env*
 *.csv

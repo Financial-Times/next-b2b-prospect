@@ -9,13 +9,10 @@ HEROKU_APP_STAGING=ft-next-b2b-prospect-staging
 HEROKU_APP_EU=ft-next-b2b-prospect-eu
 
 build:
-	nui build
 
 build-production:
-	nui build --production
 
 watch:
-	nui watch
 
 test:
 	make verify && make unit-test

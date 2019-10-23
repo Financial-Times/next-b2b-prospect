@@ -25,26 +25,6 @@ export default {
 		return next();
 	},
 
-	setTemplate: (req, res, next) => {
-
-		const isTeamTrial = res.locals.marketingName === 'teamtrial';
-		res.locals.layout = isTeamTrial ? 'wrapper' : 'vanilla',
-		res.locals.nUi = {
-			header: {
-				disableSticky: true,
-				variant: 'logo-only'
-			}
-		};
-		res.locals.nUiConfig = {
-			features: {
-				header: isTeamTrial,
-				footer: isTeamTrial
-			}
-		}
-
-		return next();
-	},
-
 	validatePayload: (req, res, next) => {
 		if (!_get(req, 'body.firstName') || !_get(req, 'body.lastName') || !_get(req, 'body.company')) {
 			res.cookie(ERROR_COOKIE, 'Please fill out all fields.');

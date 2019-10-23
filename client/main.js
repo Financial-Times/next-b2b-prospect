@@ -1,4 +1,3 @@
-import { onAppInitialized } from 'n-ui';
 import FormComponent from './components/form';
 import SubmissionComponent from './components/submission';
 import ConfirmationComponent from './components/confirmation';
@@ -18,5 +17,3 @@ if (submissionEl) {
 if (confirmationEl) {
 	ConfirmationComponent.init(confirmationEl);
 }
-
-onAppInitialized();
