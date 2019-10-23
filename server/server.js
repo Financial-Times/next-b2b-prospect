@@ -1,3 +1,4 @@
+import { PageKitHandlebars, helpers } from '@financial-times/dotcom-server-handlebars';
 import express from '@financial-times/n-express';
 import MaskLogger from '@financial-times/n-mask-logger';
 import nHealth from 'n-health';
@@ -16,12 +17,15 @@ const app = express({
 	appName: 'b2b-prospect',
 	graphiteName: 'b2b-prospect',
 	withConsent: true,
-	withAnonMiddleware: true,
+	withAnonMiddleware: false,
+	withFlags: false,
 	withJsonLd: false,
 	healthChecks: nHealth(path.resolve(__dirname, './config/health-checks')).asArray(),
 	withBackendAuthentication: false,
 	helpers: require('@financial-times/n-conversion-forms/helpers')
 });
+
+app.engine('.html', new PageKitHandlebars({ helpers }).engine);
 
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: false }))

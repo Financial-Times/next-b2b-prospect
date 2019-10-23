@@ -46,7 +46,7 @@ export default {
 
 		const emailValue = await getUserEmail(req.cookies.FTSession_s);
 
-		return res.render('form', {
+		return res.render('form.html', {
 			title: 'Signup',
 			campaignId: res.locals.campaignId,
 			segmentId: res.locals.segmentId,
@@ -114,7 +114,7 @@ export default {
 
 			if (marketoResponse.status === 'updated') {
 				metrics.count('b2b-prospect.submission.existing', 1);
-				return res.render('exists', {
+				return res.render('exists.html', {
 					title: 'Signup'
 				});
 			}
@@ -141,11 +141,10 @@ export default {
 			res.clearCookie('FTBarrierAcqCtxRef', { domain: '.ft.com', path: '/' });
 			res.clearCookie('FTBarrier', { domain: '.ft.com', path: '/' });
 
-			return res.render('confirm', {
+			return res.render('confirm.html', {
 				title: 'Signup',
 				marketingName: res.locals.marketingName,
 				contentUuid: res.locals.contentUuid,
-				layout: 'vanilla',
 				page: 'submission',
 				shouldRedirect
 			});
@@ -154,16 +153,15 @@ export default {
 			logger.error('Error submitting to Marketo', err);
 			raven.captureError(err);
 			metrics.count('b2b-prospect.submission.error', 1);
-			return res.render('error', {
-				title: 'Signup',
-				layout: 'vanilla'
+			return res.render('error.html', {
+				title: 'Signup'
 			});
 		}
 
 	},
 
 	confirm: async (req, res, next) => {
-		const template = 'confirm';
+		let template = 'confirm.html';
 		const { leadId, contentUuid, accessToken, marketingName } = res.locals.submission;
 		let article;
 
@@ -171,11 +169,10 @@ export default {
 			article = await ES.get(contentUuid);
 			metrics.count('b2b-prospect.confirmation.success', 1);
 		} catch (e) {
-			template = 'error';
+			template = 'error.html';
 		} finally {
 			return res.render(template, {
 				title: 'Signup',
-				layout: 'wrapper',
 				wrapped: true,
 				page: 'confirmation',
 				leadId,
