@@ -19,7 +19,7 @@ make run
 
 ## Access point
 `Access the form locally via: 
-`https://local.ft.com:3002/form
+`http://local.ft.com:3002/form
 
 `Production: 
 `https://next-b2b-prospect.ft.com/form
