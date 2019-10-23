@@ -27,7 +27,7 @@ unit-test:
 
 run:
 	export DEBUG=ft-next-b2b-prospect-debug; \
-	nht run --https --local
+	nht run --local
 
 deploy-fastly:
 	fastly-tools deploy -e --service FASTLY_SERVICE_ID --backends cdn/backends.json --main main.vcl ./cdn/
