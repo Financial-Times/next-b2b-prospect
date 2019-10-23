@@ -25,7 +25,7 @@ unit-test:
 	export MEMBQL_API_KEY_PROD=1; \
 	mocha --require server/setup --exit --require test/setup --recursive ./test
 
-run:
+run-local:
 	export DEBUG=ft-next-b2b-prospect-debug; \
 	nht run --local
 
