@@ -9,11 +9,11 @@ HEROKU_APP_STAGING=ft-next-b2b-prospect-staging
 HEROKU_APP_EU=ft-next-b2b-prospect-eu
 
 build:
-
+	page-kit build --development
 build-production:
-
+	page-kit build
 watch:
-
+	page-kit build --development --watch
 test:
 	make verify && make unit-test
 

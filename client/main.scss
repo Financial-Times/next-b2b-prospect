@@ -1,7 +1,4 @@
-body {
-	@include oTypographySans($scale:0);
-	padding: 2px;
-}
+@import 'o-typography/main';
 @import 'stylesheets/form';
 @import 'n-conversion-forms/main';
 @import 'n-profile-ui/main';
@@ -9,3 +6,8 @@ body {
 @import 'o-loading/main';
 @import 'stylesheets/overlay';
 @import 'stylesheets/confirmation';
+
+body {
+	@include oTypographySans($scale:0);
+	padding: 2px;
+}
