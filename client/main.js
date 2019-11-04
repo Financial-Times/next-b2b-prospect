@@ -1,9 +1,12 @@
 import FormComponent from './components/form';
 import SubmissionComponent from './components/submission';
 import ConfirmationComponent from './components/confirmation';
+import * as pageKitLayout from '@financial-times/dotcom-ui-layout'
 import domLoaded from 'dom-loaded';
 
 domLoaded.then(() => {
+	pageKitLayout.init();
+
 	const form = document.querySelector('[data-o-component="o-forms"]');
 	const submissionEl = document.querySelector('[data-page="submission"]');
 	const confirmationEl = document.querySelector('[data-page="confirmation"]');

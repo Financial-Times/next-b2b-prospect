@@ -3,11 +3,9 @@ import ReactDOM from 'react-dom/server';
 import { Shell } from '@financial-times/dotcom-ui-shell';
 import { Layout } from '@financial-times/dotcom-ui-layout';
 
-export default ({ response, next, shellProps }) => {
-        const layoutProps = {
-            navigationData: response.locals.navigation,
-            headerOptions: { ...response.locals.anon }
-        };
+export default ({ response, next, shellProps, layoutProps }) => {
+        layoutProps.navigationData = response.locals.navigation;
+        layoutProps.headerOptions = { ...response.locals.anon};
 
         return (error, html) => {
             if (error) {

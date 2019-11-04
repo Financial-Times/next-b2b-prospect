@@ -6,6 +6,7 @@
 @import 'o-loading/main';
 @import 'stylesheets/overlay';
 @import 'stylesheets/confirmation';
+@import '@financial-times/dotcom-ui-layout/styles';
 
 body {
 	@include oTypographySans($scale:0);

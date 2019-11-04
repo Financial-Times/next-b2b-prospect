@@ -27,7 +27,13 @@ export default {
 			stylesheets: res.locals.assets.loader.getStylesheetURLsFor('styles')
 		};
 
-		const pageKitArgs = { response: res, next, shellProps };
+		const isTeamTrial = res.locals.marketingName === 'teamtrial';
+		const layoutProps = {
+			header: isTeamTrial ? 'logo-only' : false,
+			footer: isTeamTrial ? 'simple' : false,
+		};
+
+		const pageKitArgs = { response: res, next, shellProps, layoutProps };
 
 		logger.info({
 			event: 'RENDER_B2B_FORM',
@@ -83,7 +89,7 @@ export default {
 			stylesheets: res.locals.assets.loader.getStylesheetURLsFor('styles')
 		};
 
-		const pageKitArgs = { response: res, next, shellProps };
+		const pageKitArgs = { response: res, next, shellProps, layoutProps: {} };
 
 		try {
 			if (req.query.pa11y) {
@@ -193,7 +199,7 @@ export default {
 			stylesheets: res.locals.assets.loader.getStylesheetURLsFor('styles')
 		};
 
-		const pageKitArgs = { response: res, next, shellProps };
+		const pageKitArgs = { response: res, next, shellProps, layoutProps: {} };
 
 		try {
 			article = await ES.get(contentUuid);
