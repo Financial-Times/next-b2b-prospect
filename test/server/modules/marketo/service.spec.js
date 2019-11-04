@@ -4,8 +4,6 @@ import proxyquire from 'proxyquire';
 
 import * as constants from '../../../../server/modules/marketo/constants';
 
-import Marketo from 'node-marketo-rest';
-
 describe('Marketo Service', () => {
 
 	describe('createOrUpdate', () => {
@@ -25,7 +23,7 @@ describe('Marketo Service', () => {
 			createLeadStub = sandbox.stub().resolves(mockResponse);
 			service = proxyquire('../../../../server/modules/marketo/service', {
 				'node-marketo-rest': createMarketoMock(createLeadStub)
-			});
+			}).default;
 
 		});
 

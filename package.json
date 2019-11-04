@@ -43,9 +43,6 @@
     "@financial-times/n-gage": "^3.12.0",
     "@financial-times/n-heroku-tools": "^8.3.1",
     "@financial-times/n-test": "^1.13.2",
-    "babel-plugin-add-module-exports": "^1.0.2",
-    "babel-plugin-transform-es2015-modules-commonjs": "^6.26.2",
-    "babel-register": "^6.26.0",
     "bower": "^1.8.8",
     "chai": "^4.1.2",
     "mocha": "^5.2.0",
@@ -55,6 +52,7 @@
     "proxyquire": "^2.0.1",
     "sinon": "^5.0.7",
     "snyk": "^1.167.0",
+    "sucrase": "^3.10.1",
     "supertest": "^3.1.0",
     "supertest-parse": "^1.0.0"
   },
