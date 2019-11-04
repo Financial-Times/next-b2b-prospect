@@ -1,6 +1,6 @@
-const React = require("react");
-const ReactDOM = require("react-dom/server");
-const { Shell } = require("@financial-times/dotcom-ui-shell");
+import React from 'react';
+import ReactDOM from 'react-dom/server';
+import { Shell } from '@financial-times/dotcom-ui-shell';
 
 export default ({ response, next, shellProps }) => {
         return (error, html) => {
