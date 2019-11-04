@@ -4,7 +4,8 @@ module.exports = {
     plugins: [
         require('@financial-times/dotcom-build-js').plugin(),
         require('@financial-times/dotcom-build-sass').plugin(),
-        require('@financial-times/dotcom-build-bower-resolve').plugin()
+        require('@financial-times/dotcom-build-bower-resolve').plugin(),
+        require('@financial-times/dotcom-build-code-splitting').plugin()
     ],
     settings: {
         build: {
