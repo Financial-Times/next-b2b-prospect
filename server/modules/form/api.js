@@ -22,7 +22,9 @@ export default {
 		let consent;
 
 		const shellProps = {
-			pageTitle: 'b2b-prospect'
+			pageTitle: 'Signup',
+			scripts: res.locals.assets.loader.getScriptURLsFor('scripts'),
+			stylesheets: res.locals.assets.loader.getStylesheetURLsFor('styles')
 		};
 
 		const pageKitArgs = { response: res, next, shellProps };
@@ -76,7 +78,9 @@ export default {
 		let marketoResponse = {};
 
 		const shellProps = {
-			pageTitle: 'b2b-prospect'
+			pageTitle: 'Signup',
+			scripts: res.locals.assets.loader.getScriptURLsFor('scripts'),
+			stylesheets: res.locals.assets.loader.getStylesheetURLsFor('styles')
 		};
 
 		const pageKitArgs = { response: res, next, shellProps };
@@ -184,7 +188,9 @@ export default {
 		let article;
 
 		const shellProps = {
-			pageTitle: 'b2b-prospect'
+			pageTitle: 'Signup',
+			scripts: res.locals.assets.loader.getScriptURLsFor('scripts'),
+			stylesheets: res.locals.assets.loader.getStylesheetURLsFor('styles')
 		};
 
 		const pageKitArgs = { response: res, next, shellProps };

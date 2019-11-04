@@ -16,6 +16,7 @@
     "prepublish": "npm run snyk-protect"
   },
   "dependencies": {
+    "@financial-times/dotcom-middleware-assets": "^0.3.1",
     "@financial-times/dotcom-server-handlebars": "^0.2.3",
     "@financial-times/dotcom-ui-shell": "^0.3.1",
     "@financial-times/n-conversion-forms": "8.5.1",
