@@ -10,6 +10,8 @@ import formRouter from './modules/form/router';
 import apiRouter from './modules/api/router';
 
 const assetsMiddleware = require('@financial-times/dotcom-middleware-assets');
+const navigationMiddleware = require('@financial-times/dotcom-middleware-navigation');
+
 const isProduction = process.env.NODE_ENV === 'production';
 
 const logger = new MaskLogger(['email', 'password']);
@@ -32,6 +34,7 @@ app.engine('.html', new PageKitHandlebars({ helpers }).engine);
 
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: false }));
+app.use(navigationMiddleware.init());
 app.use(
 	assetsMiddleware.init({
 		hostStaticAssets: !isProduction,
