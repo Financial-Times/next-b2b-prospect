@@ -1,1 +1,1 @@
-require('sucrase/register')
+require("sucrase/register");
