@@ -24,7 +24,6 @@ const app = express({
 	withConsent: true,
 	withAnonMiddleware: false,
 	withFlags: false,
-	withJsonLd: false,
 	healthChecks: nHealth(path.resolve(__dirname, './config/health-checks')).asArray(),
 	withBackendAuthentication: false,
 	helpers: require('@financial-times/n-conversion-forms/helpers')
