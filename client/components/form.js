@@ -1,4 +1,4 @@
-const OForms = require('o-forms');
+import OForms from 'o-forms';
 import { sendMessage, dispatchTrackingEvent } from './utils';
 
 const overlay = document.querySelector('.prospect-form__overlay');
