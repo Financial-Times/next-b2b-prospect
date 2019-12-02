@@ -7,6 +7,9 @@ export default ({ response, next, shellProps, layoutProps }) => {
         layoutProps.navigationData = response.locals.navigation;
         layoutProps.headerOptions = { ...response.locals.anon};
 
+        shellProps.scripts = response.locals.assets.loader.getScriptURLsFor('scripts');
+        shellProps.stylesheets = response.locals.assets.loader.getStylesheetURLsFor('styles');
+
         return (error, html) => {
             if (error) {
                 return next(error);
