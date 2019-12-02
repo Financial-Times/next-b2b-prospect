@@ -29,8 +29,8 @@ export default {
 
 		const isTeamTrial = res.locals.marketingName === 'teamtrial';
 		const layoutProps = {
-			header: isTeamTrial ? 'logo-only' : false,
-			footer: isTeamTrial ? 'simple' : false,
+			headerVariant: isTeamTrial ? 'logo-only' : false,
+			footerVariant: isTeamTrial ? 'simple' : false,
 		};
 
 		const pageKitArgs = { response: res, next, shellProps, layoutProps };
