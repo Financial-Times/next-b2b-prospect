@@ -1,6 +1,6 @@
 # next-b2b-prospect
 
-[![CircleCI](https://circleci.com/gh/Financial-Times/next-b2b-prospect-signup/tree/master.svg?style=svg)](https://circleci.com/gh/Financial-Times/next-b2b-prospect-signup/tree/master)
+[![CircleCI](https://circleci.com/gh/Financial-Times/next-b2b-prospect.svg?style=svg&circle-token=6e4390fe3ecda2bd1d48703fa74024fff3979c0a)](https://circleci.com/gh/Financial-Times/next-b2b-prospect)
 
 Embeddable B2B Prospect form which creates a unique lead Marketo.
 
