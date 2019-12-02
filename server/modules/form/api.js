@@ -22,7 +22,7 @@ export default {
 		let consent;
 
 		const shellProps = {
-			pageTitle: templateData.title
+			pageTitle: 'Signup'
 		};
 
 		const isTeamTrial = res.locals.marketingName === 'teamtrial';
@@ -61,7 +61,7 @@ export default {
 		const emailValue = await getUserEmail(req.cookies.FTSession_s);
 
 		const templateData = {
-			title: 'Signup',
+			title: shellProps.pageTitle,
 			campaignId: res.locals.campaignId,
 			segmentId: res.locals.segmentId,
 			marketingName: res.locals.marketingName,
@@ -82,7 +82,7 @@ export default {
 		let marketoResponse = {};
 
 		const shellProps = {
-			pageTitle: templateData.title
+			pageTitle: 'Signup'
 		};
 
 		const pageKitArgs = { response: res, next, shellProps, layoutProps: {} };
@@ -137,7 +137,7 @@ export default {
 			if (marketoResponse.status === 'updated') {
 				metrics.count('b2b-prospect.submission.existing', 1);
 				return res.render('exists.html', {
-					title: 'Signup'
+					title: shellProps.pageTitle
 				}, pageKitShell(pageKitArgs));
 			}
 
@@ -164,7 +164,7 @@ export default {
 			res.clearCookie('FTBarrier', { domain: '.ft.com', path: '/' });
 
 			const templateData = {
-				title: 'Signup',
+				title: shellProps.pageTitle,
 				marketingName: res.locals.marketingName,
 				contentUuid: res.locals.contentUuid,
 				page: 'submission',
@@ -178,7 +178,7 @@ export default {
 			raven.captureError(err);
 			metrics.count('b2b-prospect.submission.error', 1);
 			return res.render('error.html', {
-				title: 'Signup'
+				title: shellProps.pageTitle
 			}, pageKitShell(pageKitArgs));
 		}
 
@@ -190,7 +190,7 @@ export default {
 		let article;
 
 		const shellProps = {
-			pageTitle: templateData.title
+			pageTitle: 'Signup'
 		};
 
 		const pageKitArgs = { response: res, next, shellProps, layoutProps: {} };
@@ -202,7 +202,7 @@ export default {
 			template = 'error.html';
 		} finally {
 			const templateData = {
-				title: 'Signup',
+				title: shellProps.pageTitle,
 				wrapped: true,
 				page: 'confirmation',
 				leadId,
