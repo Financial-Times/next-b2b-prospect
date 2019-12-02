@@ -50,16 +50,6 @@ app.use((req, res, next) => {
 
 app.get('/__gtg', (req, res) => res.send(200));
 
-app.get('/__sw-prod.js', (req, res) => {
-	fetch('https://ft.com/__sw-prod.js')
-		.then(response => response.text())
-		.then(js => {
-			res.set('Content-Type', 'application/javascript');
-			res.send(js);
-		})
-
-});
-
 app.use('/form', formRouter);
 app.use('/api', apiRouter);
 
