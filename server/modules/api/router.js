@@ -1,4 +1,4 @@
-import express from '@financial-times/n-ui';
+import express from '@financial-times/n-express';
 import bodyParser from 'body-parser';
 
 import api from './api';

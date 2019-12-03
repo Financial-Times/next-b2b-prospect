@@ -1,12 +1,12 @@
-const OForms = require('o-forms');
+import OForms from 'o-forms';
 import { sendMessage, dispatchTrackingEvent } from './utils';
 
 const overlay = document.querySelector('.prospect-form__overlay');
 
 const notify = (form) => {
-  sendMessage({
-    height: form.clientHeight + 20 // Adding body padding to the height
-  });
+	sendMessage({
+		height: form.clientHeight + 20 // Adding body padding to the height
+	});
 };
 
 export default {
@@ -36,6 +36,6 @@ export default {
 			action: 'landing'
 		});
 
-  }
+	}
 
 };

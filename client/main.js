@@ -1,22 +1,25 @@
-import { onAppInitialized } from 'n-ui';
 import FormComponent from './components/form';
 import SubmissionComponent from './components/submission';
 import ConfirmationComponent from './components/confirmation';
+import * as pageKitLayout from '@financial-times/dotcom-ui-layout'
+import domLoaded from 'dom-loaded';
 
-const form = document.querySelector('[data-o-component="o-forms"]');
-const submissionEl = document.querySelector('[data-page="submission"]');
-const confirmationEl = document.querySelector('[data-page="confirmation"]');
+domLoaded.then(() => {
+	pageKitLayout.init();
 
-if (form) {
-	FormComponent.init(form);
-}
+	const form = document.querySelector('[data-o-component="o-forms"]');
+	const submissionEl = document.querySelector('[data-page="submission"]');
+	const confirmationEl = document.querySelector('[data-page="confirmation"]');
 
-if (submissionEl) {
-	SubmissionComponent.init(submissionEl);
-}
+	if (form) {
+		FormComponent.init(form);
+	}
 
-if (confirmationEl) {
-	ConfirmationComponent.init(confirmationEl);
-}
+	if (submissionEl) {
+		SubmissionComponent.init(submissionEl);
+	}
 
-onAppInitialized();
+	if (confirmationEl) {
+		ConfirmationComponent.init(confirmationEl);
+	}
+});

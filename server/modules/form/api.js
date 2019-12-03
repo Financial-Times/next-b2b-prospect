@@ -9,15 +9,29 @@ import Marketo from '../marketo/service';
 import Profile from '../profile/service';
 import getUserEmail from '../graph-ql/getUserEmail';
 import { billingCountries } from 'n-common-static-data';
+import pageKitShell from '../../page-kit';
 
 import { SUBMISSION_COOKIE, ERROR_COOKIE, FORM_OF_WORDS, CONSENT_SOURCE } from './constants';
 
 const logger = new MaskLogger(['email', 'password']);
 
 export default {
+
 	form: async (req, res, next) => {
 		const error = req.cookies[ERROR_COOKIE];
 		let consent;
+
+		const shellProps = {
+			pageTitle: 'Signup'
+		};
+
+		const isTeamTrial = res.locals.marketingName === 'teamtrial';
+		const layoutProps = {
+			headerVariant: isTeamTrial ? 'logo-only' : false,
+			footerVariant: isTeamTrial ? 'simple' : false,
+		};
+
+		const pageKitArgs = { response: res, next, shellProps, layoutProps };
 
 		logger.info({
 			event: 'RENDER_B2B_FORM',
@@ -46,8 +60,8 @@ export default {
 
 		const emailValue = await getUserEmail(req.cookies.FTSession_s);
 
-		return res.render('form', {
-			title: 'Signup',
+		const templateData = {
+			title: shellProps.pageTitle,
 			campaignId: res.locals.campaignId,
 			segmentId: res.locals.segmentId,
 			marketingName: res.locals.marketingName,
@@ -56,7 +70,9 @@ export default {
 			emailValue,
 			error,
 			consent
-		});
+		}
+
+		return res.render('form.html', templateData, pageKitShell(pageKitArgs));
 
 	},
 
@@ -64,6 +80,12 @@ export default {
 		let shouldRedirect;
 		let id;
 		let marketoResponse = {};
+
+		const shellProps = {
+			pageTitle: 'Signup'
+		};
+
+		const pageKitArgs = { response: res, next, shellProps, layoutProps: {} };
 
 		try {
 			if (req.query.pa11y) {
@@ -114,9 +136,9 @@ export default {
 
 			if (marketoResponse.status === 'updated') {
 				metrics.count('b2b-prospect.submission.existing', 1);
-				return res.render('exists', {
-					title: 'Signup'
-				});
+				return res.render('exists.html', {
+					title: shellProps.pageTitle
+				}, pageKitShell(pageKitArgs));
 			}
 
 			if (res.locals.contentUuid){
@@ -141,55 +163,56 @@ export default {
 			res.clearCookie('FTBarrierAcqCtxRef', { domain: '.ft.com', path: '/' });
 			res.clearCookie('FTBarrier', { domain: '.ft.com', path: '/' });
 
-			return res.render('confirm', {
-				title: 'Signup',
+			const templateData = {
+				title: shellProps.pageTitle,
 				marketingName: res.locals.marketingName,
 				contentUuid: res.locals.contentUuid,
-				layout: 'vanilla',
 				page: 'submission',
 				shouldRedirect
-			});
+			}
+
+			return res.render('confirm.html', templateData, pageKitShell(pageKitArgs));
 
 		} catch (err) {
 			logger.error('Error submitting to Marketo', err);
 			raven.captureError(err);
 			metrics.count('b2b-prospect.submission.error', 1);
-			return res.render('error', {
-				title: 'Signup',
-				layout: 'vanilla'
-			});
+			return res.render('error.html', {
+				title: shellProps.pageTitle
+			}, pageKitShell(pageKitArgs));
 		}
 
 	},
 
 	confirm: async (req, res, next) => {
-		const template = 'confirm';
+		let template = 'confirm.html';
 		const { leadId, contentUuid, accessToken, marketingName } = res.locals.submission;
 		let article;
+
+		const shellProps = {
+			pageTitle: 'Signup'
+		};
+
+		const pageKitArgs = { response: res, next, shellProps, layoutProps: {} };
 
 		try {
 			article = await ES.get(contentUuid);
 			metrics.count('b2b-prospect.confirmation.success', 1);
 		} catch (e) {
-			template = 'error';
+			template = 'error.html';
 		} finally {
-			return res.render(template, {
-				title: 'Signup',
-				layout: 'wrapper',
+			const templateData = {
+				title: shellProps.pageTitle,
 				wrapped: true,
 				page: 'confirmation',
-				nUi: {
-			    	header: {
-						userNav: false, // turns off the log-in/log-out/subscribe/etc links in the header
-						variant: 'logo-only'
-					}
-				},
 				leadId,
 				marketingName,
 				contentUuid,
 				article,
 				accessToken
-			});
+			}
+
+			return res.render(template, templateData, pageKitShell(pageKitArgs));
 		}
 	}
 

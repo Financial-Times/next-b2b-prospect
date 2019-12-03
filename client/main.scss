@@ -1,18 +1,14 @@
-@import 'n-ui/main';
-
-@include nUiStylesheetStart('head');
-
-	body {
-		@include oTypographySans($scale:0);
-		padding: 2px;
-	}
-	@import 'stylesheets/form';
-	@import 'n-conversion-forms/main';
-	@import 'n-profile-ui/main';
-	@import 'stylesheets/overwrites';
-
-@include nUiStylesheetEnd('head');
-
+@import 'o-typography/main';
+@import 'stylesheets/form';
+@import 'n-conversion-forms/main';
+@import 'n-profile-ui/main';
+@import 'stylesheets/overwrites';
 @import 'o-loading/main';
 @import 'stylesheets/overlay';
 @import 'stylesheets/confirmation';
+@import '@financial-times/dotcom-ui-layout/styles';
+
+body {
+	@include oTypographySans($scale:0);
+	padding: 2px;
+}

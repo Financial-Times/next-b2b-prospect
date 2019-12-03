@@ -7,13 +7,13 @@ export default {
 		const articleId = container.dataset['articleId'];
 
 		dispatchTrackingEvent({
-  		category: 'b2b-prospect',
-  		action: 'confirmation',
-			data: {
-				leadId,
-				articleId
-			}
-  	});
+			category: 'b2b-prospect',
+			action: 'confirmation',
+				data: {
+					leadId,
+					articleId
+				}
+		});
 
-  }
+	}
 };

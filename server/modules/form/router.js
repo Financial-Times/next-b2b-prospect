@@ -1,4 +1,4 @@
-import express from '@financial-times/n-ui';
+import express from '@financial-times/n-express';
 
 import api from './api';
 import middleware from './middleware';
@@ -11,8 +11,8 @@ router.route('/confirm')
 	.get(middleware.setLocals, middleware.validateRetrieval, api.confirm);
 
 router.route('/:marketingName?')
-	.get(middleware.setLocals, middleware.setTemplate, api.form)
-	.post(middleware.setLocals, middleware.validatePayload, middleware.setTemplate, api.submit);
+	.get(middleware.setLocals, api.form)
+	.post(middleware.setLocals, middleware.validatePayload, api.submit);
 
 
 export default router;
