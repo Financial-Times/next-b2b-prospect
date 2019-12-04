@@ -14,15 +14,13 @@ make .env # ensure environmental var dependencies exist
 
 ## Running locally
 ```
-make run 
+make run-local
 ```
 
 ## Access point
-`Access the form locally via: 
-`http://local.ft.com:3002/form
+`Access the form locally via:` http://localhost:3002/form
 
-`Production: 
-`https://next-b2b-prospect.ft.com/form
+`Production:` https://next-b2b-prospect.ft.com/form
 
 ### Endpoints
 
