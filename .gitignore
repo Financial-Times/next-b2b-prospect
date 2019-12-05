@@ -12,4 +12,6 @@ public/
 *.env*
 *.csv
 package-lock.json
+.pa11yci.js
+pa11y*
 tmp
