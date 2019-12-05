@@ -21,7 +21,7 @@
     "@financial-times/dotcom-server-handlebars": "0.4.2",
     "@financial-times/dotcom-ui-layout": "0.4.2",
     "@financial-times/dotcom-ui-shell": "0.4.2",
-    "@financial-times/n-conversion-forms": "8.5.1",
+    "@financial-times/n-conversion-forms": "14.42.1",
     "@financial-times/n-es-client": "1.7.1",
     "@financial-times/n-express": "19.22.3",
     "@financial-times/n-mask-logger": "3.2.0",
