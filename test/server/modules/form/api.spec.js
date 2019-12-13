@@ -41,13 +41,13 @@ describe('Form', () => {
 					expect($('footer#site-footer').length).to.equal(0);
 
 					expect($('form').length).to.equal(1);
-					expect($('label[for="firstName"]').text().trim()).to.equal('First name');
-					expect($('label[for="lastName"]').text().trim()).to.equal('Last name');
-					expect($('label[for="jobTitle"]').text().trim()).to.equal('Job title');
-					expect($('label[for="companyName"]').text().trim()).to.equal('Company name');
-					expect($('label[for="email"]').text().trim()).to.equal('Work email address');
-					expect($('label[for="primaryTelephone"]').text().trim()).to.equal('Work phone number');
-					expect($('label[for="country"]').text().trim()).to.equal('Country');
+					expect($('label#firstNameField .o-forms-title__main').text().trim()).to.equal('First name');
+					expect($('label#lastNameField .o-forms-title__main').text().trim()).to.equal('Last name');
+					expect($('label#jobTitleField .o-forms-title__main').text().trim()).to.equal('Job title');
+					expect($('label#companyNameField .o-forms-title__main').text().trim()).to.equal('Company name');
+					expect($('label#emailField .o-forms-title__main').text().trim()).to.equal('Work email address');
+					expect($('label#primaryTelephoneField .o-forms-title__main').text().trim()).to.equal('Work phone number');
+					expect($('label#countryField .o-forms-title__main').text().trim()).to.equal('Country');
 					expect($('button[type="submit"]').length).to.equal(1);
 
 				});
@@ -66,13 +66,13 @@ describe('Form', () => {
 
 					expect($('.prospect-form__heading').text()).to.contain('Contact us for FT Group Subscription options');
 					expect($('form').length).to.equal(1);
-					expect($('label[for="firstName"]').text().trim()).to.equal('First name');
-					expect($('label[for="lastName"]').text().trim()).to.equal('Last name');
-					expect($('label[for="jobTitle"]').text().trim()).to.equal('Job title');
-					expect($('label[for="companyName"]').text().trim()).to.equal('Company name');
-					expect($('label[for="email"]').text().trim()).to.equal('Work email address');
-					expect($('label[for="primaryTelephone"]').text().trim()).to.equal('Work phone number');
-					expect($('label[for="country"]').text().trim()).to.equal('Country');
+					expect($('label#firstNameField .o-forms-title__main').text().trim()).to.equal('First name');
+					expect($('label#lastNameField .o-forms-title__main').text().trim()).to.equal('Last name');
+					expect($('label#jobTitleField .o-forms-title__main').text().trim()).to.equal('Job title');
+					expect($('label#companyNameField .o-forms-title__main').text().trim()).to.equal('Company name');
+					expect($('label#emailField .o-forms-title__main').text().trim()).to.equal('Work email address');
+					expect($('label#primaryTelephoneField .o-forms-title__main').text().trim()).to.equal('Work phone number');
+					expect($('label#countryField .o-forms-title__main').text().trim()).to.equal('Country');
 					expect($('button[type="submit"]').length).to.equal(1);
 				});
 		});
@@ -88,13 +88,13 @@ describe('Form', () => {
 					expect($('footer#site-footer').length).to.equal(0);
 
 					expect($('form').length).to.equal(1);
-					expect($('label[for="firstName"]').text().trim()).to.equal('First name');
-					expect($('label[for="lastName"]').text().trim()).to.equal('Last name');
-					expect($('label[for="jobTitle"]').text().trim()).to.equal('Job title');
-					expect($('label[for="companyName"]').text().trim()).to.equal('Company name');
-					expect($('label[for="email"]').text().trim()).to.equal('Work email address');
-					expect($('label[for="primaryTelephone"]').text().trim()).to.equal('Work phone number');
-					expect($('label[for="country"]').text().trim()).to.equal('Country');
+					expect($('label#firstNameField .o-forms-title__main').text().trim()).to.equal('First name');
+					expect($('label#lastNameField .o-forms-title__main').text().trim()).to.equal('Last name');
+					expect($('label#jobTitleField .o-forms-title__main').text().trim()).to.equal('Job title');
+					expect($('label#companyNameField .o-forms-title__main').text().trim()).to.equal('Company name');
+					expect($('label#emailField .o-forms-title__main').text().trim()).to.equal('Work email address');
+					expect($('label#primaryTelephoneField .o-forms-title__main').text().trim()).to.equal('Work phone number');
+					expect($('label#countryField .o-forms-title__main').text().trim()).to.equal('Country');
 					expect($('button[type="submit"]').length).to.equal(1);
 
 					expect($('.o-forms-section').text()).to.contain('Or speak to a product specialist immediately');
@@ -112,13 +112,13 @@ describe('Form', () => {
 					expect($('footer#site-footer').length).to.equal(1);
 
 					expect($('form').length).to.equal(1);
-					expect($('label[for="firstName"]').text().trim()).to.equal('First name');
-					expect($('label[for="lastName"]').text().trim()).to.equal('Last name');
-					expect($('label[for="jobTitle"]').text().trim()).to.equal('Job title');
-					expect($('label[for="companyName"]').text().trim()).to.equal('Company name');
-					expect($('label[for="email"]').text().trim()).to.equal('Work email address');
-					expect($('label[for="primaryTelephone"]').text().trim()).to.equal('Work phone number');
-					expect($('label[for="country"]').text().trim()).to.equal('Country');
+					expect($('label#firstNameField .o-forms-title__main').text().trim()).to.equal('First name');
+					expect($('label#lastNameField .o-forms-title__main').text().trim()).to.equal('Last name');
+					expect($('label#jobTitleField .o-forms-title__main').text().trim()).to.equal('Job title');
+					expect($('label#companyNameField .o-forms-title__main').text().trim()).to.equal('Company name');
+					expect($('label#emailField .o-forms-title__main').text().trim()).to.equal('Work email address');
+					expect($('label#primaryTelephoneField .o-forms-title__main').text().trim()).to.equal('Work phone number');
+					expect($('label#countryField .o-forms-title__main').text().trim()).to.equal('Country');
 					expect($('button[type="submit"]').length).to.equal(1);
 
 					expect($('.o-forms-section').text()).to.contain('Or speak to a product specialist immediately');
