@@ -39,8 +39,8 @@
 }
 
 .confirmation-footer {
-	background: getColor('teal-50');
-	color: getColor('white');
+	background: oColorsByName('teal-50');
+	color: oColorsByName('white');
 	padding: 15px;
 	padding-bottom: 25px;
 	margin-top: 30px;
@@ -58,16 +58,16 @@
 	display: block;
 	border: none;
 	@include oTypographySerif($scale:1);
-	color: getColor('white');
+	color: oColorsByName('white');
 	padding: 10px 0 20px;
 
 	&:hover {
-		color: getColor('white');
+		color: oColorsByName('white');
 		text-decoration: underline;
 	}
 
 	&:focus {
-		color: getColor('white');
+		color: oColorsByName('white');
 	}
 
 	@include oGridRespondTo(S) {
@@ -96,23 +96,30 @@
 }
 
 .confirmation-footer__button {
+	@include oButtonsContent($opts: (
+		'type': 'primary',
+		'size': 'big',
+	));
+
 	display: inline-block;
 	box-sizing: border-box;
 	font-weight: bold;
-	@include oButtonsSize(big);
-	@include oButtonsTheme(primary);
-	border: 1px solid getColor('white');
+	border: 1px solid oColorsByName('white');
 	text-align: center;
 
 	&:focus {
-		border: 1px solid getColor('white');
+		border: 1px solid oColorsByName('white');
 	}
 }
 
 .confirmation__cta {
 	margin: 20px 0 4px;
+
 	&-button {
-		@include oButtons($size: big, $theme: primary);
+		@include oButtonsContent($opts: (
+			'type': 'primary',
+			'size': 'big',
+		));
 		width: 100%;
 	}
 }

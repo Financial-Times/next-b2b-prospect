@@ -48,9 +48,7 @@
 			{{> n-conversion-forms/partials/country options=countries }}
 
 			{{#if consent}}
-				<div>
 				{{> n-profile-ui/templates/consent showHeading=true showSubmitButton=false formOfWords=consent isSubsection=true}}
-				</div>
 			{{else}}
 				{{#> n-conversion-forms/partials/fieldset name="accept-terms" legend="Terms and conditions" }}
 				{{#*inline "fields"}}
