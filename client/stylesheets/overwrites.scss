@@ -1,3 +1,11 @@
+.ncf {
+	margin: oSpacingByName('s4') 0;
+}
+
 .consent-form--inline-controls > .consent-form__inline-container {
 	display: grid !important;
+}
+
+.consent-form {
+	margin-bottom: oSpacingByName('s4');
 }
