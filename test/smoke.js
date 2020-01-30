@@ -1,8 +1,19 @@
+const config = {
+	status: 200,
+	waitUntil: 'load',
+	elements: {
+		// Ensure global styles are loaded
+		// NOTE: n-test checks whether elements are visible, not whether they are in
+		// the DOM. Checking if elements are hidden should indicate that styles loaded.
+		'.n-ui-hide-enhanced': false
+	}
+};
+
 module.exports = [
 	{
 		method: 'GET',
 		urls: {
-			'/form': 200
+			'/form': config
 		}
 	},
 	{
@@ -12,7 +23,7 @@ module.exports = [
 			'Content-Type': 'application/x-www-form-urlencoded'
 		},
 		urls: {
-			'/form?pa11y=true': 200
+			'/form?pa11y=true': config
 		}
 	}
 ];
