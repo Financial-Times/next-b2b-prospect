@@ -2,6 +2,8 @@ const config = {
 	status: 200,
 	waitUntil: 'load',
 	elements: {
+		// Ensure global JS is initialised
+		'.js-focus-visible': true,
 		// Ensure global styles are loaded
 		// NOTE: n-test checks whether elements are visible, not whether they are in
 		// the DOM. Checking if elements are hidden should indicate that styles loaded.
