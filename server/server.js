@@ -37,7 +37,7 @@ app.use(navigationMiddleware.init());
 app.use(
 	assetsMiddleware.init({
 		hostStaticAssets: !isProduction,
-		publicPath: isProduction ? '/__assets/hashed/page-kit' : '/__dev/assets/b2b-prospect'
+		publicPath: isProduction ? 'https://www.ft.com/__assets/hashed/page-kit' : '/__dev/assets/b2b-prospect'
 	})
 );
 
