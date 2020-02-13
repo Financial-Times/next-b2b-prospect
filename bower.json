@@ -8,6 +8,7 @@
     "o-loading": "^4.0.0",
     "n-conversion-forms": "^15.0.0-beta.1",
     "n-profile-ui": "^11.0.0",
-    "page-kit-ui-components": "glob:node_modules/@financial-times/dotcom-ui-*/bower.json"
+    "page-kit-ui-components": "glob:node_modules/@financial-times/dotcom-ui-*/bower.json",
+    "n-ui-foundations": "^4.0.0"
   }
 }
