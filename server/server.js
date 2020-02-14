@@ -9,7 +9,7 @@ import path from 'path';
 import formRouter from './modules/form/router';
 import apiRouter from './modules/api/router';
 
-const assetsMiddleware = require('@financial-times/dotcom-middleware-assets');
+const assetLoaderMiddleware = require('@financial-times/dotcom-middleware-asset-loader');
 const navigationMiddleware = require('@financial-times/dotcom-middleware-navigation');
 
 const isProduction = process.env.NODE_ENV === 'production';
@@ -35,7 +35,7 @@ app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(navigationMiddleware.init());
 app.use(
-	assetsMiddleware.init({
+	assetLoaderMiddleware.init({
 		hostStaticAssets: !isProduction,
 		publicPath: isProduction ? 'https://www.ft.com/__assets/hashed/page-kit' : '/__dev/assets/b2b-prospect'
 	})
