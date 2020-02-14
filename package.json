@@ -5,7 +5,7 @@
   "author": "Alex Naish",
   "license": "ISC",
   "engines": {
-    "node": ">= 12.15.0"
+    "node": "12.x"
   },
   "scripts": {
     "precommit": "node_modules/.bin/secret-squirrel",
