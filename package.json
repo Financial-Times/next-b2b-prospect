@@ -34,7 +34,7 @@
     "joi": "^14.0.0",
     "lodash": "^4.17.10",
     "n-common-static-data": "github:Financial-Times/n-common-static-data.git#v1.6.2",
-    "n-health": "3.3.1",
+    "n-health": "3.4.0",
     "node-marketo-rest": "^0.7.0",
     "react": "^16.11.0",
     "react-dom": "^16.11.0",
